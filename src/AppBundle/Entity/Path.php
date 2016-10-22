@@ -29,12 +29,19 @@ class Path
      */
     private $lane;
 
+
     /**
-     * @var string
-     *
-     * @ORM\Column(name="direction", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Stop")
+     * @ORM\JoinColumn(name="departure_stop_id", referencedColumnName="id")
      */
-    private $direction;
+    private $departure;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Stop")
+     * @ORM\JoinColumn(name="arrival_stop_id", referencedColumnName="id")
+     */
+    private $arrival;
+
 
     /**
      * @var boolean
@@ -198,5 +205,53 @@ class Path
     public function getLane()
     {
         return $this->lane;
+    }
+
+    /**
+     * Set departure
+     *
+     * @param \AppBundle\Entity\Stop $departure
+     *
+     * @return Path
+     */
+    public function setDeparture(\AppBundle\Entity\Stop $departure = null)
+    {
+        $this->departure = $departure;
+
+        return $this;
+    }
+
+    /**
+     * Get departure
+     *
+     * @return \AppBundle\Entity\Stop
+     */
+    public function getDeparture()
+    {
+        return $this->departure;
+    }
+
+    /**
+     * Set arrival
+     *
+     * @param \AppBundle\Entity\Stop $arrival
+     *
+     * @return Path
+     */
+    public function setArrival(\AppBundle\Entity\Stop $arrival = null)
+    {
+        $this->arrival = $arrival;
+
+        return $this;
+    }
+
+    /**
+     * Get arrival
+     *
+     * @return \AppBundle\Entity\Stop
+     */
+    public function getArrival()
+    {
+        return $this->arrival;
     }
 }
