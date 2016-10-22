@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Tub{% endblock %}</title>
+    {% stylesheets '@AppBundle/Resources/public/css/material.min.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {% block stylesheets %}
+
+    {% endblock %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+{% block body %}{% endblock %}
+
+{% javascripts '@AppBundle/Resources/public/js/material.min.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% block javascripts %}
+
+{% endblock %}
+</body>
+</html>

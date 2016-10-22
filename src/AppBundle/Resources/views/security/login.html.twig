@@ -1,0 +1,38 @@
+{% extends 'AppBundle::mainBase.html.twig' %}
+{% block title %}Login{% endblock %}
+{% block body %}
+    <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+        <main class="mdl-layout__content">
+
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset ">
+                    <div class="mdl-card mdl-shadow--6dp">
+                        <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                            <h2 class="mdl-card__title-text">Tub</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <form id="login_form"  method="post">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input id="username" name="_username" class="mdl-textfield__input" type="text" content="{{ last_username }}" required/>
+                                    <label class="mdl-textfield__label" for="username">Username</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input id="password" name="_password" class="mdl-textfield__input" type="password" required/>
+                                    <label class="mdl-textfield__label" for="password">Password</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" form="login_form" formaction="{{ path('login_check') }}">Log in
+                            </button>
+                        </div>
+
+                        {% if error %}
+                            <p class="center">{{ error.messageKey|trans(error.messageData, 'security','FR') }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+             </div>
+        </main>
+    </div>
+{% endblock %}

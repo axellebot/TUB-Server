@@ -1,0 +1,81 @@
+{% extends 'AppBundle::navBase.html.twig' %}
+{% block title %}Lanes{% endblock %}
+{% block pageContent %}
+    <div class="mdl-grid">
+        {% for lane in lanes %}
+            <div  class="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-card mdl-shadow--4dp card-lane"
+                 style="display:flex;justify-content:center;align-items:center;background-color: {{ lane.color }};">
+                <div class="mdl-card__supporting-text"
+                     onclick="openLaneDetail({{ lane.id }})">
+                    <div class="lane-text-container">{{ lane.name }}</div>
+                </div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="mdl-card__menu">
+                        <button id="drop-menu{{ lane.id }}"
+                                class="mdl-button mdl-js-button mdl-button--icon">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                            data-mdl-for="drop-menu{{ lane.id }}">
+                            <li class="mdl-menu__item">
+                                <a href="">Edit</a>
+                            </li>
+                            <li class="mdl-menu__item">
+                                <a href="">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+        {% for lane in lanes %}
+            <dialog id="dialog-lane-{{ lane.id }}" class="mdl-dialog">
+                <h4 class="mdl-dialog__title">Lane {{ lane.name }}</h4>
+                <div class="mdl-dialog__content">
+                    <p>
+                        {% for path in lane.paths %}
+                        {{ path.direction }}
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close" onclick="closeLaneDetail({{ lane.id }})">Close</button>
+                </div>
+            </dialog>
+        {% endfor %}
+{% endblock %}
+
+
+{% block stylesheets %}
+    <style>
+        .lane-text-container {
+            font-size: 12vh;
+            text-decoration: none;
+            color: black;
+            text-align: center;
+        }
+
+        .mdl-card__supporting-text {
+            line-height: normal;
+            cursor: pointer;
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts%}
+    <script>
+        function openLaneDetail(laneId) {
+            var dialog = document.querySelector('#dialog-lane-'+laneId);
+            dialog.showModal();
+        }
+
+        function closeLaneDetail(laneId) {
+            var dialog = document.querySelector('#dialog-lane-'+laneId);
+            dialog.close();
+        }
+    </script>
+{% endblock %}
+
