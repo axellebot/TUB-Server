@@ -50,7 +50,6 @@ class StopInfo
         $this->schedules = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
      * Get id
      *

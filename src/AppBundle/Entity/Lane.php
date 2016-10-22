@@ -52,6 +52,7 @@ class Lane
         $this->stopInfos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
     /**
      * Get id
      *

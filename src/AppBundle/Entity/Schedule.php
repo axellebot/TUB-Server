@@ -45,8 +45,6 @@ class Schedule
      */
     private $stopInfo;
 
-
-
     /**
      * Get id
      *

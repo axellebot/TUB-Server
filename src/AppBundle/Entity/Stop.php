@@ -12,8 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Stop
 {
-
-
     /**
      * @var string
      *
@@ -54,11 +52,21 @@ class Stop
     private $stopInfos;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Lane")
+     * @ORM\JoinTable(name="stops_lanes",
+     *      joinColumns={@ORM\JoinColumn(name="stop_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="lane_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $lanes;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->stopInfos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lanes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -175,5 +183,39 @@ class Stop
     public function getStopInfos()
     {
         return $this->stopInfos;
+    }
+
+    /**
+     * Add lane
+     *
+     * @param \AppBundle\Entity\Lane $lane
+     *
+     * @return Stop
+     */
+    public function addLane(\AppBundle\Entity\Lane $lane)
+    {
+        $this->lanes[] = $lane;
+
+        return $this;
+    }
+
+    /**
+     * Remove lane
+     *
+     * @param \AppBundle\Entity\Lane $lane
+     */
+    public function removeLane(\AppBundle\Entity\Lane $lane)
+    {
+        $this->lanes->removeElement($lane);
+    }
+
+    /**
+     * Get lanes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLanes()
+    {
+        return $this->lanes;
     }
 }

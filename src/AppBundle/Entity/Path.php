@@ -66,7 +66,6 @@ class Path
         $this->stopInfos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
      * Get id
      *
@@ -75,54 +74,6 @@ class Path
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Path
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set direction
-     *
-     * @param string $direction
-     *
-     * @return Path
-     */
-    public function setDirection($direction)
-    {
-        $this->direction = $direction;
-
-        return $this;
-    }
-
-    /**
-     * Get direction
-     *
-     * @return string
-     */
-    public function getDirection()
-    {
-        return $this->direction;
     }
 
     /**
@@ -147,40 +98,6 @@ class Path
     public function getAvailable()
     {
         return $this->available;
-    }
-
-    /**
-     * Add stopInfo
-     *
-     * @param \AppBundle\Entity\StopInfo $stopInfo
-     *
-     * @return Path
-     */
-    public function addStopInfo(\AppBundle\Entity\StopInfo $stopInfo)
-    {
-        $this->stopInfos[] = $stopInfo;
-
-        return $this;
-    }
-
-    /**
-     * Remove stopInfo
-     *
-     * @param \AppBundle\Entity\StopInfo $stopInfo
-     */
-    public function removeStopInfo(\AppBundle\Entity\StopInfo $stopInfo)
-    {
-        $this->stopInfos->removeElement($stopInfo);
-    }
-
-    /**
-     * Get stopInfos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getStopInfos()
-    {
-        return $this->stopInfos;
     }
 
     /**
@@ -253,5 +170,39 @@ class Path
     public function getArrival()
     {
         return $this->arrival;
+    }
+
+    /**
+     * Add stopInfo
+     *
+     * @param \AppBundle\Entity\StopInfo $stopInfo
+     *
+     * @return Path
+     */
+    public function addStopInfo(\AppBundle\Entity\StopInfo $stopInfo)
+    {
+        $this->stopInfos[] = $stopInfo;
+
+        return $this;
+    }
+
+    /**
+     * Remove stopInfo
+     *
+     * @param \AppBundle\Entity\StopInfo $stopInfo
+     */
+    public function removeStopInfo(\AppBundle\Entity\StopInfo $stopInfo)
+    {
+        $this->stopInfos->removeElement($stopInfo);
+    }
+
+    /**
+     * Get stopInfos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStopInfos()
+    {
+        return $this->stopInfos;
     }
 }
