@@ -12,6 +12,8 @@ class LaneController extends Controller
 {
     /**
      * @Route("/lane", name="lane")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction(Request $request)
     {
@@ -23,7 +25,27 @@ class LaneController extends Controller
 
 
         return $this->render('AppBundle:lane:list.html.twig', [
-            'lanes'=>$lanes
+            'lanes' => $lanes
         ]);
+    }
+
+
+    /**
+     * @Route("admin/lane/delete/{id}", name="delete_lane", requirements={"id" = "\d+"})
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()
+            ->getRepository('AppBundle:Lane');
+        $lane = $repository->find($id);
+        $em->remove($lane);
+        $em->flush();
+
+        return $this->redirect('/lanes');
     }
 }
