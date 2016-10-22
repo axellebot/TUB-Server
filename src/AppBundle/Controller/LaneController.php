@@ -46,6 +46,6 @@ class LaneController extends Controller
         $em->remove($lane);
         $em->flush();
 
-        return $this->redirect('/lanes');
+        return $this->redirect('/lane');
     }
 }
