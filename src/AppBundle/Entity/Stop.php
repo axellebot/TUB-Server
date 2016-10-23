@@ -13,10 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Stop
 {
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="id", type="string", length=255)
      * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -35,44 +35,26 @@ class Stop
      */
     private $coordinates;
 
-
     /**
-     * @var boolean
+     * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\Column(name="available", type="boolean", nullable=true)
+     * @ORM\OneToMany(targetEntity="StopGroup", mappedBy="stop")
      */
-    private $available;
+    private $stopGroups;
 
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\OneToMany(targetEntity="StopInfo", mappedBy="stop")
-     */
-    private $stopInfos;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Lane")
-     * @ORM\JoinTable(name="stops_lanes",
-     *      joinColumns={@ORM\JoinColumn(name="stop_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="lane_id", referencedColumnName="id", unique=true)}
-     *      )
-     */
-    private $lanes;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->stopInfos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lanes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->stopGroups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return string
+     * @return integer
      */
     public function getId()
     {
@@ -128,94 +110,36 @@ class Stop
     }
 
     /**
-     * Set available
+     * Add stopGroup
      *
-     * @param boolean $available
+     * @param \AppBundle\Entity\StopGroup $stopGroup
      *
      * @return Stop
      */
-    public function setAvailable($available)
+    public function addStopGroup(\AppBundle\Entity\StopGroup $stopGroup)
     {
-        $this->available = $available;
+        $this->stopGroups[] = $stopGroup;
 
         return $this;
     }
 
     /**
-     * Get available
+     * Remove stopGroup
      *
-     * @return boolean
+     * @param \AppBundle\Entity\StopGroup $stopGroup
      */
-    public function getAvailable()
+    public function removeStopGroup(\AppBundle\Entity\StopGroup $stopGroup)
     {
-        return $this->available;
+        $this->stopGroups->removeElement($stopGroup);
     }
 
     /**
-     * Add stopInfo
-     *
-     * @param \AppBundle\Entity\StopInfo $stopInfo
-     *
-     * @return Stop
-     */
-    public function addStopInfo(\AppBundle\Entity\StopInfo $stopInfo)
-    {
-        $this->stopInfos[] = $stopInfo;
-
-        return $this;
-    }
-
-    /**
-     * Remove stopInfo
-     *
-     * @param \AppBundle\Entity\StopInfo $stopInfo
-     */
-    public function removeStopInfo(\AppBundle\Entity\StopInfo $stopInfo)
-    {
-        $this->stopInfos->removeElement($stopInfo);
-    }
-
-    /**
-     * Get stopInfos
+     * Get stopGroups
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getStopInfos()
+    public function getStopGroups()
     {
-        return $this->stopInfos;
-    }
-
-    /**
-     * Add lane
-     *
-     * @param \AppBundle\Entity\Lane $lane
-     *
-     * @return Stop
-     */
-    public function addLane(\AppBundle\Entity\Lane $lane)
-    {
-        $this->lanes[] = $lane;
-
-        return $this;
-    }
-
-    /**
-     * Remove lane
-     *
-     * @param \AppBundle\Entity\Lane $lane
-     */
-    public function removeLane(\AppBundle\Entity\Lane $lane)
-    {
-        $this->lanes->removeElement($lane);
-    }
-
-    /**
-     * Get lanes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLanes()
-    {
-        return $this->lanes;
+        return $this->stopGroups;
     }
 }
