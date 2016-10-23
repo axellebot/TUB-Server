@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
+    "material-design-lite": "^1.2.1",
     "md-color-picker": "^0.2.6"
   }
 }
