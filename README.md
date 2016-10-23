@@ -4,10 +4,17 @@ Based on Symfony 3
 
 ##Installation made
 ###Dependence :
+- Composer :
 ```shell
 $ composer install
 $ composer dump-autoload
 ```
+
+- Bower :
+```shell
+$ bower install
+```
+
 
 ###Entities :
 

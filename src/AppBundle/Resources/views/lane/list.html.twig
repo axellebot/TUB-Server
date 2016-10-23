@@ -1,78 +1,108 @@
 {% extends 'AppBundle::navBase.html.twig' %}
 {% block title %}Lanes{% endblock %}
 {% block pageContent %}
-    <div class="mdl-grid">
-        {% for lane in lanes %}
-            <div  class="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-card mdl-shadow--4dp card-lane"
-                 style="display:flex;justify-content:center;align-items:center;background-color: {{ lane.color }};">
-                <div class="mdl-card__supporting-text"
-                     onclick="openLaneDetail({{ lane.id }})">
-                    <div class="lane-text-container">{{ lane.name }}</div>
-                </div>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="mdl-card__menu">
-                        <button id="drop-menu{{ lane.id }}"
-                                class="mdl-button mdl-js-button mdl-button--icon">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                            data-mdl-for="drop-menu{{ lane.id }}">
-                            <li class="mdl-menu__item">
-                                <a href="">Edit</a>
-                            </li>
-                            <li class="mdl-menu__item">
-                                <a href="{{ path('delete_lane',{"id":lane.id} )}}">Delete</a>
-                            </li>
-                        </ul>
-                    </div>
-                {% endif %}
+<div class="mdl-grid">
+    {% for lane in lanes %}
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-card mdl-shadow--4dp card-lane"
+             style="display:flex;justify-content:center;align-items:center;background-color: {{ lane.color }};">
+            <div class="mdl-card__supporting-text"
+                 onclick="openLaneDetail({{ lane.id }})">
+                <div class="lane-text-container">{{ lane.name }}</div>
             </div>
-        {% endfor %}
-    </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="mdl-card__menu">
+                    <button id="drop-menu-{{ lane.id }}"
+                            class="mdl-button mdl-js-button mdl-button--icon">
+                        <i class="material-icons">more_vert</i>
+                    </button>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                        data-mdl-for="drop-menu-{{ lane.id }}">
+                            <a class="mdl-menu__item" href="{{ path('lane_update',{'id':lane.id}) }}">Edit</a>
 
-        {% for lane in lanes %}
-            <dialog id="dialog-lane-{{ lane.id }}" class="mdl-dialog">
-                <h4 class="mdl-dialog__title">Lane {{ lane.name }}</h4>
-                <div class="mdl-dialog__content">
-                    <p>
-                    </p>
+                            <a class="mdl-menu__item" onclick="openDeleteConfirmationDialog({{lane.id}})">Delete</a>
+                    </ul>
                 </div>
-                <div class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button close" onclick="closeLaneDetail({{ lane.id }})">Close</button>
-                </div>
-            </dialog>
-        {% endfor %}
-{% endblock %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-card mdl-shadow--4dp card-lane"
+             style="display:flex;justify-content:center;align-items:center;background-color:#FFFFFF;"
+        onclick="createLane()">
+            <div class="mdl-card__supporting-text">
+                <div class="lane-text-container ">+</div>
+            </div>
+        </div>
+        <dialog id="dialog-lane-delete-confirmation" class="mdl-dialog">
+            <h4 class="mdl-dialog__title">Do you really want to delete this Lane ?</h4>
+            <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button close" onclick="closeDeleteConfirmationDialog()">No</button>
+                <button type="button" class="mdl-button" onclick="deleteLane()">Yes</button>
+            </div>
+        </dialog>
+    {% endif %}
+
+    {% for lane in lanes %}
+        <dialog id="dialog-lane-{{ lane.id }}" class="mdl-dialog">
+            <h4 class="mdl-dialog__title">Lane {{ lane.name }}</h4>
+            <div class="mdl-dialog__content">
+                <p>
+                </p>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button close" onclick="closeLaneDetail({{ lane.id }})">Close</button>
+            </div>
+        </dialog>
+    {% endfor %}
+
+    {% endblock %}
 
 
-{% block stylesheets %}
-    <style>
-        .lane-text-container {
-            font-size: 12vh;
-            text-decoration: none;
-            color: black;
-            text-align: center;
-        }
+    {% block stylesheets %}
+        <style>
+            .lane-text-container {
+                font-size: 12vh;
+                color: black;
+                text-align: center;
+            }
 
-        .mdl-card__supporting-text {
-            line-height: normal;
-            cursor: pointer;
-        }
+            .mdl-card__supporting-text {
+                line-height: normal;
+                cursor: pointer;
+            }
 
-    </style>
-{% endblock %}
+        </style>
+    {% endblock %}
 
-{% block javascripts%}
-    <script>
-        function openLaneDetail(laneId) {
-            var dialog = document.querySelector('#dialog-lane-'+laneId);
-            dialog.showModal();
-        }
+    {% block javascripts %}
+        <script>
+            function openLaneDetail(laneId) {
+                var dialog = document.querySelector('#dialog-lane-' + laneId);
+                dialog.showModal();
+            }
 
-        function closeLaneDetail(laneId) {
-            var dialog = document.querySelector('#dialog-lane-'+laneId);
-            dialog.close();
-        }
-    </script>
-{% endblock %}
+            function closeLaneDetail(laneId) {
+                var dialog = document.querySelector('#dialog-lane-' + laneId);
+                dialog.close();
+            }
 
+            {% if is_granted('ROLE_ADMIN') %}
+            var laneIdToDelete;
+            function openDeleteConfirmationDialog(id){
+                var dialog = document.querySelector('#dialog-lane-delete-confirmation');
+                laneIdToDelete=id;
+                dialog.showModal();
+            }
+            function closeDeleteConfirmationDialog() {
+                var dialog = document.querySelector('#dialog-lane-delete-confirmation');
+                dialog.close();
+            }
+            function deleteLane(){
+              window.location.href = "/admin/lane/delete/"+laneIdToDelete;
+            }
+            function createLane(){
+                window.location.href = "{{ path('lane_create') }}";
+            }
+            {% endif %}
+        </script>
+    {% endblock %}
