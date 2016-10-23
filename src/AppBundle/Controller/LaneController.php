@@ -18,7 +18,6 @@ class LaneController extends Controller
     public function listAction(Request $request)
     {
 
-        $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Lane');
         $lanes = $repository->findAll();
@@ -68,7 +67,20 @@ class LaneController extends Controller
      */
     public function createCheckAction(Request $request)
     {
+        if($request->getMethod()=="POST"){
+            $name = $request->get("_name");
+            $color = $request->get("_color");
 
+            $lane = new Lane();
+            $lane->setName($name);
+            $lane->setColor("#".$color);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($lane);
+            $em->flush();
+            return $this->redirectToRoute("lane");
+        }
+        return $this->redirectToRoute("lane_create");
     }
 
     /**
