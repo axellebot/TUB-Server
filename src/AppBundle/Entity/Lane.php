@@ -14,14 +14,13 @@ class Lane
 {
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="id", type="string", length=255)
      * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
 
     /**
      * @var string
@@ -38,24 +37,24 @@ class Lane
     private $color;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Path", mappedBy="lane")
+     * @ORM\OneToMany(targetEntity="Trip", mappedBy="lane")
      */
-    private $paths;
+    private $trips;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->stopInfos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->trips = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return string
+     * @return integer
      */
     public function getId()
     {
@@ -111,36 +110,36 @@ class Lane
     }
 
     /**
-     * Add path
+     * Add trip
      *
-     * @param \AppBundle\Entity\Path $path
+     * @param \AppBundle\Entity\Trip $trip
      *
      * @return Lane
      */
-    public function addPath(\AppBundle\Entity\Path $path)
+    public function addTrip(\AppBundle\Entity\Trip $trip)
     {
-        $this->paths[] = $path;
+        $this->trips[] = $trip;
 
         return $this;
     }
 
     /**
-     * Remove path
+     * Remove trip
      *
-     * @param \AppBundle\Entity\Path $path
+     * @param \AppBundle\Entity\Trip $trip
      */
-    public function removePath(\AppBundle\Entity\Path $path)
+    public function removeTrip(\AppBundle\Entity\Trip $trip)
     {
-        $this->paths->removeElement($path);
+        $this->trips->removeElement($trip);
     }
 
     /**
-     * Get paths
+     * Get trips
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPaths()
+    public function getTrips()
     {
-        return $this->paths;
+        return $this->trips;
     }
 }

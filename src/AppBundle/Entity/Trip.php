@@ -2,15 +2,17 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\AppBundle;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Schedule
+ * Trip
  *
- * @ORM\Table(name="Schedule")
+ * @ORM\Table(name="Trip")
  * @ORM\Entity
  */
-class Schedule
+class Trip
 {
     /**
      * @var integer
@@ -22,17 +24,17 @@ class Schedule
     private $id;
 
     /**
-     * @var \DateTime
+     * @var Lane
      *
-     * @ORM\Column(name="ETA", type="time", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Lane", inversedBy="trips")
+     * @ORM\JoinColumn(name="lane_id", referencedColumnName="id")
      */
-    private $eta;
+    private $lane;
 
     /**
      * @var StopGroup
      *
-     * @ORM\ManyToOne(targetEntity="StopGroup", inversedBy="schedules")
-     * @ORM\JoinColumn(name="stopGroup_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="StopGroup", mappedBy="trip")
      */
     private $stopGroup;
 
@@ -47,27 +49,27 @@ class Schedule
     }
 
     /**
-     * Set eta
+     * Set lane
      *
-     * @param \DateTime $eta
+     * @param \AppBundle\Entity\Lane $lane
      *
-     * @return Schedule
+     * @return Trip
      */
-    public function setEta($eta)
+    public function setLane(\AppBundle\Entity\Lane $lane = null)
     {
-        $this->eta = $eta;
+        $this->lane = $lane;
 
         return $this;
     }
 
     /**
-     * Get eta
+     * Get lane
      *
-     * @return \DateTime
+     * @return \AppBundle\Entity\Lane
      */
-    public function getEta()
+    public function getLane()
     {
-        return $this->eta;
+        return $this->lane;
     }
 
     /**
@@ -75,7 +77,7 @@ class Schedule
      *
      * @param \AppBundle\Entity\StopGroup $stopGroup
      *
-     * @return Schedule
+     * @return Trip
      */
     public function setStopGroup(\AppBundle\Entity\StopGroup $stopGroup = null)
     {
