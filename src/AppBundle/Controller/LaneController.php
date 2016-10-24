@@ -87,8 +87,25 @@ class LaneController extends Controller
      */
     public function udpateAction(Request $request,$id)
     {
-        return $this->render('AppBundle:lane:update.html.twig', [
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()
+            ->getRepository('AppBundle:Lane');
+        $lane = $repository->find($id);
+        $form = $this->createForm(LaneType::class,$lane);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                throw $this->createAccessDeniedException();
+            }
 
-        ]);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute("lane_list");
+        }
+
+        return $this->render('AppBundle:lane:update.html.twig',array(
+            'form'=>$form->createView()
+        ));
     }
 }
