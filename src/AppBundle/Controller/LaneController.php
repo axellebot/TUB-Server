@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\LaneType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +12,7 @@ use AppBundle\Entity\Lane;
 class LaneController extends Controller
 {
     /**
-     * @Route("/lane", name="lane")
+     * @Route("/lane", name="lane_list")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -37,6 +38,9 @@ class LaneController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
 
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()
@@ -45,7 +49,7 @@ class LaneController extends Controller
         $em->remove($lane);
         $em->flush();
 
-        return $this->redirect('/lane');
+        return $this->redirectToRoute('lane_list');
     }
 
     /**
@@ -55,32 +59,24 @@ class LaneController extends Controller
      */
     public function createAction(Request $request)
     {
-        return $this->render('AppBundle:lane:create.html.twig', [
-
-        ]);
-    }
-
-    /**
-     * @Route("admin/lane/create_check/", name="lane_create_check")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function createCheckAction(Request $request)
-    {
-        if($request->getMethod()=="POST"){
-            $name = $request->get("_name");
-            $color = $request->get("_color");
-
-            $lane = new Lane();
-            $lane->setName($name);
-            $lane->setColor("#".$color);
+        $lane = new Lane();
+        $form = $this->createForm(LaneType::class,$lane);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                throw $this->createAccessDeniedException();
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($lane);
             $em->flush();
-            return $this->redirectToRoute("lane");
+
+            return $this->redirectToRoute("lane_list");
         }
-        return $this->redirectToRoute("lane_create");
+
+        return $this->render('AppBundle:lane:create.html.twig',array(
+            'form'=>$form->createView()
+        ));
     }
 
     /**
@@ -91,8 +87,25 @@ class LaneController extends Controller
      */
     public function udpateAction(Request $request,$id)
     {
-        return $this->render('AppBundle:lane:update.html.twig', [
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()
+            ->getRepository('AppBundle:Lane');
+        $lane = $repository->find($id);
+        $form = $this->createForm(LaneType::class,$lane);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                throw $this->createAccessDeniedException();
+            }
 
-        ]);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute("lane_list");
+        }
+
+        return $this->render('AppBundle:lane:update.html.twig',array(
+            'form'=>$form->createView()
+        ));
     }
 }
