@@ -29,11 +29,18 @@ class Stop
     private $name;
 
     /**
-     * @var string
+     * @var float
      *
-     * @ORM\Column(name="coordinates", type="string", length=255, nullable=true)
+     * @ORM\Column(name="latitude", type="float")
      */
-    private $coordinates;
+    private $latitude;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longitude", type="float")
+     */
+    private $longitude;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -42,7 +49,6 @@ class Stop
      */
     private $stopGroups;
 
-
     /**
      * Constructor
      */
@@ -50,6 +56,7 @@ class Stop
     {
         $this->stopGroups = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
     /**
      * Get id
@@ -86,27 +93,51 @@ class Stop
     }
 
     /**
-     * Set coordinates
+     * Set latitude
      *
-     * @param string $coordinates
+     * @param float $latitude
      *
      * @return Stop
      */
-    public function setCoordinates($coordinates)
+    public function setLatitude($latitude)
     {
-        $this->coordinates = $coordinates;
+        $this->latitude = $latitude;
 
         return $this;
     }
 
     /**
-     * Get coordinates
+     * Get latitude
      *
-     * @return string
+     * @return float
      */
-    public function getCoordinates()
+    public function getLatitude()
     {
-        return $this->coordinates;
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param float $longitude
+     *
+     * @return Stop
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 
     /**
