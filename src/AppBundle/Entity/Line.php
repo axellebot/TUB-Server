@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Lane
+ * Line
  *
- * @ORM\Table(name="Lane")
+ * @ORM\Table(name="Line")
  * @ORM\Entity
  */
-class Lane
+class Line
 {
 
     /**
@@ -39,7 +39,7 @@ class Lane
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Trip", mappedBy="lane")
+     * @ORM\OneToMany(targetEntity="Trip", mappedBy="line")
      */
     private $trips;
 
@@ -66,7 +66,7 @@ class Lane
      *
      * @param string $name
      *
-     * @return Lane
+     * @return Line
      */
     public function setName($name)
     {
@@ -90,7 +90,7 @@ class Lane
      *
      * @param string $color
      *
-     * @return Lane
+     * @return Line
      */
     public function setColor($color)
     {
@@ -114,7 +114,7 @@ class Lane
      *
      * @param \AppBundle\Entity\Trip $trip
      *
-     * @return Lane
+     * @return Line
      */
     public function addTrip(\AppBundle\Entity\Trip $trip)
     {

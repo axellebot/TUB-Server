@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class LaneType extends AbstractType
+class LineType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -24,12 +24,12 @@ class Trip
     private $id;
 
     /**
-     * @var Lane
+     * @var Line
      *
-     * @ORM\ManyToOne(targetEntity="Lane", inversedBy="trips")
-     * @ORM\JoinColumn(name="lane_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Line", inversedBy="trips")
+     * @ORM\JoinColumn(name="line_id", referencedColumnName="id")
      */
-    private $lane;
+    private $line;
 
     /**
      * @var StopGroup
@@ -49,27 +49,27 @@ class Trip
     }
 
     /**
-     * Set lane
+     * Set line
      *
-     * @param \AppBundle\Entity\Lane $lane
+     * @param \AppBundle\Entity\Line $line
      *
      * @return Trip
      */
-    public function setLane(\AppBundle\Entity\Lane $lane = null)
+    public function setLine(\AppBundle\Entity\Line $line = null)
     {
-        $this->lane = $lane;
+        $this->line = $line;
 
         return $this;
     }
 
     /**
-     * Get lane
+     * Get line
      *
-     * @return \AppBundle\Entity\Lane
+     * @return \AppBundle\Entity\Line
      */
-    public function getLane()
+    public function getLine()
     {
-        return $this->lane;
+        return $this->line;
     }
 
     /**
