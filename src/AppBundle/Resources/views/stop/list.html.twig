@@ -27,9 +27,9 @@
                 <thead>
                 <tr>
                     <th class="mdl-data-table__cell--non-numeric">Name</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-
+                    <th class="mdl-layout--large-screen-only">Latitude</th>
+                    <th class="mdl-layout--large-screen-only">Longitude</th>
+                    <th></th>
                     {% if is_granted('ROLE_ADMIN') %}
                         <th>
 
@@ -45,22 +45,31 @@
                 {% for stop in stops %}
                     <tr>
                         <td class="mdl-data-table__cell--non-numeric">{{ stop.name }}</td>
-                        <td>
+                        <td class="mdl-layout--large-screen-only">
                             {{ stop.latitude }}
                         </td>
-                        <td>
+                        <td class="mdl-layout--large-screen-only">
                             {{ stop.longitude }}
                         </td>
+                        <td>
+                            <a class="mdl-list__item-secondary-action"
+                               href="{{ path('stop_detail',{'id':stop.id}) }}">
+                                <i class="material-icons">info</i>
+                            </a>
+                        </td>
                         {% if is_granted('ROLE_ADMIN') %}
-
-                            <td><a class="mdl-list__item-secondary-action"
+                            <td>
+                                <a class="mdl-list__item-secondary-action"
                                    href="{{ path('stop_update',{'id':stop.id}) }}">
                                     <i class="material-icons">edit</i>
-                                </a></td>
-                            <td><a class="mdl-list__item-secondary-action" href="#"
+                                </a>
+                            </td>
+                            <td>
+                                <a class="mdl-list__item-secondary-action" href="#"
                                    onclick="openDeleteConfirmationDialog({{ stop.id }})">
                                     <i class="material-icons">delete</i>
-                                </a></td>
+                                </a>
+                            </td>
                         {% endif %}
                     </tr>
                 {% endfor %}

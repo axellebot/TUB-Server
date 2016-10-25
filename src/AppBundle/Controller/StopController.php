@@ -107,4 +107,15 @@ class StopController extends Controller
             'form'=>$form->createView()
         ));
     }
+
+
+    /**
+     * @Route("/stop/{id}", name="stop_detail", requirements={"id" = "\d+"})
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detailAction(Request $request,$id){
+
+    }
 }
