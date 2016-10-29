@@ -6,9 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Stop
- *
  * @ORM\Table(name="Stop")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\StopRepository")
  */
 class Stop
 {
