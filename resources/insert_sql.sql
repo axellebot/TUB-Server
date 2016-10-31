@@ -1,16 +1,17 @@
 /*
 Lines
  */
-INSERT INTO `Line` (`label`,`color`,`number,`order`)
-VALUES``
-  ('Ligne 1','#124b9a',1,1),
-  ('Ligne 2','#8b2199',2,2),
-  ('Ligne 3','#F8EB21',3,3),
-  ('Ligne 4','#ff0000',4,4),
-  ('Ligne 5','#00c9dd',5,5),
-  ('Ligne 6','#f90080',6,6),
-  ('Ligne 7','#fd8300',7,7),
-  ('Ligne 21','#9bc774',21,8);
+INSERT INTO `Line` (`id`, `label`, `number`, `color`, `order`)
+VALUES
+	(1, 'Ligne 1', 1, '#124b9a', 1),
+	(2, 'Ligne 2', 2, '#8b2199', 2),
+	(3, 'Ligne 3', 3, '#F8EB21', 3),
+	(4, 'Ligne 4', 4, '#ff0000', 4),
+	(5, 'Ligne 5', 5, '#00c9dd', 5),
+	(6, 'Ligne 6', 6, '#f90080', 6),
+	(7, 'Ligne 7', 7, '#fd8300', 7),
+	(8, 'Ligne 21', 21, '#9bc774', 8);
+
 
 
 
