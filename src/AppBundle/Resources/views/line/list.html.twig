@@ -26,7 +26,7 @@
                      style="display:flex;justify-content:center;align-items:center;background-color: {{ line.color }};">
                     <div class="mdl-card__supporting-text"
                          onclick="openLineDetail({{ line.id }})">
-                        <div class="line-text-container">{{ line.name }}</div>
+                        <div class="line-text-container">{{ line.number }}</div>
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="mdl-card__menu">
@@ -65,7 +65,7 @@
 
             {% for line in lines %}
                 <dialog id="dialog-line-{{ line.id }}" class="mdl-dialog">
-                    <h4 class="mdl-dialog__title">Line {{ line.name }}</h4>
+                    <h4 class="mdl-dialog__title">Line {{ line.number }}</h4>
                     <div class="mdl-dialog__content">
                         <p>
                         </p>

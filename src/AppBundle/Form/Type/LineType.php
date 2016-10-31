@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -12,12 +13,13 @@ class LineType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('number', NumberType::class, array(
                 'label_attr' => array(
                     'class' => 'mdl-textfield__label'
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input'
+                    'class' => 'mdl-textfield__input',
+                    'pattern'=>"-?[0-9]*(\.[0-9]+)?"
                 ),
                 'required' => true
             ))
