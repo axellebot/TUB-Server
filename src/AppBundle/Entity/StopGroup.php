@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * StopGroup
  *
- * @ORM\Table(name="Trip_has_Stop")
+ * @ORM\Table(name="join_trip_stop")
  * @ORM\Entity
  */
 class StopGroup
@@ -46,17 +46,18 @@ class StopGroup
     private $order;
 
     /**
-     * @var Schedule
+     * @var ScheduleGroup
      *
-     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="stopGroup")
+     * @ORM\OneToMany(targetEntity="ScheduleGroup", mappedBy="stopGroup")
      */
-    private $schedule;
+    private $scheduleGroups;
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->schedule = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->scheduleGroups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -142,36 +143,36 @@ class StopGroup
     }
 
     /**
-     * Add schedule
+     * Add scheduleGroup
      *
-     * @param \AppBundle\Entity\Schedule $schedule
+     * @param \AppBundle\Entity\ScheduleGroup $scheduleGroup
      *
      * @return StopGroup
      */
-    public function addSchedule(\AppBundle\Entity\Schedule $schedule)
+    public function addScheduleGroup(\AppBundle\Entity\ScheduleGroup $scheduleGroup)
     {
-        $this->schedule[] = $schedule;
+        $this->scheduleGroups[] = $scheduleGroup;
 
         return $this;
     }
 
     /**
-     * Remove schedule
+     * Remove scheduleGroup
      *
-     * @param \AppBundle\Entity\Schedule $schedule
+     * @param \AppBundle\Entity\ScheduleGroup $scheduleGroup
      */
-    public function removeSchedule(\AppBundle\Entity\Schedule $schedule)
+    public function removeScheduleGroup(\AppBundle\Entity\ScheduleGroup $scheduleGroup)
     {
-        $this->schedule->removeElement($schedule);
+        $this->scheduleGroups->removeElement($scheduleGroup);
     }
 
     /**
-     * Get schedule
+     * Get scheduleGroups
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSchedule()
+    public function getScheduleGroups()
     {
-        return $this->schedule;
+        return $this->scheduleGroups;
     }
 }

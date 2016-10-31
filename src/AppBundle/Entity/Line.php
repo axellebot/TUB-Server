@@ -25,9 +25,18 @@ class Line
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="label", type="string", length=255)
      */
-    private $name;
+    private $label;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="number", type="integer", length=11)
+     */
+
+    private $number;
 
     /**
      * @var string
@@ -35,6 +44,14 @@ class Line
      * @ORM\Column(name="color", type="string", length=28)
      */
     private $color;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="order", type="integer", length=11)
+     */
+    private $order;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -62,27 +79,51 @@ class Line
     }
 
     /**
-     * Set name
+     * Set label
      *
-     * @param string $name
+     * @param string $label
      *
      * @return Line
      */
-    public function setName($name)
+    public function setLabel($label)
     {
-        $this->name = $name;
+        $this->label = $label;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get label
      *
      * @return string
      */
-    public function getName()
+    public function getLabel()
     {
-        return $this->name;
+        return $this->label;
+    }
+
+    /**
+     * Set number
+     *
+     * @param integer $number
+     *
+     * @return Line
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return integer
+     */
+    public function getNumber()
+    {
+        return $this->number;
     }
 
     /**
@@ -107,6 +148,30 @@ class Line
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     *
+     * @return Line
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 
     /**

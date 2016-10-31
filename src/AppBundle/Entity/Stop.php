@@ -56,7 +56,6 @@ class Stop
         $this->stopGroups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
      * Get id
      *

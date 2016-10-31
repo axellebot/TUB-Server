@@ -28,13 +28,6 @@ class Schedule
      */
     private $eta;
 
-    /**
-     * @var StopGroup
-     *
-     * @ORM\ManyToOne(targetEntity="StopGroup", inversedBy="schedules")
-     * @ORM\JoinColumn(name="stopGroup_id", referencedColumnName="id")
-     */
-    private $stopGroup;
 
     /**
      * Get id
@@ -68,29 +61,5 @@ class Schedule
     public function getEta()
     {
         return $this->eta;
-    }
-
-    /**
-     * Set stopGroup
-     *
-     * @param \AppBundle\Entity\StopGroup $stopGroup
-     *
-     * @return Schedule
-     */
-    public function setStopGroup(\AppBundle\Entity\StopGroup $stopGroup = null)
-    {
-        $this->stopGroup = $stopGroup;
-
-        return $this;
-    }
-
-    /**
-     * Get stopGroup
-     *
-     * @return \AppBundle\Entity\StopGroup
-     */
-    public function getStopGroup()
-    {
-        return $this->stopGroup;
     }
 }
