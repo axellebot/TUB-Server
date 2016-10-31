@@ -31,12 +31,20 @@ class Trip
      */
     private $line;
 
+
+    /**
+     * @var string
+     * @ORM\Column(name="label", type="string", length=255, nullable=true)
+     */
+    private $label;
+
     /**
      * @var StopGroup
      *
      * @ORM\OneToOne(targetEntity="StopGroup", mappedBy="trip")
      */
     private $stopGroup;
+
 
     /**
      * Get id
@@ -46,6 +54,30 @@ class Trip
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set label
+     *
+     * @param string $label
+     *
+     * @return Trip
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 
     /**
