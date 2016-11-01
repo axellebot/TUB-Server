@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * StopGroup
  *
- * @ORM\Table(name="join_trip_stop")
+ * @ORM\Table(name="join_line_stop")
  * @ORM\Entity
  */
 class StopGroup
@@ -23,13 +23,12 @@ class StopGroup
     private $id;
 
     /**
-     * @var Trip
+     * @var Line
      *
-     * @ORM\OneToOne(targetEntity="Trip", inversedBy="stopGroup")
-     * @ORM\JoinColumn(name="trip_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Line", inversedBy="stopGroup")
+     * @ORM\JoinColumn(name="line_id", referencedColumnName="id")
      */
-    private $trip;
-
+    private $line;
 
     /**
      * @var Stop
@@ -58,121 +57,5 @@ class StopGroup
     public function __construct()
     {
         $this->scheduleGroups = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set order
-     *
-     * @param integer $order
-     *
-     * @return StopGroup
-     */
-    public function setOrder($order)
-    {
-        $this->order = $order;
-
-        return $this;
-    }
-
-    /**
-     * Get order
-     *
-     * @return integer
-     */
-    public function getOrder()
-    {
-        return $this->order;
-    }
-
-    /**
-     * Set trip
-     *
-     * @param \AppBundle\Entity\Trip $trip
-     *
-     * @return StopGroup
-     */
-    public function setTrip(\AppBundle\Entity\Trip $trip = null)
-    {
-        $this->trip = $trip;
-
-        return $this;
-    }
-
-    /**
-     * Get trip
-     *
-     * @return \AppBundle\Entity\Trip
-     */
-    public function getTrip()
-    {
-        return $this->trip;
-    }
-
-    /**
-     * Set stop
-     *
-     * @param \AppBundle\Entity\Stop $stop
-     *
-     * @return StopGroup
-     */
-    public function setStop(\AppBundle\Entity\Stop $stop = null)
-    {
-        $this->stop = $stop;
-
-        return $this;
-    }
-
-    /**
-     * Get stop
-     *
-     * @return \AppBundle\Entity\Stop
-     */
-    public function getStop()
-    {
-        return $this->stop;
-    }
-
-    /**
-     * Add scheduleGroup
-     *
-     * @param \AppBundle\Entity\ScheduleGroup $scheduleGroup
-     *
-     * @return StopGroup
-     */
-    public function addScheduleGroup(\AppBundle\Entity\ScheduleGroup $scheduleGroup)
-    {
-        $this->scheduleGroups[] = $scheduleGroup;
-
-        return $this;
-    }
-
-    /**
-     * Remove scheduleGroup
-     *
-     * @param \AppBundle\Entity\ScheduleGroup $scheduleGroup
-     */
-    public function removeScheduleGroup(\AppBundle\Entity\ScheduleGroup $scheduleGroup)
-    {
-        $this->scheduleGroups->removeElement($scheduleGroup);
-    }
-
-    /**
-     * Get scheduleGroups
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getScheduleGroups()
-    {
-        return $this->scheduleGroups;
     }
 }
