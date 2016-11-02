@@ -65,7 +65,7 @@ class Line
      */
     public function __construct()
     {
-        $this->stopGroup = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->stopGroups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
