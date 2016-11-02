@@ -54,11 +54,11 @@ class Line
     private $order;
 
     /**
-     * @var StopGroup
+     * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToOne(targetEntity="StopGroup", mappedBy="trip")
+     * @ORM\OneToMany(targetEntity="StopGroup", mappedBy="line")
      */
-    private $stopGroup;
+    private $stopGroups;
 
     /**
      * Constructor

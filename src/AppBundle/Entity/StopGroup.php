@@ -25,7 +25,7 @@ class StopGroup
     /**
      * @var Line
      *
-     * @ORM\OneToOne(targetEntity="Line", inversedBy="stopGroup")
+     * @ORM\ManyToOne(targetEntity="Line", inversedBy="stopGroups")
      * @ORM\JoinColumn(name="line_id", referencedColumnName="id")
      */
     private $line;
