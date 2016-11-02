@@ -64,8 +64,8 @@
             {% endif %}
 
             {% for line in lines %}
-                <dialog id="dialog-line-{{ line.id }}" class="mdl-dialog">
-                    <h4 class="mdl-dialog__title">Line {{ line.number }}</h4>
+                <dialog id="dialog-line-{{ line.id }}" class="mdl-dialog mdl-cell--8-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone mdl-cell--">
+                    <h4 class="mdl-dialog__title">{{ line.label }}</h4>
                     <div class="mdl-dialog__content">
                         <p>
                         </p>
