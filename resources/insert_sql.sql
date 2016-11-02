@@ -3,19 +3,18 @@ Lines
  */
 INSERT INTO `Line` (`id`, `label`, `number`, `color`, `order`)
 VALUES
-  (1, 'Ligne 1', 1, '#124b9a', 1),
-  (2, 'Ligne 2', 2, '#8b2199', 2),
-  (3, 'Ligne 3', 3, '#F8EB21', 3),
-  (4, 'Ligne 4', 4, '#ff0000', 4),
-  (5, 'Ligne 5', 5, '#00c9dd', 5),
-  (6, 'Ligne 6', 6, '#f90080', 6),
-  (7, 'Ligne 7', 7, '#fd8300', 7),
-  (8, 'Ligne 21', 21, '#9bc774', 8);
+  (1, 'Ligne 1 : Norelan <> Velaine', 1, '#124b9a', 1),
+  (2, 'Ligne 2 : Norelan <> Ainterexpo', 2, '#8b2199', 2),
+  (3, 'Ligne 3 : Péronnas Blés d''Or <> Alagnier', 3, '#F8EB21', 3),
+  (4, 'Ligne 4 : St Denis Collège <> Clinique Convert/EREA La Chagne', 4, '#ff0000', 4),
+  (5, 'Ligne 5 : St Denis Collège <> St Denis Collège', 5, '#00c9dd', 5),
+  (6, 'Ligne 6 : Viriat Caronniers <> Ainterexpo', 6, '#f90080', 6),
+  (7, 'Ligne 7 : Viriat Caronniers <> Carré Amiot', 7, '#fd8300', 7),
+  (8, 'Ligne 21 : Peloux Gare <> Sources', 21, '#9bc774', 8);
 
 /*
 Stops
  */
-
 INSERT INTO `Stop` (`id`, `name`, `latitude`, `longitude`)
 VALUES
   (1, 'A. Baudin', 46.200648, 5.218698),
@@ -225,43 +224,4 @@ VALUES
   (205, 'Voltaire', 46.200656301732, 5.2205657958984),
   (206, 'ZA Les Bruyères', 46.17058843251, 5.1979923248291),
   (207, 'ZA Monternoz', 46.171569165907, 5.1970481872559);
-
-
-/*
-  Trips
-*/
-
-INSERT INTO `Trip` (`id`, `line_id`, `label`)
-VALUES
-  (1, 1, 'Ligne 1 : Oyards > Verlaine'),
-  (2, 1, 'Ligne 1 : Oyards > Molière'),
-  (3, 1, 'Ligne 1 : Oyards > Seillon CFA'),
-  (4, 1, 'Ligne 1 : Revermont > Molière'),
-  (5, 1, 'Ligne 1 : Norelan > Molière'),
-  (6, 1, 'Ligne 1 : Revermont > Verlaine'),
-  (7, 1, 'Ligne 1 : Verlaine > Oyards'),
-  (8, 1, 'Ligne 1 : Molière > Oyards'),
-  (9, 1, 'Ligne 1 : Seillon CFA > Oyards'),
-  (10, 1, 'Ligne 1 : Molière > Revermont'),
-  (11, 1, 'Ligne 1 : Molière > Norelan'),
-  (12, 1, 'Ligne 1 : Verlaine > Revermont'),
-  (13, 2, 'Ligne 2 : Ainterexpo > Norélan '),
-  (14, 2, 'Ligne 2 : Norélan > Ainterexpo'),
-  (15, 3, 'Ligne 3 : PERONAS Blés d\'or > Alagnier'),
-  (16, 3, 'Ligne 3 : Alagnier > PERONAS Blés d\'or'),
-  (17, 4, 'Ligne 4 : ST DENIS Collège > Clinique Convert'),
-  (18, 4, 'Ligne 4 : Clinique Convert > ST DENIS Collège'),
-  (19, 4, 'Ligne 4 : ST DENIS Collège > EREA La Chagne'),
-  (20, 4, 'Ligne 4 : EREA La Chagne > ST DENIS Collège'),
-  (21, 5, 'Ligne 5 : ST DENIS Collège depart > T DENIS Collège arriver'),
-  (22, 5, 'Ligne 5 : ST DENIS Collège arriver > T DENIS Collège depart'),
-  (23, 5, 'Ligne 5 : ST DENIS Collège depart > T DENIS Collège arriver BIS'),
-  (24, 6, 'Ligne 6 : VIRIAT Caronniers > Ainterexpo'),
-  (25, 6, 'Ligne 6 : Ainterexpo > VIRIAT Caronniers'),
-  (26, 6, 'Ligne 6 : VIRIAT Caronniers > Bouvent Plage'),
-  (27, 6, 'Ligne 6 : Bouvent Plage > VIRIAT Caronniers'),
-  (28, 7, 'Ligne 7 : VIRIAT Caronniers > Carré Amiot'),
-  (29, 7, 'Ligne 7 : Carré Amiot > VIRIAT Caronniers'),
-  (30, 8, 'Ligne 21 : Peloux Gare > Sources'),
-  (31, 8, 'Ligne 21 : Sources > Peloux Gare');
 
