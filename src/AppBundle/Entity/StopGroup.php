@@ -31,18 +31,20 @@ class StopGroup
     private $line;
 
     /**
-     * @var Stop
-     *
-     * @ORM\ManyToOne(targetEntity="Stop", inversedBy="stopGroups")
-     * @ORM\JoinColumn(name="stop_id", referencedColumnName="id")
-     */
-
-    /**
      * @var string
      *
      * @ORM\Column(name="way",type="string",length=1,options={"fixed":true, "comment":"O for Outbound or I for Inbound"})
      */
     private $sens;
+
+    /**
+     * @var Stop
+     *
+     * @ORM\ManyToOne(targetEntity="Stop", inversedBy="stopGroups")
+     * @ORM\JoinColumn(name="stop_id", referencedColumnName="id")
+     */
+    private $stop;
+
 
 
 
@@ -66,8 +68,6 @@ class StopGroup
     {
         $this->scheduleGroups = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
 
     /**
      * Get id
@@ -149,6 +149,30 @@ class StopGroup
     public function getLine()
     {
         return $this->line;
+    }
+
+    /**
+     * Set stop
+     *
+     * @param \AppBundle\Entity\Stop $stop
+     *
+     * @return StopGroup
+     */
+    public function setStop(\AppBundle\Entity\Stop $stop = null)
+    {
+        $this->stop = $stop;
+
+        return $this;
+    }
+
+    /**
+     * Get stop
+     *
+     * @return \AppBundle\Entity\Stop
+     */
+    public function getStop()
+    {
+        return $this->stop;
     }
 
     /**
