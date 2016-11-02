@@ -67,4 +67,134 @@ class Line
     {
         $this->stopGroup = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set label
+     *
+     * @param string $label
+     *
+     * @return Line
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Set number
+     *
+     * @param integer $number
+     *
+     * @return Line
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return integer
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return Line
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     *
+     * @return Line
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set stopGroup
+     *
+     * @param \AppBundle\Entity\StopGroup $stopGroup
+     *
+     * @return Line
+     */
+    public function setStopGroup(\AppBundle\Entity\StopGroup $stopGroup = null)
+    {
+        $this->stopGroup = $stopGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get stopGroup
+     *
+     * @return \AppBundle\Entity\StopGroup
+     */
+    public function getStopGroup()
+    {
+        return $this->stopGroup;
+    }
 }

@@ -51,4 +51,110 @@ class ScheduleGroup
      * @ORM\JoinColumn(name="jls_id", referencedColumnName="id")
      */
     private $stopGroup;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     *
+     * @return ScheduleGroup
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set schedule
+     *
+     * @param \AppBundle\Entity\Schedule $schedule
+     *
+     * @return ScheduleGroup
+     */
+    public function setSchedule(\AppBundle\Entity\Schedule $schedule = null)
+    {
+        $this->schedule = $schedule;
+
+        return $this;
+    }
+
+    /**
+     * Get schedule
+     *
+     * @return \AppBundle\Entity\Schedule
+     */
+    public function getSchedule()
+    {
+        return $this->schedule;
+    }
+
+    /**
+     * Set period
+     *
+     * @param \AppBundle\Entity\Period $period
+     *
+     * @return ScheduleGroup
+     */
+    public function setPeriod(\AppBundle\Entity\Period $period = null)
+    {
+        $this->period = $period;
+
+        return $this;
+    }
+
+    /**
+     * Get period
+     *
+     * @return \AppBundle\Entity\Period
+     */
+    public function getPeriod()
+    {
+        return $this->period;
+    }
+
+    /**
+     * Set stopGroup
+     *
+     * @param \AppBundle\Entity\StopGroup $stopGroup
+     *
+     * @return ScheduleGroup
+     */
+    public function setStopGroup(\AppBundle\Entity\StopGroup $stopGroup = null)
+    {
+        $this->stopGroup = $stopGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get stopGroup
+     *
+     * @return \AppBundle\Entity\StopGroup
+     */
+    public function getStopGroup()
+    {
+        return $this->stopGroup;
+    }
 }

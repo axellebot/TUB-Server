@@ -36,7 +36,15 @@ class StopGroup
      * @ORM\ManyToOne(targetEntity="Stop", inversedBy="stopGroups")
      * @ORM\JoinColumn(name="stop_id", referencedColumnName="id")
      */
-    private $stop;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="way",type="string",length=1,options={"fixed":true, "comment":"O for Outbound or I for Inbound"})
+     */
+    private $sens;
+
+
 
     /**
      * @var integer
@@ -57,5 +65,123 @@ class StopGroup
     public function __construct()
     {
         $this->scheduleGroups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set sens
+     *
+     * @param string $sens
+     *
+     * @return StopGroup
+     */
+    public function setSens($sens)
+    {
+        $this->sens = $sens;
+
+        return $this;
+    }
+
+    /**
+     * Get sens
+     *
+     * @return string
+     */
+    public function getSens()
+    {
+        return $this->sens;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     *
+     * @return StopGroup
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set line
+     *
+     * @param \AppBundle\Entity\Line $line
+     *
+     * @return StopGroup
+     */
+    public function setLine(\AppBundle\Entity\Line $line = null)
+    {
+        $this->line = $line;
+
+        return $this;
+    }
+
+    /**
+     * Get line
+     *
+     * @return \AppBundle\Entity\Line
+     */
+    public function getLine()
+    {
+        return $this->line;
+    }
+
+    /**
+     * Add scheduleGroup
+     *
+     * @param \AppBundle\Entity\ScheduleGroup $scheduleGroup
+     *
+     * @return StopGroup
+     */
+    public function addScheduleGroup(\AppBundle\Entity\ScheduleGroup $scheduleGroup)
+    {
+        $this->scheduleGroups[] = $scheduleGroup;
+
+        return $this;
+    }
+
+    /**
+     * Remove scheduleGroup
+     *
+     * @param \AppBundle\Entity\ScheduleGroup $scheduleGroup
+     */
+    public function removeScheduleGroup(\AppBundle\Entity\ScheduleGroup $scheduleGroup)
+    {
+        $this->scheduleGroups->removeElement($scheduleGroup);
+    }
+
+    /**
+     * Get scheduleGroups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getScheduleGroups()
+    {
+        return $this->scheduleGroups;
     }
 }
