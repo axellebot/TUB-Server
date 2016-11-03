@@ -3,12 +3,17 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * ScheduleGroup
  *
  * @ORM\Table(name="join_schedule_period_jls")
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  */
 class ScheduleGroup
 {
@@ -19,6 +24,7 @@ class ScheduleGroup
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Expose
      */
     private $id;
 
@@ -27,6 +33,7 @@ class ScheduleGroup
      *
      * @ORM\OneToOne(targetEntity="Schedule")
      * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")
+     * @Expose
      */
     private $schedule;
 
@@ -35,12 +42,14 @@ class ScheduleGroup
      *
      * @ORM\OneToOne(targetEntity="Period")
      * @ORM\JoinColumn(name="period_id", referencedColumnName="id")
+     * @Expose
      */
     private $period;
 
     /**
      * @var integer
      * @ORM\Column(name="order",type="integer")
+     * @Expose
      */
     private $order;
 

@@ -3,12 +3,17 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * StopGroup
  *
  * @ORM\Table(name="join_line_stop")
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  */
 class StopGroup
 {
@@ -19,6 +24,7 @@ class StopGroup
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Expose
      */
     private $id;
 
@@ -27,6 +33,7 @@ class StopGroup
      *
      * @ORM\ManyToOne(targetEntity="Line", inversedBy="stopGroups")
      * @ORM\JoinColumn(name="line_id", referencedColumnName="id")
+     * @Expose
      */
     private $line;
 
@@ -34,6 +41,7 @@ class StopGroup
      * @var string
      *
      * @ORM\Column(name="way",type="string",length=1,options={"fixed":true, "comment":"O for Outbound or I for Inbound"})
+     * @Expose
      */
     private $sens;
 
@@ -42,6 +50,7 @@ class StopGroup
      *
      * @ORM\ManyToOne(targetEntity="Stop", inversedBy="stopGroups")
      * @ORM\JoinColumn(name="stop_id", referencedColumnName="id")
+     * @Expose
      */
     private $stop;
 
@@ -51,6 +60,7 @@ class StopGroup
     /**
      * @var integer
      * @ORM\Column(name="order",type="integer")
+     * @Expose
      */
     private $order;
 
