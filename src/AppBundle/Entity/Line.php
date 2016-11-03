@@ -67,6 +67,7 @@ class Line
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="StopGroup", mappedBy="line")
+     * @ORM\OrderBy({"way" = "DESC","order" = "ASC"})
      */
     private $stopGroups;
 
@@ -206,5 +207,39 @@ class Line
     public function getStopGroup()
     {
         return $this->stopGroup;
+    }
+
+    /**
+     * Add stopGroup
+     *
+     * @param \AppBundle\Entity\StopGroup $stopGroup
+     *
+     * @return Line
+     */
+    public function addStopGroup(\AppBundle\Entity\StopGroup $stopGroup)
+    {
+        $this->stopGroups[] = $stopGroup;
+
+        return $this;
+    }
+
+    /**
+     * Remove stopGroup
+     *
+     * @param \AppBundle\Entity\StopGroup $stopGroup
+     */
+    public function removeStopGroup(\AppBundle\Entity\StopGroup $stopGroup)
+    {
+        $this->stopGroups->removeElement($stopGroup);
+    }
+
+    /**
+     * Get stopGroups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStopGroups()
+    {
+        return $this->stopGroups;
     }
 }

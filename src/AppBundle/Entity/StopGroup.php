@@ -43,7 +43,7 @@ class StopGroup
      * @ORM\Column(name="way",type="string",length=1,options={"fixed":true, "comment":"O for Outbound or I for Inbound"})
      * @Expose
      */
-    private $sens;
+    private $way;
 
     /**
      * @var Stop
@@ -54,9 +54,7 @@ class StopGroup
      */
     private $stop;
 
-
-
-
+    
     /**
      * @var integer
      * @ORM\Column(name="order",type="integer")
@@ -92,13 +90,13 @@ class StopGroup
     /**
      * Set sens
      *
-     * @param string $sens
+     * @param string $way
      *
      * @return StopGroup
      */
-    public function setSens($sens)
+    public function setWay($way)
     {
-        $this->sens = $sens;
+        $this->way = $way;
 
         return $this;
     }
@@ -108,9 +106,9 @@ class StopGroup
      *
      * @return string
      */
-    public function getSens()
+    public function getWay()
     {
-        return $this->sens;
+        return $this->way;
     }
 
     /**
