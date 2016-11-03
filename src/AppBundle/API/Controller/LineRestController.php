@@ -4,7 +4,7 @@ namespace AppBundle\API\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use AppBundle\Entity\Line;
 
-class LineController extends FOSRestController
+class LineRestController extends FOSRestController
 {
     public function getLinesAction()
     {

@@ -4,7 +4,7 @@ namespace AppBundle\API\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use AppBundle\Entity\StopGroup;
 
-class StopGroupController extends FOSRestController
+class StopGroupRestController extends FOSRestController
 {
     public function getStopgroupsAction()
     {
