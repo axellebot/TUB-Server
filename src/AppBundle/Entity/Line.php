@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Line
  *
  * @ORM\Table(name="Line")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\LineRepository")
+ * @ORM\Entity
  */
 class Line
 {
