@@ -3,12 +3,17 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Line
  *
  * @ORM\Table(name="Line")
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  */
 class Line
 {
@@ -19,6 +24,7 @@ class Line
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Expose
      */
     private $id;
 
@@ -26,6 +32,7 @@ class Line
      * @var string
      *
      * @ORM\Column(name="label", type="string", length=255)
+     * @Expose
      */
     private $label;
 
@@ -34,6 +41,7 @@ class Line
      * @var int
      *
      * @ORM\Column(name="number", type="integer", length=11)
+     * @Expose
      */
 
     private $number;
@@ -42,6 +50,7 @@ class Line
      * @var string
      *
      * @ORM\Column(name="color", type="string", length=28)
+     * @Expose
      */
     private $color;
 
@@ -50,6 +59,7 @@ class Line
      * @var int
      *
      * @ORM\Column(name="order", type="integer", length=11)
+     * @Expose
      */
     private $order;
 
@@ -79,6 +89,16 @@ class Line
     }
 
     /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
      * Set label
      *
      * @param string $label
@@ -93,13 +113,13 @@ class Line
     }
 
     /**
-     * Get label
+     * Get number
      *
-     * @return string
+     * @return integer
      */
-    public function getLabel()
+    public function getNumber()
     {
-        return $this->label;
+        return $this->number;
     }
 
     /**
@@ -117,13 +137,13 @@ class Line
     }
 
     /**
-     * Get number
+     * Get color
      *
-     * @return integer
+     * @return string
      */
-    public function getNumber()
+    public function getColor()
     {
-        return $this->number;
+        return $this->color;
     }
 
     /**
@@ -141,13 +161,13 @@ class Line
     }
 
     /**
-     * Get color
+     * Get order
      *
-     * @return string
+     * @return integer
      */
-    public function getColor()
+    public function getOrder()
     {
-        return $this->color;
+        return $this->order;
     }
 
     /**
@@ -162,16 +182,6 @@ class Line
         $this->order = $order;
 
         return $this;
-    }
-
-    /**
-     * Get order
-     *
-     * @return integer
-     */
-    public function getOrder()
-    {
-        return $this->order;
     }
 
     /**
