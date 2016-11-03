@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\API\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use AppBundle\Entity\Period;
