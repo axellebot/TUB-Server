@@ -64,10 +64,30 @@
             {% endif %}
 
             {% for line in lines %}
-                <dialog id="dialog-line-{{ line.id }}" class="mdl-dialog mdl-cell--8-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone mdl-cell--">
+                <dialog id="dialog-line-{{ line.id }}"
+                        class="mdl-dialog mdl-cell--8-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone mdl-cell--">
                     <h4 class="mdl-dialog__title">{{ line.label }}</h4>
                     <div class="mdl-dialog__content">
+
+                        <h5>Outbound :</h5>
                         <p>
+                            {% for stopGroup in line.stopGroups %}
+                                {% if stopGroup.way =='O' %}
+                                    <span class="mdl-chip">
+                                    <span class="mdl-chip__text">{{ stopGroup.stop.name }}</span>
+                                </span>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                        <h5>Inbound :</h5>
+                        <p>
+                            {% for stopGroup in line.stopGroups %}
+                                {% if stopGroup.way =='I' %}
+                                    <span class="mdl-chip">
+                                    <span class="mdl-chip__text">{{ stopGroup.stop.name }}</span>
+                                </span>
+                                {% endif %}
+                            {% endfor %}
                         </p>
                     </div>
                     <div class="mdl-dialog__actions">
