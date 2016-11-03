@@ -3,8 +3,6 @@ namespace AppBundle\API\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use AppBundle\Entity\Line;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 class LineController extends FOSRestController
 {
