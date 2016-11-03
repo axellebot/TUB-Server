@@ -4,6 +4,6 @@ app :
     prefix: /
 
 api :
-    resource: "@AppBundle/API/Controller/"
+    resource: "@AppBundle/Controller/"
     type: rest
     prefix: /api

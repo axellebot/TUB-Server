@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\API\Controller;
+namespace AppBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use AppBundle\Entity\Line;
