@@ -3,11 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Stop
  * @ORM\Table(name="Stop")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\StopRepository")
+ * @ExclusionPolicy("all")
  */
 class Stop
 {
@@ -17,6 +22,7 @@ class Stop
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Expose
      */
     private $id;
 
@@ -24,6 +30,7 @@ class Stop
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @Expose
      */
     private $name;
 
@@ -31,6 +38,7 @@ class Stop
      * @var float
      *
      * @ORM\Column(name="latitude", type="float")
+     * @Expose
      */
     private $latitude;
 
@@ -38,6 +46,7 @@ class Stop
      * @var float
      *
      * @ORM\Column(name="longitude", type="float")
+     * @Expose
      */
     private $longitude;
 
