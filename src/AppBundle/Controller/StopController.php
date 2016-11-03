@@ -11,7 +11,7 @@ use AppBundle\Form\Type\StopType;
 class StopController extends Controller
 {
     /**
-     * @Route("/stop", name="stop_list")
+     * @Route("/stops", name="stop_list")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -30,7 +30,7 @@ class StopController extends Controller
 
 
     /**
-     * @Route("admin/stop/delete/{id}", name="stop_delete", requirements={"id" = "\d+"})
+     * @Route("admin/stops/delete/{id}", name="stop_delete", requirements={"id" = "\d+"})
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -52,7 +52,7 @@ class StopController extends Controller
     }
 
     /**
-     * @Route("admin/stop/create/", name="stop_create")
+     * @Route("admin/stops/create/", name="stop_create")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -79,7 +79,7 @@ class StopController extends Controller
     }
 
     /**
-     * @Route("admin/stop/update/{id}", name="stop_update", requirements={"id" = "\d+"})
+     * @Route("admin/stops/update/{id}", name="stop_update", requirements={"id" = "\d+"})
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -110,7 +110,7 @@ class StopController extends Controller
 
 
     /**
-     * @Route("/stop/{id}", name="stop_detail", requirements={"id" = "\d+"})
+     * @Route("/stops/{id}", name="stop_detail", requirements={"id" = "\d+"})
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response

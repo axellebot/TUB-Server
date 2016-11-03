@@ -11,7 +11,7 @@ use AppBundle\Form\Type\LineType;
 class LineController extends Controller
 {
     /**
-     * @Route("/line", name="line_list")
+     * @Route("/lines", name="line_list")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -30,7 +30,7 @@ class LineController extends Controller
 
 
     /**
-     * @Route("admin/line/delete/{id}", name="line_delete", requirements={"id" = "\d+"})
+     * @Route("admin/lines/delete/{id}", name="line_delete", requirements={"id" = "\d+"})
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -52,7 +52,7 @@ class LineController extends Controller
     }
 
     /**
-     * @Route("admin/line/create/", name="line_create")
+     * @Route("admin/lines/create/", name="line_create")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -79,7 +79,7 @@ class LineController extends Controller
     }
 
     /**
-     * @Route("admin/line/update/{id}", name="line_update", requirements={"id" = "\d+"})
+     * @Route("admin/lines/update/{id}", name="line_update", requirements={"id" = "\d+"})
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
