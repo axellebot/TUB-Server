@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Line
  *
  * @ORM\Table(name="Line")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\LineRepository")
  */
 class Line
 {
@@ -79,6 +79,16 @@ class Line
     }
 
     /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
      * Set label
      *
      * @param string $label
@@ -93,13 +103,13 @@ class Line
     }
 
     /**
-     * Get label
+     * Get number
      *
-     * @return string
+     * @return integer
      */
-    public function getLabel()
+    public function getNumber()
     {
-        return $this->label;
+        return $this->number;
     }
 
     /**
@@ -117,13 +127,13 @@ class Line
     }
 
     /**
-     * Get number
+     * Get color
      *
-     * @return integer
+     * @return string
      */
-    public function getNumber()
+    public function getColor()
     {
-        return $this->number;
+        return $this->color;
     }
 
     /**
@@ -141,13 +151,13 @@ class Line
     }
 
     /**
-     * Get color
+     * Get order
      *
-     * @return string
+     * @return integer
      */
-    public function getColor()
+    public function getOrder()
     {
-        return $this->color;
+        return $this->order;
     }
 
     /**
@@ -162,16 +172,6 @@ class Line
         $this->order = $order;
 
         return $this;
-    }
-
-    /**
-     * Get order
-     *
-     * @return integer
-     */
-    public function getOrder()
-    {
-        return $this->order;
     }
 
     /**
@@ -196,5 +196,39 @@ class Line
     public function getStopGroup()
     {
         return $this->stopGroup;
+    }
+
+    /**
+     * Add stopGroup
+     *
+     * @param \AppBundle\Entity\StopGroup $stopGroup
+     *
+     * @return Line
+     */
+    public function addStopGroup(\AppBundle\Entity\StopGroup $stopGroup)
+    {
+        $this->stopGroups[] = $stopGroup;
+
+        return $this;
+    }
+
+    /**
+     * Remove stopGroup
+     *
+     * @param \AppBundle\Entity\StopGroup $stopGroup
+     */
+    public function removeStopGroup(\AppBundle\Entity\StopGroup $stopGroup)
+    {
+        $this->stopGroups->removeElement($stopGroup);
+    }
+
+    /**
+     * Get stopGroups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStopGroups()
+    {
+        return $this->stopGroups;
     }
 }
