@@ -2,10 +2,18 @@
 namespace AppBundle\API\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use AppBundle\Entity\StopGroup;
 
 class StopGroupRestController extends FOSRestController
 {
+
+    /**
+     * @ApiDoc(
+     *  description="StopGroup list",
+     *  output={"class"=StopGroup::class, "collection"=true}
+     * )
+     */
     public function getStopgroupsAction()
     {
         $repository = $this->getDoctrine()
@@ -21,6 +29,12 @@ class StopGroupRestController extends FOSRestController
 
     }// "get_stopgroups"     [GET] /stopgroups
 
+    /**
+     * @ApiDoc(
+     *  description="StopGroup",
+     *  output={"class"=StopGroup::class, "collection"=false}
+     * )
+     */
     public function getStopgroupAction($id)
     {
         $repository = $this->getDoctrine()

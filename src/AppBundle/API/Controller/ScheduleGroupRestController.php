@@ -2,10 +2,17 @@
 namespace AppBundle\API\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use AppBundle\Entity\ScheduleGroup;
 
 class ScheduleGroupRestController extends FOSRestController
 {
+    /**
+     * @ApiDoc(
+     *  description="ScheduleGroup list",
+     *  output={"class"=ScheduleGroup::class, "collection"=true}
+     * )
+     */
     public function getSchedulegroupsAction()
     {
         $repository = $this->getDoctrine()
@@ -21,6 +28,12 @@ class ScheduleGroupRestController extends FOSRestController
 
     }// "get_schedulegroups"     [GET] /schedulegroups
 
+    /**
+     * @ApiDoc(
+     *  description="ScheduleGroup",
+     *  output={"class"=ScheduleGroup::class, "collection"=false}
+     * )
+     */
     public function getSchedulegroupAction($id)
     {
         $repository = $this->getDoctrine()
