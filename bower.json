@@ -1,0 +1,21 @@
+{
+  "name": "tub-symfony",
+  "homepage": "https://github.com/axellebot/tub-symfony",
+  "authors": [
+    "Axel Le Bot <axellebot@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-lite": "^1.2.1"
+  }
+}
