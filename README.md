@@ -41,4 +41,16 @@ $ cd my_project_name/
 $ php bin/console server:run
 ```
 
+### Prod mod :
+- Run first :
+```shell
+$ export SYMFONY_ENV=prod
+```
+- Follow Official Instruction [here](http://symfony.com/doc/current/deployment.html)
+
+##Example
+Deployed on :
+
+* [tub.lebot.xyz](tub.lebot.xyz)
+
 
