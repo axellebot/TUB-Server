@@ -29,10 +29,10 @@ class Stop
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="label", type="string", length=255, nullable=true)
      * @Expose
      */
-    private $name;
+    private $label;
 
     /**
      * @var float
@@ -78,13 +78,13 @@ class Stop
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $label
      *
      * @return Stop
      */
-    public function setName($name)
+    public function setLabel($label)
     {
-        $this->name = $name;
+        $this->label = $label;
 
         return $this;
     }
@@ -94,9 +94,9 @@ class Stop
      *
      * @return string
      */
-    public function getName()
+    public function getLabel()
     {
-        return $this->name;
+        return $this->label;
     }
 
     /**

@@ -16,7 +16,7 @@ VALUES
 /*
 Stops
  */
-INSERT INTO `Stop` (`id`, `name`, `latitude`, `longitude`)
+INSERT INTO `Stop` (`id`, `label`, `latitude`, `longitude`)
 VALUES
   (1, 'Baudin', 46.200648, 5.218698),
   (2, 'Abbé Gringoz', 46.20223054919, 5.2469158172607),
