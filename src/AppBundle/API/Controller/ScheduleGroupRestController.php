@@ -2,9 +2,15 @@
 namespace AppBundle\API\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use AppBundle\Entity\ScheduleGroup;
 
+
+/**
+ * Class ScheduleGroupRestController
+ * @package AppBundle\API\Controller
+ */
 class ScheduleGroupRestController extends FOSRestController
 {
     /**
@@ -12,6 +18,7 @@ class ScheduleGroupRestController extends FOSRestController
      *  description="ScheduleGroup list",
      *  output={"class"=ScheduleGroup::class, "collection"=true}
      * )
+     * @Get("/schedulegroups",name="",options={ "method_prefix" = true})
      */
     public function getSchedulegroupsAction()
     {
@@ -26,13 +33,14 @@ class ScheduleGroupRestController extends FOSRestController
         return array('schedulegroups'=>$scheduleGroups);
 
 
-    }// "get_schedulegroups"     [GET] /schedulegroups
+    }
 
     /**
      * @ApiDoc(
      *  description="ScheduleGroup",
      *  output={"class"=ScheduleGroup::class, "collection"=false}
      * )
+     * @Get("/schedulegroups/{id}",name="",options={ "method_prefix" = true})
      */
     public function getSchedulegroupAction($id)
     {
@@ -45,5 +53,5 @@ class ScheduleGroupRestController extends FOSRestController
         }
 
         return array('stopgroup'=>$scheduleGroup);
-    }// "get_schedulegroup"     [GET] /scheduleGroup/{id}
+    }
 }
