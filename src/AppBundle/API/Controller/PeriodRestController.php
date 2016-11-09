@@ -2,9 +2,15 @@
 namespace AppBundle\API\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use AppBundle\Entity\Period;
 
+
+/**
+ * Class PeriodRestController
+ * @package AppBundle\API\Controller
+ */
 class PeriodRestController extends FOSRestController
 {
     /**
@@ -12,6 +18,7 @@ class PeriodRestController extends FOSRestController
      *  description="Period list",
      *  output={"class"=Period::class, "collection"=true}
      * )
+     * @Get("/periods",name="",options={ "method_prefix" = true })
      */
     public function getPeriodsAction()
     {
@@ -26,7 +33,7 @@ class PeriodRestController extends FOSRestController
         return array('periods'=>$periods);
 
 
-    }// "get_periods"     [GET] /periods
+    }
 
 
     /**
@@ -34,6 +41,7 @@ class PeriodRestController extends FOSRestController
      *  description="Period",
      *  output={"class"=Period::class, "collection"=false}
      * )
+     * @Get("/periods/{id}",name="",options={ "method_prefix" = true})
      */
     public function getPeriodAction($id)
     {
@@ -46,5 +54,5 @@ class PeriodRestController extends FOSRestController
         }
 
         return array('period'=>$period);
-    }// "get_period"     [GET] /period/{id}
+    }
 }

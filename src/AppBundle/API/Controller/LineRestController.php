@@ -2,10 +2,14 @@
 namespace AppBundle\API\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use AppBundle\Entity\Line;
 
-
+/**
+ * Class LineRestController
+ * @package AppBundle\API\Controller
+ */
 class LineRestController extends FOSRestController
 {
     /**
@@ -13,6 +17,7 @@ class LineRestController extends FOSRestController
      *  description="Line list",
      *  output={"class"=Line::class, "collection"=true}
      * )
+     * @Get("/lines",name="",options={ "method_prefix" = true })
      */
     public function getLinesAction()
     {
@@ -25,15 +30,14 @@ class LineRestController extends FOSRestController
         }
 
         return array('lines' => $lines);
-
-
-    }// "get_lines"     [GET] /lines
+    }
 
     /**
      * @ApiDoc(
      *  description="Line",
      *  output={"class"=Line::class, "collection"=true}
      * )
+     * @Get("/lines/{id}",name="",options={ "method_prefix" = true })
      */
     public function getLineAction($id)
     {
@@ -46,5 +50,5 @@ class LineRestController extends FOSRestController
         }
 
         return array('line' => $line);
-    }// "get_line"     [GET] /line/{id}
+    }
 }
