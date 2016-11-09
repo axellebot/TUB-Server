@@ -51,7 +51,6 @@ class ScheduleGroupRestController extends FOSRestController
         if (!is_object($scheduleGroup)) {
             throw $this->createNotFoundException();
         }
-
-        return array('stopgroup'=>$scheduleGroup);
+        return array('schedulegroup'=>$scheduleGroup);
     }
 }
