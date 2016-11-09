@@ -35,7 +35,7 @@ class LineRestController extends FOSRestController
     /**
      * @ApiDoc(
      *  description="Line",
-     *  output={"class"=Line::class, "collection"=true}
+     *  output={"class"=Line::class, "collection"=false}
      * )
      * @Get("/lines/{line_id}",name="",options={ "method_prefix" = true })
      */
