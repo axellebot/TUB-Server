@@ -3,17 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Period
  *
  * @ORM\Table(name="Period")
  * @ORM\Entity
- * @ExclusionPolicy("all")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Period
 {
@@ -24,7 +21,7 @@ class Period
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Expose
+     * @Serializer\Expose
      */
     private $id;
 
@@ -32,7 +29,7 @@ class Period
      * @var string
      *
      * @ORM\Column(name="label", type="string", length=255)
-     * @Expose
+     * @Serializer\Expose
      */
     private $label;
 
@@ -41,7 +38,7 @@ class Period
      * @var \DateTime
      *
      * @ORM\Column(name="dateStart", type="date")
-     * @Expose
+     * @Serializer\Expose
      */
 
     private $dateStart;
@@ -50,7 +47,7 @@ class Period
      * @var \DateTime
      *
      * @ORM\Column(name="dateEnd", type="date")
-     * @Expose
+     * @Serializer\Expose
      */
     private $dateEnd;
 
@@ -58,7 +55,7 @@ class Period
      * @var string
      *
      * @ORM\Column(name="dayCycle", type="string", length=11)
-     * @Expose
+     * @Serializer\Expose
      */
     private $dayCycle;
 

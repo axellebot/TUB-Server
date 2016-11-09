@@ -20,7 +20,7 @@ class PeriodRestController extends FOSRestController
      * )
      * @Get("/periods",name="",options={ "method_prefix" = true })
      */
-    public function getPeriodsAction()
+    public function getAllPeriodsAction()
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Period');
@@ -41,13 +41,13 @@ class PeriodRestController extends FOSRestController
      *  description="Period",
      *  output={"class"=Period::class, "collection"=false}
      * )
-     * @Get("/periods/{id}",name="",options={ "method_prefix" = true})
+     * @Get("/periods/{period_id}",name="",options={ "method_prefix" = true})
      */
-    public function getPeriodAction($id)
+    public function getPeriodByIdAction($period_id)
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Period');
-        $period = $repository->find($id);
+        $period = $repository->find($period_id);
 
         if (!is_object($period)) {
             throw $this->createNotFoundException();

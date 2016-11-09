@@ -19,7 +19,7 @@ class LineRestController extends FOSRestController
      * )
      * @Get("/lines",name="",options={ "method_prefix" = true })
      */
-    public function getLinesAction()
+    public function getAllLinesAction()
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Line');
@@ -35,15 +35,15 @@ class LineRestController extends FOSRestController
     /**
      * @ApiDoc(
      *  description="Line",
-     *  output={"class"=Line::class, "collection"=true}
+     *  output={"class"=Line::class, "collection"=false}
      * )
-     * @Get("/lines/{id}",name="",options={ "method_prefix" = true })
+     * @Get("/lines/{line_id}",name="",options={ "method_prefix" = true })
      */
-    public function getLineAction($id)
+    public function getLineAction($line_id)
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Line');
-        $line = $repository->find($id);
+        $line = $repository->find($line_id);
 
         if (!is_object($line)) {
             throw $this->createNotFoundException();

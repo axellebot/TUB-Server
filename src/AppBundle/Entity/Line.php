@@ -3,17 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Line
  *
  * @ORM\Table(name="Line")
  * @ORM\Entity
- * @ExclusionPolicy("all")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Line
 {
@@ -24,7 +21,7 @@ class Line
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Expose
+     * @Serializer\Expose
      */
     private $id;
 
@@ -32,7 +29,7 @@ class Line
      * @var string
      *
      * @ORM\Column(name="label", type="string", length=255)
-     * @Expose
+     * @Serializer\Expose
      */
     private $label;
 
@@ -41,7 +38,7 @@ class Line
      * @var int
      *
      * @ORM\Column(name="number", type="integer", length=11)
-     * @Expose
+     * @Serializer\Expose
      */
 
     private $number;
@@ -50,7 +47,7 @@ class Line
      * @var string
      *
      * @ORM\Column(name="color", type="string", length=28)
-     * @Expose
+     * @Serializer\Expose
      */
     private $color;
 
@@ -59,7 +56,7 @@ class Line
      * @var int
      *
      * @ORM\Column(name="order", type="integer", length=11)
-     * @Expose
+     * @Serializer\Expose
      */
     private $order;
 

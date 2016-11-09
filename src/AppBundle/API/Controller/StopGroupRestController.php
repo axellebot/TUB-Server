@@ -21,7 +21,7 @@ class StopGroupRestController extends FOSRestController
      * )
      * @Get("/stopgroups",name="",options={ "method_prefix" = true})
      */
-    public function getStopgroupsAction()
+    public function getAllStopGroupsAction()
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:StopGroup');
@@ -38,13 +38,13 @@ class StopGroupRestController extends FOSRestController
      *  description="StopGroup",
      *  output={"class"=StopGroup::class, "collection"=false}
      * )
-     * @Get("/stopgroups/{id}",name="",options={ "method_prefix" = true})
+     * @Get("/stopgroups/{stop_group_id}",name="",options={ "method_prefix" = true})
      */
-    public function getStopgroupAction($id)
+    public function getStopGroupByIdAction($stop_group_id)
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:StopGroup');
-        $stopGroup = $repository->find($id);
+        $stopGroup = $repository->find($stop_group_id);
 
         if (!is_object($stopGroup)) {
             throw $this->createNotFoundException();
