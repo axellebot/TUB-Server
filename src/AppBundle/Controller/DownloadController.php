@@ -17,9 +17,9 @@ class DownloadController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function downloadKMLAction(Request $request, $id)
+    public function downloadKMLAction(Request $request, $line_id)
     {
-        $filePath =$this->get('kernel')->getRootDir() . '/../web/kml/' . 'line' . $id . '.kml';
+        $filePath =$this->get('kernel')->getRootDir() . '/../web/kml/' . 'line' . $line_id . '.kml';
         if (!file_exists($filePath)) {
             throw $this->createNotFoundException('No KML file found');
         }
