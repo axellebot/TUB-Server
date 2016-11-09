@@ -20,7 +20,7 @@ class ScheduleGroupRestController extends FOSRestController
      * )
      * @Get("/schedulegroups",name="",options={ "method_prefix" = true})
      */
-    public function getSchedulegroupsAction()
+    public function getAllScheduleGroupsAction()
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:ScheduleGroup');
@@ -40,13 +40,13 @@ class ScheduleGroupRestController extends FOSRestController
      *  description="ScheduleGroup",
      *  output={"class"=ScheduleGroup::class, "collection"=false}
      * )
-     * @Get("/schedulegroups/{id}",name="",options={ "method_prefix" = true})
+     * @Get("/schedulegroups/{schedule_group_id}",name="",options={ "method_prefix" = true})
      */
-    public function getSchedulegroupAction($id)
+    public function getScheduleGroupByIdAction($schedule_group_id)
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:ScheduleGroup');
-        $scheduleGroup = $repository->find($id);
+        $scheduleGroup = $repository->find($schedule_group_id);
 
         if (!is_object($scheduleGroup)) {
             throw $this->createNotFoundException();

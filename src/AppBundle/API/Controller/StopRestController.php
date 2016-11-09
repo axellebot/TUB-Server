@@ -19,7 +19,7 @@ class StopRestController extends FOSRestController
      * )
      * @Get("/stops",name="",options={ "method_prefix" = true })
      */
-    public function getStopsAction()
+    public function getAllStopsAction()
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Stop');
@@ -37,13 +37,13 @@ class StopRestController extends FOSRestController
      *  description="Stop",
      *  output={"class"=Stop::class, "collection"=false}
      * )
-     * @Get("/stops/{id}",name="",options={ "method_prefix" = true })
+     * @Get("/stops/{stop_id}",name="",options={ "method_prefix" = true })
      */
-    public function getStopAction($id)
+    public function getStopByIdAction($stop_id)
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Stop');
-        $stop = $repository->find($id);
+        $stop = $repository->find($stop_id);
 
         if (!is_object($stop)) {
             throw $this->createNotFoundException();

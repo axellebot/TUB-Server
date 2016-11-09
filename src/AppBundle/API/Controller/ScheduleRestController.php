@@ -20,7 +20,7 @@ class ScheduleRestController extends FOSRestController
      * )
      * @Get("/schedules",name="",options={ "method_prefix" = true})
      */
-    public function getSchedulesAction()
+    public function getAllSchedulesAction()
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Schedule');
@@ -37,13 +37,13 @@ class ScheduleRestController extends FOSRestController
      *  description="Schedule",
      *  output={"class"=Schedule::class, "collection"=false}
      * )
-     * @Get("/schedules/{id}",name="",options={ "method_prefix" = true})
+     * @Get("/schedules/{schedule_id}",name="",options={ "method_prefix" = true})
      */
-    public function getScheduleAction($id)
+    public function getAllScheduleAction($schedule_id)
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Schedule');
-        $schedule = $repository->find($id);
+        $schedule = $repository->find($schedule_id);
 
         if (!is_object($schedule)) {
             throw $this->createNotFoundException();
