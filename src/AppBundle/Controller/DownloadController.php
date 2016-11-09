@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DownloadController extends Controller
 {
     /**
-     * @Route("/download/kml/{id}", name="download_kml")
+     * @Route("/download/kml/{line_id}", name="download_kml")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
