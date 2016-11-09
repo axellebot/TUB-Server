@@ -31,6 +31,10 @@ $ php bin/console doctrine:schema:update --force
 ```shell
 $ php bin/console doctrine:generate:entities AppBundle/Entity/
 ```
+OR
+```shell
+$ php bin/console doctrine:generate:entities AppBundle:entity_name
+```
 
 
 ##Run Server
