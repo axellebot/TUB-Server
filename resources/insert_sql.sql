@@ -11,7 +11,7 @@ VALUES
   (5, 'Ligne 5 : St Denis Collège <> St Denis Collège', 5, '#00c9dd', 5,'/download/kml/5'),
   (6, 'Ligne 6 : Viriat Caronniers <> Ainterexpo', 6, '#f90080', 6,'/download/kml/6'),
   (7, 'Ligne 7 : Viriat Caronniers <> Carré Amiot', 7, '#fd8300', 7,'/download/kml/7'),
-  (8, 'Ligne 21 : Peloux Gare <> Sources', 21, '#9bc774', 8,'/download/kml/21');
+  (8, 'Ligne 21 : Peloux Gare <> Sources', 21, '#9bc774', 8,'/download/kml/8');
 
 /*
 Stops
