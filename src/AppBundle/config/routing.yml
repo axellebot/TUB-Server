@@ -4,6 +4,5 @@ app :
     prefix: /
 
 api :
-    resource: "@AppBundle/API/Controller/"
-    type: rest
+    resource: "@AppBundle/API/config/routing.yml"
     prefix: /api
