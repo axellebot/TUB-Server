@@ -3,17 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * StopGroup
  *
  * @ORM\Table(name="join_line_stop")
  * @ORM\Entity
- * @ExclusionPolicy("all")
+ * @Serializer\ExclusionPolicy("all")
+ * @Serializer\AccessorOrder("custom", custom = {"id","Line","way", "order","StopId"})
  */
 class StopGroup
 {
@@ -24,7 +22,7 @@ class StopGroup
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Expose
+     * @Serializer\Expose
      */
     private $id;
 
@@ -33,7 +31,6 @@ class StopGroup
      *
      * @ORM\ManyToOne(targetEntity="Line", inversedBy="stopGroups")
      * @ORM\JoinColumn(name="line_id", referencedColumnName="id")
-     * @Expose
      */
     private $line;
 
@@ -41,7 +38,7 @@ class StopGroup
      * @var string
      *
      * @ORM\Column(name="way",type="string",length=1,options={"fixed":true, "comment":"O for Outbound or I for Inbound"})
-     * @Expose
+     * @Serializer\Expose
      */
     private $way;
 
@@ -50,7 +47,6 @@ class StopGroup
      *
      * @ORM\ManyToOne(targetEntity="Stop", inversedBy="stopGroups")
      * @ORM\JoinColumn(name="stop_id", referencedColumnName="id")
-     * @Expose
      */
     private $stop;
 
@@ -58,7 +54,7 @@ class StopGroup
     /**
      * @var integer
      * @ORM\Column(name="order",type="integer")
-     * @Expose
+     * @Serializer\Expose
      */
     private $order;
 
@@ -76,6 +72,27 @@ class StopGroup
     {
         $this->scheduleGroups = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    //Custom Functions
+    /**
+     * @return integer
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("stop_id")
+     */
+    public function getStopId(){
+        return $this->getStop()->getId();
+    }
+
+    /**
+     * @return integer
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("line_id")
+     */
+    public function getLineId(){
+        return $this->getLine()->getId();
+    }
+
+    //Generated Functions
 
     /**
      * Get id

@@ -3,17 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * ScheduleGroup
  *
  * @ORM\Table(name="join_schedule_period_jls")
  * @ORM\Entity
- * @ExclusionPolicy("all")
+ * @Serializer\ExclusionPolicy("all")
+ * @Serializer\AccessorOrder("custom", custom = {"id","order", "ScheduleId","PeriodId" ,"StopGroupId"})
  */
 class ScheduleGroup
 {
@@ -24,7 +22,7 @@ class ScheduleGroup
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Expose
+     * @Serializer\Expose
      */
     private $id;
 
@@ -33,7 +31,6 @@ class ScheduleGroup
      *
      * @ORM\OneToOne(targetEntity="Schedule")
      * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")
-     * @Expose
      */
     private $schedule;
 
@@ -42,14 +39,13 @@ class ScheduleGroup
      *
      * @ORM\OneToOne(targetEntity="Period")
      * @ORM\JoinColumn(name="period_id", referencedColumnName="id")
-     * @Expose
      */
     private $period;
 
     /**
      * @var integer
      * @ORM\Column(name="order",type="integer")
-     * @Expose
+     * @Serializer\Expose
      */
     private $order;
 
@@ -61,38 +57,48 @@ class ScheduleGroup
      */
     private $stopGroup;
 
+
+    //Custom Functions
     /**
-     * Get id
-     *
      * @return integer
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("schedule_id")
      */
-    public function getId()
+    public function getScheduleId()
     {
-        return $this->id;
+        return $this->getSchedule()->getId();
     }
 
     /**
-     * Set order
-     *
-     * @param integer $order
-     *
-     * @return ScheduleGroup
+     * @return integer
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("period_id")
      */
-    public function setOrder($order)
+    public function getPeriodId()
     {
-        $this->order = $order;
-
-        return $this;
+        return $this->getPeriod()->getId();
     }
 
     /**
-     * Get order
-     *
      * @return integer
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("stop_group_id")
      */
-    public function getOrder()
+    public function getStopGroupId()
     {
-        return $this->order;
+        return $this->getStopGroup()->getId();
+    }
+
+    //Generated Functions
+
+    /**
+     * Get schedule
+     *
+     * @return \AppBundle\Entity\Schedule
+     */
+    public function getSchedule()
+    {
+        return $this->schedule;
     }
 
     /**
@@ -109,14 +115,15 @@ class ScheduleGroup
         return $this;
     }
 
+
     /**
-     * Get schedule
+     * Get period
      *
-     * @return \AppBundle\Entity\Schedule
+     * @return \AppBundle\Entity\Period
      */
-    public function getSchedule()
+    public function getPeriod()
     {
-        return $this->schedule;
+        return $this->period;
     }
 
     /**
@@ -134,13 +141,13 @@ class ScheduleGroup
     }
 
     /**
-     * Get period
+     * Get stopGroup
      *
-     * @return \AppBundle\Entity\Period
+     * @return \AppBundle\Entity\StopGroup
      */
-    public function getPeriod()
+    public function getStopGroup()
     {
-        return $this->period;
+        return $this->stopGroup;
     }
 
     /**
@@ -158,12 +165,36 @@ class ScheduleGroup
     }
 
     /**
-     * Get stopGroup
+     * Get id
      *
-     * @return \AppBundle\Entity\StopGroup
+     * @return integer
      */
-    public function getStopGroup()
+    public function getId()
     {
-        return $this->stopGroup;
+        return $this->id;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     *
+     * @return ScheduleGroup
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
     }
 }
