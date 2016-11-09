@@ -182,29 +182,6 @@ class Line
         return $this;
     }
 
-    /**
-     * Set stopGroup
-     *
-     * @param \AppBundle\Entity\StopGroup $stopGroup
-     *
-     * @return Line
-     */
-    public function setStopGroup(\AppBundle\Entity\StopGroup $stopGroup = null)
-    {
-        $this->stopGroup = $stopGroup;
-
-        return $this;
-    }
-
-    /**
-     * Get stopGroup
-     *
-     * @return \AppBundle\Entity\StopGroup
-     */
-    public function getStopGroup()
-    {
-        return $this->stopGroup;
-    }
 
     /**
      * Add stopGroup
