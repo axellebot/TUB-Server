@@ -61,6 +61,7 @@ class ScheduleGroup
     //Custom Functions
     /**
      * @return integer
+     * @Serializer\Type("integer")
      * @Serializer\VirtualProperty
      * @Serializer\SerializedName("schedule_id")
      */
@@ -71,6 +72,7 @@ class ScheduleGroup
 
     /**
      * @return integer
+     * @Serializer\Type("integer")
      * @Serializer\VirtualProperty
      * @Serializer\SerializedName("period_id")
      */
@@ -81,6 +83,7 @@ class ScheduleGroup
 
     /**
      * @return integer
+     * @Serializer\Type("integer")
      * @Serializer\VirtualProperty
      * @Serializer\SerializedName("stop_group_id")
      */

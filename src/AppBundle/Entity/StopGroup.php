@@ -76,6 +76,7 @@ class StopGroup
     //Custom Functions
     /**
      * @return integer
+     * @Serializer\Type("integer")
      * @Serializer\VirtualProperty
      * @Serializer\SerializedName("stop_id")
      */
@@ -85,6 +86,7 @@ class StopGroup
 
     /**
      * @return integer
+     * @Serializer\Type("integer")
      * @Serializer\VirtualProperty
      * @Serializer\SerializedName("line_id")
      */
