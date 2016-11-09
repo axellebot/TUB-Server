@@ -19,7 +19,7 @@ class DownloadController extends Controller
      */
     public function downloadKMLAction(Request $request, $line_id)
     {
-        $filePath =$this->get('kernel')->getRootDir() . '/../web/kml/' . 'line' . $line_id . '.kml';
+        $filePath =$this->get('kernel')->getRootDir() . '/../web/kml/' . 'path'.'-' . $line_id . '.kml';
         if (!file_exists($filePath)) {
             throw $this->createNotFoundException('No KML file found');
         }
