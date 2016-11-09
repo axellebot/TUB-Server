@@ -69,6 +69,14 @@ class Line
     private $stopGroups;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="kml_path", type="string", length=255)
+     * @Serializer\Expose
+     */
+    private $kmlPath;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -87,16 +95,6 @@ class Line
     }
 
     /**
-     * Get label
-     *
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
      * Set label
      *
      * @param string $label
@@ -111,13 +109,13 @@ class Line
     }
 
     /**
-     * Get number
+     * Get label
      *
-     * @return integer
+     * @return string
      */
-    public function getNumber()
+    public function getLabel()
     {
-        return $this->number;
+        return $this->label;
     }
 
     /**
@@ -135,13 +133,13 @@ class Line
     }
 
     /**
-     * Get color
+     * Get number
      *
-     * @return string
+     * @return integer
      */
-    public function getColor()
+    public function getNumber()
     {
-        return $this->color;
+        return $this->number;
     }
 
     /**
@@ -159,13 +157,13 @@ class Line
     }
 
     /**
-     * Get order
+     * Get color
      *
-     * @return integer
+     * @return string
      */
-    public function getOrder()
+    public function getColor()
     {
-        return $this->order;
+        return $this->color;
     }
 
     /**
@@ -182,6 +180,39 @@ class Line
         return $this;
     }
 
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set kmlPath
+     *
+     * @param string $kmlPath
+     *
+     * @return Line
+     */
+    public function setKmlPath($kmlPath)
+    {
+        $this->kmlPath = $kmlPath;
+
+        return $this;
+    }
+
+    /**
+     * Get kmlPath
+     *
+     * @return string
+     */
+    public function getKmlPath()
+    {
+        return $this->kmlPath;
+    }
 
     /**
      * Add stopGroup
