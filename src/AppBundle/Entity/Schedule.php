@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
  *
  * @ORM\Table(name="Schedule")
  * @ORM\Entity
- * @ExclusionPolicy("all")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Schedule
 {
@@ -23,7 +23,7 @@ class Schedule
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Expose
+     * @Serializer\Expose
      */
     private $id;
 
@@ -31,7 +31,7 @@ class Schedule
      * @var \DateTime
      *
      * @ORM\Column(name="ETA", type="time", nullable=true)
-     * @Expose
+     * @Serializer\Expose
      */
     private $eta;
 

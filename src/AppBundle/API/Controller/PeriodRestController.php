@@ -2,9 +2,15 @@
 namespace AppBundle\API\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use AppBundle\Entity\Period;
 
+
+/**
+ * Class PeriodRestController
+ * @package AppBundle\API\Controller
+ */
 class PeriodRestController extends FOSRestController
 {
     /**
@@ -12,8 +18,9 @@ class PeriodRestController extends FOSRestController
      *  description="Period list",
      *  output={"class"=Period::class, "collection"=true}
      * )
+     * @Get("/periods",name="",options={ "method_prefix" = true })
      */
-    public function getPeriodsAction()
+    public function getAllPeriodsAction()
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Period');
@@ -26,7 +33,7 @@ class PeriodRestController extends FOSRestController
         return array('periods'=>$periods);
 
 
-    }// "get_periods"     [GET] /periods
+    }
 
 
     /**
@@ -34,17 +41,18 @@ class PeriodRestController extends FOSRestController
      *  description="Period",
      *  output={"class"=Period::class, "collection"=false}
      * )
+     * @Get("/periods/{period_id}",name="",options={ "method_prefix" = true})
      */
-    public function getPeriodAction($id)
+    public function getPeriodByIdAction($period_id)
     {
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Period');
-        $period = $repository->find($id);
+        $period = $repository->find($period_id);
 
         if (!is_object($period)) {
             throw $this->createNotFoundException();
         }
 
         return array('period'=>$period);
-    }// "get_period"     [GET] /period/{id}
+    }
 }

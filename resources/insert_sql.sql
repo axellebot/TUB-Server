@@ -2,21 +2,21 @@
 /*
 Lines
  */
-INSERT INTO `Line` (`id`, `label`, `number`, `color`, `order`)
+INSERT INTO `Line` (`id`, `label`, `number`, `color`, `order`,`kml_path`)
 VALUES
-  (1, 'Ligne 1 : Norelan <> Velaine', 1, '#124b9a', 1),
-  (2, 'Ligne 2 : Norelan <> Ainterexpo', 2, '#8b2199', 2),
-  (3, 'Ligne 3 : Péronnas Blés d''Or <> Alagnier', 3, '#F8EB21', 3),
-  (4, 'Ligne 4 : St Denis Collège <> Clinique Convert/EREA La Chagne', 4, '#ff0000', 4),
-  (5, 'Ligne 5 : St Denis Collège <> St Denis Collège', 5, '#00c9dd', 5),
-  (6, 'Ligne 6 : Viriat Caronniers <> Ainterexpo', 6, '#f90080', 6),
-  (7, 'Ligne 7 : Viriat Caronniers <> Carré Amiot', 7, '#fd8300', 7),
-  (8, 'Ligne 21 : Peloux Gare <> Sources', 21, '#9bc774', 8);
+  (1, 'Ligne 1 : Norelan <> Velaine', 1, '#124b9a', 1,'/download/kml/1'),
+  (2, 'Ligne 2 : Norelan <> Ainterexpo', 2, '#8b2199', 2,'/download/kml/2'),
+  (3, 'Ligne 3 : Péronnas Blés d''Or <> Alagnier', 3, '#F8EB21', 3,'/download/kml/3'),
+  (4, 'Ligne 4 : St Denis Collège <> Clinique Convert/EREA La Chagne', 4, '#ff0000', 4,'/download/kml/4'),
+  (5, 'Ligne 5 : St Denis Collège <> St Denis Collège', 5, '#00c9dd', 5,'/download/kml/5'),
+  (6, 'Ligne 6 : Viriat Caronniers <> Ainterexpo', 6, '#f90080', 6,'/download/kml/6'),
+  (7, 'Ligne 7 : Viriat Caronniers <> Carré Amiot', 7, '#fd8300', 7,'/download/kml/7'),
+  (8, 'Ligne 21 : Peloux Gare <> Sources', 21, '#9bc774', 8,'/download/kml/8');
 
 /*
 Stops
  */
-INSERT INTO `Stop` (`id`, `name`, `latitude`, `longitude`)
+INSERT INTO `Stop` (`id`, `label`, `latitude`, `longitude`)
 VALUES
   (1, 'Baudin', 46.200648, 5.218698),
   (2, 'Abbé Gringoz', 46.20223054919, 5.2469158172607),
@@ -104,7 +104,7 @@ VALUES
   (85, 'Girod de l\'Ain', 46.191952572573, 5.2121543884277),
   (86, 'Girolles', 46.189605597354, 5.2482032775879),
   (87, 'Grand Challes', 46.218119011945, 5.2358436584473),
-  (88, 'Grange Maman', 46.200270158674, 5.1942586898804),
+  (88, 'Granges Maman', 46.200270158674, 5.1942586898804),
   (89, 'Grange Rollet', 46.221533688831, 5.2338266372681),
   (90, 'Granges Bardes', 46.21642644121, 5.2391910552979),
   (91, 'Granges Bonnet', 46.187882437823, 5.209493637085),

@@ -3,16 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Stop
  * @ORM\Table(name="Stop")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\StopRepository")
- * @ExclusionPolicy("all")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Stop
 {
@@ -22,23 +19,23 @@ class Stop
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Expose
+     * @Serializer\Expose
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
-     * @Expose
+     * @ORM\Column(name="label", type="string", length=255, nullable=true)
+     * @Serializer\Expose
      */
-    private $name;
+    private $label;
 
     /**
      * @var float
      *
      * @ORM\Column(name="latitude", type="float")
-     * @Expose
+     * @Serializer\Expose
      */
     private $latitude;
 
@@ -46,7 +43,7 @@ class Stop
      * @var float
      *
      * @ORM\Column(name="longitude", type="float")
-     * @Expose
+     * @Serializer\Expose
      */
     private $longitude;
 
@@ -78,13 +75,13 @@ class Stop
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $label
      *
      * @return Stop
      */
-    public function setName($name)
+    public function setLabel($label)
     {
-        $this->name = $name;
+        $this->label = $label;
 
         return $this;
     }
@@ -94,9 +91,9 @@ class Stop
      *
      * @return string
      */
-    public function getName()
+    public function getLabel()
     {
-        return $this->name;
+        return $this->label;
     }
 
     /**

@@ -30,12 +30,12 @@ class StopController extends Controller
 
 
     /**
-     * @Route("admin/stops/delete/{id}", name="stop_delete", requirements={"id" = "\d+"})
+     * @Route("admin/stops/delete/{stop_id}", name="stop_delete", requirements={"id" = "\d+"})
      * @param Request $request
-     * @param $id
+     * @param $stop_id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $stop_id)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
@@ -44,7 +44,7 @@ class StopController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Stop');
-        $stop = $repository->find($id);
+        $stop = $repository->find($stop_id);
         $em->remove($stop);
         $em->flush();
 

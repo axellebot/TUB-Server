@@ -30,12 +30,12 @@ class LineController extends Controller
 
 
     /**
-     * @Route("admin/lines/delete/{id}", name="line_delete", requirements={"id" = "\d+"})
+     * @Route("admin/lines/delete/{line_id}", name="line_delete", requirements={"id" = "\d+"})
      * @param Request $request
-     * @param $id
+     * @param $line_id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $line_id)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
@@ -44,7 +44,7 @@ class LineController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Line');
-        $line = $repository->find($id);
+        $line = $repository->find($line_id);
         $em->remove($line);
         $em->flush();
 
