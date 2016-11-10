@@ -74,7 +74,7 @@
                             {% for stopGroup in line.stopGroups %}
                                 {% if stopGroup.way =='O' %}
                                     <span class="mdl-chip">
-                                    <span class="mdl-chip__text">{{ stopGroup.stop.name }}</span>
+                                    <span class="mdl-chip__text">{{ stopGroup.stop.label }}</span>
                                 </span>
                                 {% endif %}
                             {% endfor %}
@@ -84,7 +84,7 @@
                             {% for stopGroup in line.stopGroups %}
                                 {% if stopGroup.way =='I' %}
                                     <span class="mdl-chip">
-                                    <span class="mdl-chip__text">{{ stopGroup.stop.name }}</span>
+                                    <span class="mdl-chip__text">{{ stopGroup.stop.label }}</span>
                                 </span>
                                 {% endif %}
                             {% endfor %}
