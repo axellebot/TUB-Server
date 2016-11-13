@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * Stop
  * @ORM\Table(name="Stop")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\StopRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\StopRepository")
  * @Serializer\ExclusionPolicy("all")
  */
 class Stop
