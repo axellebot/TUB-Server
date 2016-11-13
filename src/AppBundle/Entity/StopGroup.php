@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
  * StopGroup
  *
  * @ORM\Table(name="join_line_stop")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\StopGroupRepository")
  * @Serializer\ExclusionPolicy("all")
  * @Serializer\AccessorOrder("custom", custom = {"id","Line","way", "order","StopId"})
  */
