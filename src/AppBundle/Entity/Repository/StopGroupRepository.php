@@ -22,16 +22,19 @@ class StopGroupRepository extends \Doctrine\ORM\EntityRepository
         $em = $this->getEntityManager();
         $stopRepository = $em->getRepository("AppBundle:Stop");
 
-        $stop_ids = $this->getEntityManager()
-            ->createQuery(
-                "SELECT DISTINCT 'stop_id' FROM AppBundle:StopGroup sg WHERE 'line_id' = $line_id"
-            )
-            ->getArrayResult();
+        $results = $this->createQueryBuilder('sg')
+            ->select('IDENTITY (sg.stop)')
+            ->distinct()
+            ->where('sg.line = :line_id')
+            ->setParameter('line_id', $line_id)
+            ->getQuery()
+            ->getResult();
 
         $stops = array();
 
-        foreach ($stop_ids as $id) {
-            $stops->add($stopRepository->find($id));
+        foreach ($results as $result) {
+            $id=$result[1];
+            array_push($stops, $stopRepository->find($id));
         }
 
         return $stops;
@@ -47,16 +50,19 @@ class StopGroupRepository extends \Doctrine\ORM\EntityRepository
         $em = $this->getEntityManager();
         $lineRepository = $em->getRepository("AppBundle:Line");
 
-        $line_ids = $this->getEntityManager()
-            ->createQuery(
-                "SELECT distinct 'line_id' FROM AppBundle:StopGroup sg WHERE 'stop_id' = $stop_id"
-            )
-            ->getArrayResult();
+        $results = $this->createQueryBuilder('sg')
+            ->select('IDENTITY (sg.line)')
+            ->distinct()
+            ->where('sg.stop = :stop_id')
+            ->setParameter('stop_id', $stop_id)
+            ->getQuery()
+            ->getResult();
 
         $lines = array();
 
-        foreach ($line_ids as $id) {
-            $lines->add($lineRepository->find($id));
+        foreach ($results as $result) {
+            $id=$result[1];
+            array_push($lines, $lineRepository->find($id));
         }
 
         return $lines;
