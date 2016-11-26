@@ -26,6 +26,8 @@
                         <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
                                 form="login_form" formaction="{{ path('fos_user_security_check') }}">Log in
                         </button>
+                        <a  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}">Facebook Connect</a>
+
                     </div>
 
                     {% if error %}
