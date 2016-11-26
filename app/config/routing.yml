@@ -23,7 +23,7 @@ hwi_oauth_redirect:
     prefix: /connect
 
 hwi_oauth_connect:
-    resource: "@AppBundle/Resources/config/routing/connect.xml"
+    resource: "@AppBundle/config/routing/connect.xml"
     prefix: /connect
 
 hwi_oauth_login:
