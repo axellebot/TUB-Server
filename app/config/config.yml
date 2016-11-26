@@ -106,3 +106,30 @@ fos_rest:
 # NelmioApiDocbundle Configuration
 nelmio_api_doc: ~
 
+# HWIOauthBundle Configuration
+hwi_oauth:
+    # name of the firewall in which this bundle is active, this setting MUST be set
+    firewall_names: [main]
+    connect:
+        confirmation: true
+        #account_connector: hwi_oauth.user.provider.fosub_bridge
+        #registration_form_handler: hwi_oauth.registration.form.handler.fosub_bridge
+        #registration_form: fos_user.registration.form
+
+    resource_owners:
+        #Facebook Access
+        facebook:
+            type:                facebook
+            client_id:           %oauth.facebook.id%
+            client_secret:       %oauth.facebook.secret%
+            scope: "email"
+            options:
+                display: popup #dialog is optimized for popup window
+                auth_type: rerequest # Re-asking for Declined Permissions
+    fosub:
+        # try 30 times to check if a username is available (foo, foo1, foo2 etc)
+        username_iterations: 30
+
+        # mapping between resource owners (see below) and properties
+        properties:
+            facebook: facebook_id
