@@ -29,10 +29,8 @@ security:
                 login_path: /login
                 check_path: /login_check
             oauth:
-                  failure_path: /connect
-                  login_path: /connect
-                  check_path: /connect
-                  provider: fos_userbundle
+                  failure_path: /login
+                  login_path: /login
                   resource_owners:
                       facebook: "/connect/check-facebook"
                   oauth_user_provider:
@@ -46,11 +44,11 @@ security:
 
 
         login:
-            pattern: /login$
+            pattern: ^/login$
             security: false
             remember_me:
                   secret: %secret%
-                  lifetime: 31536000
+                  lifetime: 31536000  # 365 days in seconds
                   path: /
                   domain: ~
 
