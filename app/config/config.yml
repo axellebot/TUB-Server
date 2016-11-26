@@ -122,7 +122,7 @@ hwi_oauth:
             type:                facebook
             client_id:           %oauth.facebook.id%
             client_secret:       %oauth.facebook.secret%
-            scope: "email"
+            scope: "email public_profile"
             options:
                 display: popup #dialog is optimized for popup window
                 auth_type: rerequest # Re-asking for Declined Permissions
