@@ -29,8 +29,8 @@ security:
                 login_path: /login
                 check_path: /login_check
             oauth:
-                  failure_path: /login
-                  login_path: /login
+                  failure_path: /connect
+                  login_path: /connect
                   resource_owners:
                       facebook: "/connect/check-facebook"
                   oauth_user_provider:
