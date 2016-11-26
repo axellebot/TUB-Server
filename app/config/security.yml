@@ -22,16 +22,16 @@ security:
 
         main:
             anonymous: ~
+            form_login:
+                provider: fos_userbundle
+                # csrf_token_generator: security.csrf.token_manager
+                login_path: /login
+                check_path: /login_check
             # activate different ways to authenticate
 
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
-            form_login:
-                login_path: /login
-                check_path: /login_check
-            logout :
-                path: /logout
 
 
     access_control:
