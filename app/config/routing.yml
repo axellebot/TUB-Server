@@ -1,11 +1,8 @@
 TubBundle:
-    resource: "@TubBundle/config/routing.yml"
-
-fosUserBundle:
-    path:   /logout
+    resource: "@TubBundle/Resources/config/routing/all.yml"
 
 #FOSUserBundle routes
-fos_user_security:
+fos_user_security: # Contain /login + /logout (maybe more)
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
 fos_user_register:
