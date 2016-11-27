@@ -13,7 +13,7 @@
                     {% block topMenu %}{% endblock %}
                     {% block userMenu %}
                     {% if app.user %}
-                        <a class="mdl-navigation__link" href="{{ path('logout') }}">Logout</a>
+                        <a class="mdl-navigation__link" href="{{ path('fos_user_security_logout') }}">Logout</a>
                     {% else %}
                         <a class="mdl-navigation__link" href="{{ path('login') }}">Login</a>
                     {% endif %}
