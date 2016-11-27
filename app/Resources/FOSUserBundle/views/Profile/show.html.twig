@@ -1,0 +1,10 @@
+{% extends 'FOSUserBundle::layout.html.twig' %}
+{% block fos_user_content %}
+    <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+        <div class="mdl-layout__content">
+            <div class="mdl-grid">
+                {% include "FOSUserBundle:Profile:show_card.html.twig" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
