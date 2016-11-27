@@ -1,0 +1,19 @@
+{% extends 'TubBundle::base.html.twig' %}
+{% block body %}
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">{{block('title')}}</span>
+            </div>
+        </header>
+
+        <main class="mdl-layout__content">
+
+            <!-- Your content goes here -->
+            <div class="page-content">
+                {% block pageContent %}{% endblock %}
+            </div>
+        </main>
+    </div>
+{% endblock %}

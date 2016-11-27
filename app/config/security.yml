@@ -28,10 +28,11 @@ security:
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
             form_login:
+                provider: fos_userbundle
+                # csrf_token_generator: security.csrf.token_manager
                 login_path: /login
                 check_path: /login_check
-            logout :
-                path: /logout
+
 
 
     access_control:

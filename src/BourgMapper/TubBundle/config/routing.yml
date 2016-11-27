@@ -1,0 +1,8 @@
+app :
+    resource: "@TubBundle/Controller/"
+    type: annotation
+    prefix: /
+
+api :
+    resource: "@TubBundle/API/config/routing.yml"
+    prefix: /api

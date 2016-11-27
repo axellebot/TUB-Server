@@ -1,8 +1,0 @@
-NelmioApiDocBundle:
-    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /doc
-
-api_v1:
-    type: rest
-    prefix: /
-    resource: "@AppBundle/API/Controller"

@@ -71,17 +71,20 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: BourgMapper\TubBundle\Entity\User
+    registration:
+          confirmation:
+                enabled:    false # change to true for required email confirmation
 
-# Assetic Bundle
+# AsseticBundle Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: "%kernel.debug%"
-    bundles:        [AppBundle]
+    bundles:        [TubBundle]
     filters:
         cssrewrite: ~
 
-# FOSRestBundle
+# FOSRestBundle Configuration
 fos_rest:
     param_fetcher_listener: true
     body_listener: true
@@ -100,5 +103,5 @@ fos_rest:
     routing_loader:
         default_format: json
 
-# NelmioApiDocbundle
+# NelmioApiDocbundle Configuration
 nelmio_api_doc: ~
