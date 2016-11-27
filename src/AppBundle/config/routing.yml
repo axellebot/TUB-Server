@@ -1,8 +1,0 @@
-app :
-    resource: "@AppBundle/Controller/"
-    type: annotation
-    prefix: /
-
-api :
-    resource: "@AppBundle/API/config/routing.yml"
-    prefix: /api

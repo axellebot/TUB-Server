@@ -145,4 +145,4 @@ Temporary Items
 .idea/*
 var/
 # Directory for Doctrine import
-src/AppBundle/Resources/config/doctrine/
+src/BourgMapper/TubBundle/Resources/config/doctrine/

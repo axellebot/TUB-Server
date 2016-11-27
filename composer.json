@@ -1,5 +1,5 @@
 {
-    "name": "axellebot/tub.symfony",
+    "name": "bourgmapper/tub.symfony",
     "license": "proprietary",
     "type": "project",
     "autoload": {

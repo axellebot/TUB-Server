@@ -1,5 +1,5 @@
-appBundle:
-    resource: "@AppBundle/config/routing.yml"
+TubBundle:
+    resource: "@TubBundle/config/routing.yml"
 
 fosUserBundle:
     path:   /logout
