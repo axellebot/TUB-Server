@@ -1,0 +1,53 @@
+{% extends 'FOSUserBundle::layout.html.twig' %}
+{% block title %}Register{% endblock %}
+{% block fos_user_content %}
+    <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+        <main class="mdl-layout__content">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-card mdl-shadow--6dp mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--4-offset mdl-cell--2-offset-tablet">
+                    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                        <h2 class="mdl-card__title-text">Tub</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+
+                        <form id="register_form" method="post">
+                            {{ form_row(form._token) }}
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email) }}
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                {{ form_label(form.username) }}
+                                {{ form_widget(form.username) }}
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                {{ form_label(form.plainPassword.first) }}
+                                {{ form_widget(form.plainPassword.first) }}
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                {{ form_label(form.plainPassword.second) }}
+                                {{ form_widget(form.plainPassword.second) }}
+                                <span class="mdl-textfield__error">{{ form_errors(form.plainPassword) }}</span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
+                                form="register_form"
+                                formaction="{{ path('fos_user_registration_register') }}">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}
+                        </button>
+                    </div>
+
+                </div>
+        </main>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .mdl-textfield {
+            width: 100%;
+        }
+    </style>
+{% endblock %}

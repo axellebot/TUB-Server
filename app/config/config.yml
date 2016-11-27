@@ -74,7 +74,9 @@ fos_user:
     user_class: BourgMapper\TubBundle\Entity\User
     registration:
           confirmation:
-                enabled:    false # change to true for required email confirmation
+              enabled:    false # change to true for required email confirmation
+          form:
+              type: BourgMapper\TubBundle\Form\Type\RegistrationType
 
 # AsseticBundle Configuration
 assetic:
