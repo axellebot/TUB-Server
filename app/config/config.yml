@@ -112,6 +112,7 @@ hwi_oauth:
     firewall_names: [main]
     connect:
         confirmation: true
+        account_connector: my_user_provider
         #account_connector: hwi_oauth.user.provider.fosub_bridge
         #registration_form_handler: hwi_oauth.registration.form.handler.fosub_bridge
         #registration_form: fos_user.registration.form
@@ -122,10 +123,7 @@ hwi_oauth:
             type:                facebook
             client_id:           %oauth.facebook.id%
             client_secret:       %oauth.facebook.secret%
-            scope: "email public_profile"
-            options:
-                display: popup #dialog is optimized for popup window
-                auth_type: rerequest # Re-asking for Declined Permissions
+            scope: ""
     fosub:
         # try 30 times to check if a username is available (foo, foo1, foo2 etc)
         username_iterations: 30
