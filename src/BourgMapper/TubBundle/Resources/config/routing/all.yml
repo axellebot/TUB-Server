@@ -4,5 +4,4 @@ app :
     prefix: /
 
 api :
-    resource: "@TubBundle/API/config/routing.yml"
-    prefix: /api
+    resource: "@TubBundle/Resources/config/routing/api.yml"
