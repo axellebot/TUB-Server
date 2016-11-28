@@ -12,6 +12,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegistrationType extends AbstractType
 {
+
+    /**
+     * @var string
+     */
+    private $class;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct()
+    {
+        $this->class = 'BourgMapper\TubBundle\Entity\User';
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -70,13 +88,17 @@ class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BourgMapper\TubBundle\Entity\User',
+            'data_class' => $this->class,
             'csrf_token_id' => 'registration',
             // BC for SF < 2.8
             'intention' => 'registration',
         ));
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
     public function getBlockPrefix()
     {
         return 'app_user_registration';

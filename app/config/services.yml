@@ -7,7 +7,9 @@ services:
     app.form.registration:
         class: BourgMapper\TubBundle\Form\Type\RegistrationType
         tags:
-            - { name: form.type, alias: app_user_registration } # service_name:
+            - { name: form.type, alias: app_user_registration }
+
+# service_name:
 #        class: TubBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
