@@ -80,6 +80,9 @@ fos_user:
     profile:
           form :
               type: BourgMapper\TubBundle\Form\Type\ProfileType
+    change_password:
+          form :
+              type: BourgMapper\TubBundle\Form\Type\ChangePasswordType
 
 # AsseticBundle Configuration
 assetic:

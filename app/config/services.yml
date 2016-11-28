@@ -14,6 +14,12 @@ services:
         tags:
             - { name: form.type, alias: app_user_profile }
 
+    app.form.change_password:
+        class : BourgMapper\TubBundle\Form\Type\ProfileType
+        tags:
+            - { name: form.type, alias: app_user_change_password }
+
+
 # service_name:
 #        class: TubBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
