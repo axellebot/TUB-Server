@@ -77,6 +77,9 @@ fos_user:
               enabled:    false # change to true for required email confirmation
           form:
               type: BourgMapper\TubBundle\Form\Type\RegistrationType
+    profile:
+          form :
+              type: BourgMapper\TubBundle\Form\Type\ProfileType
 
 # AsseticBundle Configuration
 assetic:
