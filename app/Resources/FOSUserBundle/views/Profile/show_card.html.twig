@@ -1,0 +1,19 @@
+{% extends  '::card.html.twig' %}
+{% block card_title %}Profile{% endblock %}
+{% block card_content %}
+    <div>
+        <label>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }} :</label>
+        <p>{{ user.username }}</p>
+
+    </div>
+    <div>
+        <label>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }} :</label>
+        <p>{{ user.email }}</p>
+    </div>
+{% endblock card_content %}
+
+{% block card_border %}
+    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
+       href="{{ path('fos_user_profile_edit') }}">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}
+    </a>
+{% endblock card_border %}

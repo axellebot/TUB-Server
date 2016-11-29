@@ -1,0 +1,30 @@
+{% extends  '::card.html.twig' %}
+{% block card_title %}Edit Profile{% endblock %}
+{% block card_content %}
+
+    <form id="profile_form" method="post">
+        {{ form_row(form._token) }}
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            {{ form_label(form.username) }}
+            {{ form_widget(form.username) }}
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            {{ form_label(form.current_password) }}
+            {{ form_widget(form.current_password) }}
+        </div>
+    </form>
+{% endblock card_content %}
+
+{% block card_border %}
+    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
+            form="profile_form"
+            formaction="{{ path('fos_user_profile_edit') }}">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}
+    </button>
+    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+        href="{{ path('fos_user_change_password') }}">{{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}
+    </a>
+{% endblock card_border %}
