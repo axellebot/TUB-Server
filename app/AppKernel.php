@@ -20,7 +20,8 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
-            new BourgMapper\TubBundle\TubBundle()
+            new BourgMapper\TubBundle\TubBundle(),
+            new BourgMapper\APIBundle\APIBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
