@@ -3,6 +3,7 @@
 {% block card_content %}
 
     <form id="profile_form" method="post">
+        {{ form_row(form._token) }}
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             {{ form_label(form.username) }}
             {{ form_widget(form.username) }}
