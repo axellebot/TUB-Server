@@ -4,6 +4,13 @@ TubBundle:
 ApiBundle:
     resource: "@APIBundle/Resources/config/routing/all.yml"
 
+# FOSOAutServer routes
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+
 # FOSUserBundle routes
 fos_user_security: # Contain /login + /logout (maybe more)
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
