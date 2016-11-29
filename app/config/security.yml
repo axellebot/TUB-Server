@@ -33,16 +33,12 @@ security:
                 # csrf_token_generator: security.csrf.token_manager
                 login_path: /login
                 check_path: /login_check
-                
+
             logout:       true
 
         oauth_token:
             pattern:    ^/oauth/v2/token
             security:   false
-
-        oauth_authorize:
-            pattern:    ^/oauth/v2/auth
-            # Add your favorite authentication process here
 
         api:
             pattern:    ^/api
