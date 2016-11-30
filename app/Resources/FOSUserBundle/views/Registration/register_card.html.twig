@@ -1,6 +1,7 @@
-{% extends  '::card.html.twig' %}
+{% extends  '::card_action.html.twig' %}
 {% block card_title %}
-    <div class="center">Register</div>{% endblock %}
+    <div class="center">Register</div>
+{% endblock %}
 {% block card_content %}
     <div class="row">
         <form class="col s12" id="register_form" method="post" action="{{ path('fos_user_registration_register') }}">

@@ -5,6 +5,7 @@ namespace BourgMapper\TubBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,7 +35,10 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, array(
-                'label'=>'form.email',
+                'label' => 'form.email',
+                'label_attr' => array(
+                    'class' => ''
+                ),
                 'attr' => array(
                     'class' => 'validate',
                 ),
@@ -42,7 +46,10 @@ class RegistrationType extends AbstractType
                 'required' => true
             ))
             ->add('username', TextType::class, array(
-                'label'=>'form.username',
+                'label' => 'form.username',
+                'label_attr' => array(
+                    'class' => ''
+                ),
                 'attr' => array(
                     'class' => 'validate',
                 ),
@@ -55,13 +62,19 @@ class RegistrationType extends AbstractType
                     'translation_domain' => 'FOSUserBundle'
                 ),
                 'first_options' => array(
-                    'label'=>'form.password',
+                    'label' => 'form.password',
+                    'label_attr' => array(
+                        'class' => ''
+                    ),
                     'attr' => array(
                         'class' => 'validate',
                     )
                 ),
                 'second_options' => array(
-                    'label'=>'form.password_confirmation',
+                    'label' => 'form.password_confirmation',
+                    'label_attr' => array(
+                        'class' => ''
+                    ),
                     'attr' => array(
                         'class' => 'validate',
                     )

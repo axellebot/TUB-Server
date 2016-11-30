@@ -43,15 +43,15 @@ class ChangePasswordType extends AbstractType
         $builder->add('current_password', PasswordType::class, array(
             'label' => 'form.current_password',
             'label_attr' => array(
-                'class' => 'mdl-textfield__label'
+                'class' => ''
             ),
             'attr' => array(
-                'class' => 'mdl-textfield__input',
+                'class' => 'validate',
             ),
             'translation_domain' => 'FOSUserBundle',
             'mapped' => false,
             'constraints' => new UserPassword($constraintsOptions),
-            'required'=>true
+            'required' => true
         ));
         $builder->add('plainPassword', RepeatedType::class, array(
             'type' => PasswordType::class,
@@ -59,18 +59,18 @@ class ChangePasswordType extends AbstractType
             'first_options' => array(
                 'label' => 'form.new_password',
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input',
+                    'class' => 'validate',
                 )),
             'second_options' => array(
                 'label' => 'form.new_password_confirmation',
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input',
+                    'class' => 'validate',
                 )),
             'invalid_message' => 'fos_user.password.mismatch',
         ));
