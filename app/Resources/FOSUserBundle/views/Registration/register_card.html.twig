@@ -1,31 +1,35 @@
 {% extends  '::card.html.twig' %}
-{% block card_title %}Register{% endblock %}
+{% block card_title %}
+    <div class="center">Register</div>{% endblock %}
 {% block card_content %}
-    <form id="register_form" method="post">
-        {{ form_row(form._token) }}
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {{ form_label(form.email) }}
-            {{ form_widget(form.email) }}
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {{ form_label(form.username) }}
-            {{ form_widget(form.username) }}
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {{ form_label(form.plainPassword.first) }}
-            {{ form_widget(form.plainPassword.first) }}
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {{ form_label(form.plainPassword.second) }}
-            {{ form_widget(form.plainPassword.second) }}
-            <span class="mdl-textfield__error">{{ form_errors(form.plainPassword) }}</span>
-        </div>
-    </form>
+    <div class="row">
+        <form class="col s12" id="register_form" method="post" action="{{ path('fos_user_registration_register') }}">
+            {{ form_row(form._token) }}
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                </div>
+                <div class="input-field col s12">
+                    {{ form_label(form.username) }}
+                    {{ form_widget(form.username) }}
+                </div>
+                <div class="input-field col s12">
+                    {{ form_label(form.plainPassword.first) }}
+                    {{ form_widget(form.plainPassword.first) }}
+                </div>
+                <div class="input-field col s12">
+                    {{ form_label(form.plainPassword.second) }}
+                    {{ form_widget(form.plainPassword.second) }}
+                    <span>{{ form_errors(form.plainPassword) }}</span>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock card_content %}
 
-{% block card_border %}
-    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
-            form="register_form"
-            formaction="{{ path('fos_user_registration_register') }}">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}
+{% block card_action %}
+    <button class="btn" type="submit"
+            form="register_form">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}
     </button>
-{% endblock card_border %}
+{% endblock card_action %}

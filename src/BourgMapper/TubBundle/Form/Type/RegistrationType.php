@@ -35,22 +35,16 @@ class RegistrationType extends AbstractType
         $builder
             ->add('email', EmailType::class, array(
                 'label'=>'form.email',
-                'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
-                ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input',
+                    'class' => 'validate',
                 ),
                 'translation_domain' => 'FOSUserBundle',
                 'required' => true
             ))
             ->add('username', TextType::class, array(
                 'label'=>'form.username',
-                'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
-                ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input',
+                    'class' => 'validate',
                 ),
                 'translation_domain' => 'FOSUserBundle',
                 'required' => true
@@ -62,23 +56,18 @@ class RegistrationType extends AbstractType
                 ),
                 'first_options' => array(
                     'label'=>'form.password',
-                    'label_attr' => array(
-                        'class' => 'mdl-textfield__label'
-                    ),
                     'attr' => array(
-                        'class' => 'mdl-textfield__input',
+                        'class' => 'validate',
                     )
                 ),
                 'second_options' => array(
                     'label'=>'form.password_confirmation',
-                    'label_attr' => array(
-                        'class' => 'mdl-textfield__label'
-                    ),
                     'attr' => array(
-                        'class' => 'mdl-textfield__input',
+                        'class' => 'validate',
                     )
                 ),
                 'invalid_message' => 'fos_user.password.mismatch',
+                'required' => true
             ));
     }
 
