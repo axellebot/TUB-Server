@@ -1,30 +1,31 @@
-{% extends  '::card.html.twig' %}
-{% block card_title %}Edit Profile{% endblock %}
+{% extends  '::card_action.html.twig' %}
+{% block card_title %}<div class="center">Edit Profile</div>{% endblock %}
 {% block card_content %}
+    <div class="row">
+        <form class="col s12" id="profile_form" method="post" action="{{ path('fos_user_profile_edit') }}">
+            {{ form_row(form._token) }}
+            <div class="input-field col s12">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+            </div>
+            <div class="input-field col s12">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+            </div>
+            <div class="input-field col s12">
+                {{ form_label(form.current_password) }}
+                {{ form_widget(form.current_password) }}
+            </div>
+        </form>
+    </div>
 
-    <form id="profile_form" method="post">
-        {{ form_row(form._token) }}
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {{ form_label(form.username) }}
-            {{ form_widget(form.username) }}
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {{ form_label(form.email) }}
-            {{ form_widget(form.email) }}
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {{ form_label(form.current_password) }}
-            {{ form_widget(form.current_password) }}
-        </div>
-    </form>
 {% endblock card_content %}
 
-{% block card_border %}
-    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
-            form="profile_form"
-            formaction="{{ path('fos_user_profile_edit') }}">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}
+{% block card_action %}
+    <button class="btn" type="submit"
+            form="profile_form">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}
     </button>
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-        href="{{ path('fos_user_change_password') }}">{{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}
+    <a class="btn"
+            href="{{ path('fos_user_change_password') }}">{{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}
     </a>
-{% endblock card_border %}
+{% endblock card_action %}

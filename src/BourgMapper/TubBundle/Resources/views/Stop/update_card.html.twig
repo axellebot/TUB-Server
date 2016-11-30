@@ -1,0 +1,25 @@
+{% extends  '::card_action.html.twig' %}
+{% block card_title %}
+    <div class="center">Update Stop</div>{% endblock %}
+{% block card_content %}
+    <div class="row">
+        <form class="col s12" id="update_stop_form" method="post" action="{{ path('stop_update') }}">
+            <div class="input-field col s12">
+                {{ form_label(form.label) }}
+                {{ form_widget(form.label) }}
+            </div>
+
+            <div class="input-field col s12">
+                {{ form_label(form.latitude) }}
+                {{ form_widget(form.latitude) }}
+            </div>
+            <div class="input-field col s12">
+                {{ form_label(form.longitude) }}
+                {{ form_widget(form.longitude) }}
+            </div>
+        </form>
+    </div>
+{% endblock card_content %}
+{% block card_action %}
+    <button class="btn" type="submit" form="update_stop_form">Create</button>
+{% endblock card_action %}

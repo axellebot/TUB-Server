@@ -44,11 +44,8 @@ class ProfileType extends AbstractType
         $builder->add('current_password', PasswordType::class, array(
             'label' => 'form.current_password',
             'translation_domain' => 'FOSUserBundle',
-            'label_attr' => array(
-                'class' => 'mdl-textfield__label'
-            ),
             'attr' => array(
-                'class' => 'mdl-textfield__input',
+                'label'=>"Label",
             ),
             'mapped' => false,
             'constraints' => new UserPassword($constraintsOptions),
@@ -85,10 +82,10 @@ class ProfileType extends AbstractType
             ->add('email', EmailType::class, array(
                 'label' => 'form.email',
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input',
+                    'class' => 'validate',
                 ),
                 'translation_domain' => 'FOSUserBundle',
                 'required' => true
@@ -96,10 +93,10 @@ class ProfileType extends AbstractType
             ->add('username', TextType::class, array(
                 'label' => 'form.username',
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input',
+                    'class' => 'validate',
                 ),
                 'translation_domain' => 'FOSUserBundle',
                 'required' => true

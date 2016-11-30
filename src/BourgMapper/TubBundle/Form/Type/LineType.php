@@ -14,28 +14,25 @@ class LineType extends AbstractType
     {
         $builder
             ->add('number', NumberType::class, array(
+                'label'=>'Number',
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input',
+                    'class' => 'validate',
                     'pattern'=>"-?[0-9]*(\.[0-9]+)?"
                 ),
                 'required' => true
             ))
             ->add('color', TextType::class, array(
+                'label'=>'Color',
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input'
+                    'class' => 'validate',
                 ),
                 'required' => true
-            ))
-            ->add('save',SubmitType::class,array(
-                'attr' => array(
-                    'class' => 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'
-                )
             ));
     }
 }

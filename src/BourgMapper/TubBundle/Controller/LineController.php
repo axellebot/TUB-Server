@@ -23,7 +23,7 @@ class LineController extends Controller
         $lines = $repository->findAll();
 
 
-        return $this->render('TubBundle:line:list.html.twig', [
+        return $this->render('TubBundle:Line:list.html.twig', [
             'lines' => $lines
         ]);
     }
@@ -73,23 +73,23 @@ class LineController extends Controller
             return $this->redirectToRoute("line_list");
         }
 
-        return $this->render('TubBundle:line:create.html.twig',array(
+        return $this->render('TubBundle:Line:create.html.twig',array(
             'form'=>$form->createView()
         ));
     }
 
     /**
-     * @Route("admin/lines/update/{id}", name="line_update", requirements={"id" = "\d+"})
+     * @Route("admin/lines/update/{line_id}", name="line_update", requirements={"line_id" = "\d+"})
      * @param Request $request
-     * @param $id
+     * @param $line_id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function udpateAction(Request $request,$id)
+    public function udpateAction(Request $request,$line_id)
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()
             ->getRepository('TubBundle:Line');
-        $line = $repository->find($id);
+        $line = $repository->find($line_id);
         $form = $this->createForm(LineType::class,$line);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -103,7 +103,7 @@ class LineController extends Controller
             return $this->redirectToRoute("line_list");
         }
 
-        return $this->render('TubBundle:line:update.html.twig',array(
+        return $this->render('TubBundle:Line:update.html.twig',array(
             'form'=>$form->createView()
         ));
     }

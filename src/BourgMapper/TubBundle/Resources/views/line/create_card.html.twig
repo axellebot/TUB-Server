@@ -1,0 +1,20 @@
+{% extends  '::card_action.html.twig' %}
+{% block card_title %}
+    <div class="center">Create Line</div>{% endblock %}
+{% block card_content %}
+    <div class="row">
+        <form class="col s12" id="create_line_form" method="post" action="{{ path('line_create') }}">
+            <div class="input-field col s12">
+                {{ form_label(form.number) }}
+                {{ form_widget(form.number) }}
+            </div>
+            <div class="input-field col s12">
+                {{ form_label(form.color) }}
+                {{ form_widget(form.color) }}
+            </div>
+        </form>
+    </div>
+{% endblock card_content %}
+{% block card_action %}
+    <button class="btn" type="submit" form="create_line_form">Create</button>
+{% endblock card_action %}

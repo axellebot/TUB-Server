@@ -1,37 +1,38 @@
-{% extends  '::card.html.twig' %}
-{% block card_title %}Login{% endblock %}
+{% extends  '::card_action.html.twig' %}
+{% block card_title %}<div class="center">Login</div>{% endblock %}
 {% block card_content %}
-    <form id="login_form" method="post">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input id="username" name="_username" class="mdl-textfield__input" type="text"
-                   content="{{ last_username }}" required/>
-            <label class="mdl-textfield__label"
-                   for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input id="password" name="_password" class="mdl-textfield__input" type="password"
-                   required/>
-            <label class="mdl-textfield__label"
-                   for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-        </div>
-        <div>
-            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember_me">
-                <input type="checkbox" id="remember_me" class="mdl-checkbox__input" name="_remember_me" checked/>
-                <span class="mdl-checkbox__label">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</span>
-            </label>
-        </div>
-    </form>
+    <div class="row">
+        <form class="col s12" id="login_form" method="post" action="{{ path('fos_user_security_check') }}">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="username" name="_username" placeholder="" class="validate" type="text"
+                           content="{{ last_username }}" required/>
+                    <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                </div>
+
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">vpn_key</i>
+                    <input id="password" name="_password" class="validate" type="password" required/>
+                    <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="checkbox" id="remember_me" name="_remember_me" checked="checked"/>
+                    <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+                </div>
+            </div>
+        </form>
+    </div>
     {% if error %}
             <p class="center">{{ error|trans({}, 'FOSUserBundle') }}</p>
     {% endif %}
 {% endblock card_content %}
 
-{% block card_border %}
-    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
-            form="login_form"
-            formaction="{{ path('fos_user_security_check') }}">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}
+{% block card_action %}
+    <button class="btn" type="submit" form="login_form">
+        {{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}
     </button>
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
-       href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+    <a class="btn" href="{{ path('fos_user_registration_register') }}">
+        {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
     </a>
-{% endblock card_border %}
+{% endblock card_action %}

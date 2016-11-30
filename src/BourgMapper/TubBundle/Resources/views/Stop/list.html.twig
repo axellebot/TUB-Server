@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+{% block page_content %}
+    <div class=row">
+        <div class="col s12 l6 offset-l3">
+            {% include 'TubBundle:Stop:list_card.html.twig' %}
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <dialog id="dialog-stop-delete-confirmation" class="mdl-dialog">
+            <h4 class="mdl-dialog__title">Do you really want to delete this Stop ?</h4>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button close" onclick="closeDeleteConfirmationDialog()">No</button>
+                <button type="button" class="mdl-button" onclick="deleteStop()">Yes</button>
+            </div>
+        </dialog>
+
+        <!-- Colored FAB button -->
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large red" href="{{ path('stop_create') }}">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        {% if is_granted('ROLE_ADMIN') %}
+        var stopIdToDelete;
+        function openDeleteConfirmationDialog(id) {
+            var dialog = document.querySelector('#dialog-stop-delete-confirmation');
+            stopIdToDelete = id;
+            dialog.showModal();
+        }
+        function closeDeleteConfirmationDialog() {
+            var dialog = document.querySelector('#dialog-stop-delete-confirmation');
+            dialog.close();
+        }
+        function deleteStop() {
+            window.location.href = "/admin/stop/delete/" + stopIdToDelete;
+        }
+        {% endif %}
+    </script>
+{% endblock %}
