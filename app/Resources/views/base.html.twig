@@ -1,20 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>{% block title %}Tub{% endblock %}</title>
-    <link rel="stylesheet" href="{{ asset('assets/vendor/material-design-lite/material.min.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    {% block stylesheets %}
+{% extends "::base_skeleton.html.twig" %}
+{% block body_content %}
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
+                <a href="#!" data-activates="navigation-drawer" class="button-collapse"><i
+                            class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    {% block user_menu %}
+                        {% if app.user %}
+                            <li>
+                                <a href="{{ path('fos_user_profile_show') }}">
+                                    <i class="material-icons left">account_circle</i>Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_security_logout') }}">
+                                    <i class="material-icons left">exit_to_app</i> Logout
+                                </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ path('fos_user_security_login') }}">
+                                    Login
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endblock %}
+                </ul>
+                <ul class="side-nav" id="navigation-drawer">
+                    {{ block('user_menu') }}
+                </ul>
 
-    {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-{% block body %}{% endblock %}
-<script src="{{ asset('assets/vendor/material-design-lite/material.min.js') }}"></script>
-{% block javascripts %}
-{% endblock %}
-</body>
-</html>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- Your content goes here -->
+        <div class="container">
+            {% block page_content %}{% endblock page_content %}
+        </div>
+    </main>
+{% endblock body_content %}
