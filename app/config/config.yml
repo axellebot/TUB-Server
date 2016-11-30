@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@FOSOAuthServerBundle/Resources/config/security.xml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -67,6 +68,14 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+# AsseticBundle Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: "%kernel.debug%"
+    bundles:        [TubBundle]
+    filters:
+        cssrewrite: ~
+
 # FOSUserBundle Configuration
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
@@ -83,14 +92,6 @@ fos_user:
     change_password:
           form :
               type: BourgMapper\TubBundle\Form\Type\ChangePasswordType
-
-# AsseticBundle Configuration
-assetic:
-    debug:          "%kernel.debug%"
-    use_controller: "%kernel.debug%"
-    bundles:        [TubBundle]
-    filters:
-        cssrewrite: ~
 
 # FOSRestBundle Configuration
 fos_rest:
@@ -110,6 +111,16 @@ fos_rest:
         default_engine: twig
     routing_loader:
         default_format: json
+
+# FOSOAuthServerBundle Configuration
+fos_oauth_server:
+    db_driver:           orm
+    client_class:        BourgMapper\APIBundle\Entity\Client
+    access_token_class:  BourgMapper\APIBundle\Entity\AccessToken
+    refresh_token_class: BourgMapper\APIBundle\Entity\RefreshToken
+    auth_code_class:     BourgMapper\APIBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_provider.username_email            # This property will be used when valid credentials are given to load the user upon access token creation
 
 # NelmioApiDocbundle Configuration
 nelmio_api_doc: ~

@@ -1,15 +1,15 @@
 <?php
-namespace BourgMapper\TubBundle\API\Controller;
+namespace BourgMapper\APIBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use TubBundle\Entity\ScheduleGroup;
+use BourgMapper\TubBundle\Entity\ScheduleGroup;
 
 
 /**
  * Class ScheduleGroupRestController
- * @package TubBundle\API\Controller
+ * @package BourgMapper\APIBundle\Controller
  */
 class ScheduleGroupRestController extends FOSRestController
 {

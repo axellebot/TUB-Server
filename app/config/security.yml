@@ -1,5 +1,6 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
+
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
@@ -32,10 +33,18 @@ security:
                 # csrf_token_generator: security.csrf.token_manager
                 login_path: /login
                 check_path: /login_check
-                
+
             logout:       true
 
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
 
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  true
+            anonymous:  true # can be omitted as its default value
 
     access_control:
         - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }

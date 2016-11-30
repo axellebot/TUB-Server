@@ -1,5 +1,5 @@
 <?php
-namespace BourgMapper\TubBundle\API\Controller;
+namespace BourgMapper\APIBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -10,7 +10,7 @@ use BourgMapper\TubBundle\Entity\Repository\StopGroupRepository;
 
 /**
  * Class StopGroupRestController
- * @package TubBundle\API\Controller
+ * @package BourgMapper\APIBundle\Controller
  */
 class StopGroupRestController extends FOSRestController
 {

@@ -3,5 +3,3 @@ app :
     type: annotation
     prefix: /
 
-api :
-    resource: "@TubBundle/Resources/config/routing/api.yml"

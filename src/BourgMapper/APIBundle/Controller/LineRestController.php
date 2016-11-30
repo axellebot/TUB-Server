@@ -1,14 +1,14 @@
 <?php
-namespace BourgMapper\TubBundle\API\Controller;
+namespace BourgMapper\APIBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use TubBundle\Entity\Line;
+use BourgMapper\TubBundle\Entity\Line;
 
 /**
  * Class LineRestController
- * @package BourgMapper\TubBundle\API\Controller
+ * @package BourgMapper\APIBundle\Controller
  */
 class LineRestController extends FOSRestController
 {
@@ -51,8 +51,6 @@ class LineRestController extends FOSRestController
 
         return array('line' => $line);
     }
-
-
 
 
     /**
