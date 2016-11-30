@@ -1,0 +1,56 @@
+{% if lines | length==0 %}
+    <div class="card white hoverable">
+        <div class="card-content black-text">
+            <span class="card-title">Lines
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="right">
+                    <a class="btn-floating disabled" href="{{ path('line_create') }}"><i
+                                class="material-icons">add</i></a>
+                </div>
+                {% endif %}
+            </span>
+            <div class="no-line-text-container">
+                <h1>There is no Stops here !</h1>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="row">
+        {% for line in lines %}
+            <div class="col s3">
+                <div class="card hoverable"
+                     style="background-color: {{ line.color }};">
+                    <div class="card-content black-text">
+                        <span class="card-title">
+                             {% if is_granted('ROLE_ADMIN') %}
+                                 <!-- Dropdown Trigger -->
+                                 <a class='dropdown-button' href='#' data-activates='drop-menu-{{ line.id }}'>
+                                     <i class="material-icons right white-text">more_vert</i>
+                                 </a>
+
+                                 <!-- Dropdown Structure -->
+                                 <ul id='drop-menu-{{ line.id }}' class='dropdown-content'>
+                                    <li><a href="{{ path('line_update',{'line_id':line.id}) }}">Edit</a></li>
+                                    <li><a onclick="openDeleteConfirmationDialog({{ line.id }})">Delete</a></li>
+                                 </ul>
+                             {% endif %}
+                        </span>
+                        <div class="line-text-container"  onclick="openLineDetail({{ line.id }})">
+                            <p class="">{{ line.number }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="col s12">
+                <div class="card white hoverable"
+                     onclick="createLine()">
+                    <div class="card-content black-text">
+                        <div class="line-text-container ">+</div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
