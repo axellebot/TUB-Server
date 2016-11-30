@@ -23,7 +23,7 @@ class StopController extends Controller
         $stops = $repository->findAll();
 
 
-        return $this->render('TubBundle:stop:list.html.twig', [
+        return $this->render('TubBundle:Stop:list.html.twig', [
             'stops' => $stops
         ]);
     }
@@ -73,7 +73,7 @@ class StopController extends Controller
             return $this->redirectToRoute("stop_list");
         }
 
-        return $this->render('TubBundle:stop:create.html.twig',array(
+        return $this->render('TubBundle:Stop:create.html.twig',array(
             'form'=>$form->createView()
         ));
     }
@@ -103,7 +103,7 @@ class StopController extends Controller
             return $this->redirectToRoute("stop_list");
         }
 
-        return $this->render('TubBundle:stop:update.html.twig',array(
+        return $this->render('TubBundle:Stop:update.html.twig',array(
             'form'=>$form->createView()
         ));
     }
