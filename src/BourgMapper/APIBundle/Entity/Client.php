@@ -28,4 +28,28 @@ class Client extends BaseClient
     {
         parent::__construct();
     }
+
+    /**
+     * Set label
+     *
+     * @param string $label
+     *
+     * @return Client
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
 }
