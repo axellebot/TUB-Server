@@ -1,61 +1,94 @@
 {% extends "::base_skeleton.html.twig" %}
 {% block body_content %}
     <header>
-        <nav>
-            <div class="nav-wrapper">
-                <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
-                <a href="#!" data-activates="navigation-drawer" class="button-collapse"><i
-                            class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    {% block main_menu %}
-                        <li>
-                            <a href="{{ path('line_list') }}">
-                                <i class="material-icons left">directions_bus</i>Lines
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('stop_list') }}">
-                                <i class="material-icons left">beenhere</i>Stops
-                            </a>
-                        </li>
-                        {% if app.user %}
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper blue">
+                    <a href="{{ path('homepage') }}" class="brand-logo"><i class="material-icons">smartphone</i>Tub
+                        <span class="hide-on-small-only">by BourgMapper</span></a>
+                    <a href="#!" data-activates="navigation-drawer" class="button-collapse"><i
+                                class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        {% block main_menu %}
                             <li>
-                                <a class="dropdown-button" data-beloworigin="true"  href="#!"
-                                   data-activates="dropdown-account">
-                                    <i class="material-icons left">account_circle</i>
+                                <a href="{{ path('line_list') }}">
+                                    <i class="material-icons left">directions_bus</i>Lines
                                 </a>
                             </li>
-
-                            <!-- Dropdown Structure -->
-                            <ul id="dropdown-account" class="dropdown-content">
-                                <li>
-                                    <a href="{{ path('fos_user_profile_show') }}">
-                                        Profile
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="{{ path('fos_user_security_logout') }}">
-                                        Logout
-                                    </a>
-                                </li>
-                            </ul>
-                        {% else %}
                             <li>
-                                <a href="{{ path('fos_user_security_login') }}">
-                                    Login
+                                <a href="{{ path('stop_list') }}">
+                                    <i class="material-icons left">beenhere</i>Stops
                                 </a>
                             </li>
-                        {% endif %}
-                    {% endblock %}
-                </ul>
-                <ul class="side-nav" id="navigation-drawer">
-                    {{ block('user_menu') }}
-                </ul>
+                            {% if app.user %}
+                                <li>
+                                    <a class="dropdown-button" data-beloworigin="true" href="#!"
+                                       data-activates="dropdown-account">
+                                        <i class="material-icons">account_circle</i>
+                                    </a>
+                                </li>
 
-            </div>
-        </nav>
+                                <!-- Dropdown Structure -->
+                                <ul id="dropdown-account" class="dropdown-content">
+                                    <li>
+                                        <a href="{{ path('fos_user_profile_show') }}">
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            {% else %}
+                                <li>
+                                    <a href="{{ path('fos_user_security_login') }}">
+                                        Login
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endblock %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div>
+            <ul class="side-nav" id="navigation-drawer">
+                <li>
+                    <a href="{{ path('line_list') }}">
+                        <i class="material-icons left">directions_bus</i>Lines
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('stop_list') }}">
+                        <i class="material-icons left">beenhere</i>Stops
+                    </a>
+                </li>
+                <li class="divider"></li>
+                {% if app.user %}
+                    <li>
+                        <a href="{{ path('fos_user_profile_show') }}">
+                            <i class="material-icons left">account_circle</i>Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('fos_user_security_logout') }}">
+                            <i class="material-icons left">exit_to_app</i>Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path('fos_user_security_login') }}">
+                            Login
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </header>
+
     <main>
         <!-- Your content goes here -->
         <div class="container">
