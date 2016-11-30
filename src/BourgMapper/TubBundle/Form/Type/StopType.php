@@ -15,35 +15,33 @@ class StopType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('label', TextType::class, array(
+                'label' => "Label",
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input'
+                    'class' => 'validate'
                 ),
                 'required' => true
             ))->add('latitude', NumberType::class, array(
+                'label' => "Latitude",
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input'
+                    'class' => 'validate'
                 ),
                 'required' => true
             ))->add('longitude', NumberType::class, array(
+                'label' => "Longitude",
                 'label_attr' => array(
-                    'class' => 'mdl-textfield__label'
+                    'class' => ''
                 ),
                 'attr' => array(
-                    'class' => 'mdl-textfield__input'
+                    'class' => 'validate'
                 ),
                 'required' => true
-            ))
-            ->add('save',SubmitType::class,array(
-                'attr' => array(
-                    'class' => 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'
-                )
             ));
     }
 }

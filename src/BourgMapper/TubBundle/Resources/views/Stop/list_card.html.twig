@@ -1,0 +1,63 @@
+{% extends "::card_info.html.twig" %}
+    {% block card_title %}
+        <div class="center">Stops</div>{% endblock card_title %}
+{% block card_content %}
+    {% if stops | length==0 %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="right">
+                <a class="btn-floating disabled" href="{{ path('stop_create') }}"><i
+                            class="material-icons">add</i></a>
+            </div>
+        {% endif %}
+        <div class="mdl-card__supporting-text">
+            <h1>There is no Stops here !</h1>
+        </div>
+    {% else %}
+
+        <table class="striped responsive-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th></th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th></th>
+                    <th></th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for stop in stops %}
+                <tr>
+                    <td>{{ stop.label }}</td>
+                    <td>
+                        {{ stop.latitude }}
+                    </td>
+                    <td>
+                        {{ stop.longitude }}
+                    </td>
+                    <td>
+                        <a href="{{ path('stop_detail',{'id':stop.id}) }}">
+                            <i class="material-icons">info</i>
+                        </a>
+                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <a href="{{ path('stop_update',{'id':stop.id}) }}">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#"
+                               onclick="openDeleteConfirmationDialog({{ stop.id }})">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock card_content %}
