@@ -79,17 +79,17 @@ class StopController extends Controller
     }
 
     /**
-     * @Route("admin/stops/update/{id}", name="stop_update", requirements={"id" = "\d+"})
+     * @Route("admin/stops/update/{stop_id}", name="stop_update", requirements={"id" = "\d+"})
      * @param Request $request
-     * @param $id
+     * @param $stop_id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function udpateAction(Request $request,$id)
+    public function udpateAction(Request $request,$stop_id)
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()
             ->getRepository('TubBundle:Stop');
-        $stop = $repository->find($id);
+        $stop = $repository->find($stop_id);
         $form = $this->createForm(StopType::class,$stop);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -110,12 +110,12 @@ class StopController extends Controller
 
 
     /**
-     * @Route("/stops/{id}", name="stop_detail", requirements={"id" = "\d+"})
+     * @Route("/stops/{stop_id}", name="stop_detail", requirements={"id" = "\d+"})
      * @param Request $request
-     * @param $id
+     * @param $stop_id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function detailAction(Request $request,$id){
+    public function detailAction(Request $request,$stop_id){
 
     }
 }

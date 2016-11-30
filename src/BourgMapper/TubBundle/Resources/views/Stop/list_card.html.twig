@@ -38,13 +38,13 @@
                         {{ stop.longitude }}
                     </td>
                     <td>
-                        <a href="{{ path('stop_detail',{'id':stop.id}) }}">
+                        <a href="{{ path('stop_detail',{'stop_id':stop.id}) }}">
                             <i class="material-icons">info</i>
                         </a>
                     </td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>
-                            <a href="{{ path('stop_update',{'id':stop.id}) }}">
+                            <a href="{{ path('stop_update',{'stop_id':stop.id}) }}">
                                 <i class="material-icons">edit</i>
                             </a>
                         </td>
