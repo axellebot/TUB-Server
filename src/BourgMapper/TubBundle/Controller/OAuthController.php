@@ -78,4 +78,37 @@ class OAuthController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Route("admin/oauth/clients/update/{oauth_client_id}", name="oauth_client_update",requirements={"oauth_client_id" = "\d+"})
+     * @param Request $request
+     * @param $oauth_client_id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function clientUpdateAction(Request $request, $oauth_client_id)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $repository = $this->getDoctrine()
+            ->getRepository('APIBundle:Client');
+        $client = $repository->find($oauth_client_id);
+
+        $form = $this->createForm(OAuthClientType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
+
+            $clientManager->updateClient($client);
+
+            return $this->redirectToRoute("oauth_index");
+        }
+
+        return $this->render('TubBundle:OAuth:oauth_client_update.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
 }

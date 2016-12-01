@@ -1,0 +1,29 @@
+{% extends  '::card_action.html.twig' %}
+{% block card_title %}
+    <div class="center">Update Client</div>{% endblock %}
+{% block card_content %}
+    <div class="row">
+        <form class="col s12" id="oauth_update_client_form" method="post" action="?">
+            {{ form_widget(form._token) }}
+            <div class="input-field col s12">
+                {{ form_label(form.label) }}
+                {{ form_widget(form.label) }}
+            </div>
+
+            <ul id="collection-uri-holder" data-prototype="
+                <div class='input-field col s10'>
+                {{ form_label(form.redirectUris.vars.prototype)|e('html_attr') }}
+                {{ form_widget(form.redirectUris.vars.prototype)|e('html_attr') }}
+                </div>
+                ">
+            </ul>
+            <div class="input-field col s12">
+                {{ form_widget((form.allowedGrantTypes)) }}
+                {{ form_label((form.allowedGrantTypes)) }}
+            </div>
+        </form>
+    </div>
+{% endblock card_content %}
+{% block card_action %}
+    <button class="btn" type="submit" form="oauth_update_client_form">Update</button>
+{% endblock card_action %}
