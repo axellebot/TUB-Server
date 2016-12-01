@@ -19,6 +19,21 @@ services:
         tags:
             - { name: form.type, alias: app_user_change_password }
 
+    app.form.stop:
+        class : BourgMapper\TubBundle\Form\Type\StopType
+        tags:
+            - { name: form.type, alias: app_stop }
+
+    app.form.line:
+        class : BourgMapper\TubBundle\Form\Type\LineType
+        tags:
+            - { name: form.type, alias: app_line }
+
+    app.form.oauth_client:
+        class : BourgMapper\TubBundle\Form\Type\OAuthClientType
+        tags:
+            - { name: form.type, alias: app_oauth_client }
+
 
 # service_name:
 #        class: TubBundle\Directory\ClassName

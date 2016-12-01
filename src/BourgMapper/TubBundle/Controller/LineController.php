@@ -30,7 +30,7 @@ class LineController extends Controller
 
 
     /**
-     * @Route("admin/lines/delete/{line_id}", name="line_delete", requirements={"id" = "\d+"})
+     * @Route("/admin/lines/delete/{line_id}", name="line_delete", requirements={"id" = "\d+"})
      * @param Request $request
      * @param $line_id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -52,7 +52,7 @@ class LineController extends Controller
     }
 
     /**
-     * @Route("admin/lines/create/", name="line_create")
+     * @Route("/admin/lines/create/", name="line_create")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -79,7 +79,7 @@ class LineController extends Controller
     }
 
     /**
-     * @Route("admin/lines/update/{line_id}", name="line_update", requirements={"line_id" = "\d+"})
+     * @Route("/admin/lines/update/{line_id}", name="line_update", requirements={"line_id" = "\d+"})
      * @param Request $request
      * @param $line_id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -92,6 +92,7 @@ class LineController extends Controller
         $line = $repository->find($line_id);
         $form = $this->createForm(LineType::class,$line);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
                 throw $this->createAccessDeniedException();

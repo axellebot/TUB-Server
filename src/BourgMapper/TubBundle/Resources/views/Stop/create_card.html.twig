@@ -3,7 +3,8 @@
     <div class="center">Create Stop</div>{% endblock %}
 {% block card_content %}
     <div class="row">
-        <form class="col s12" id="create_stop_form" method="post" action="{{ path('stop_create') }}">
+        <form class="col s12" id="create_stop_form" method="post" action="?">
+            {{ form_widget(form._token) }}
             <div class="input-field col s12">
                 {{ form_label(form.label) }}
                 {{ form_widget(form.label) }}

@@ -3,7 +3,8 @@
     <div class="center">Update Line</div>{% endblock %}
 {% block card_content %}
     <div class="row">
-        <form class="col s12" id="create_line_form" method="post" action="{{ path('line_create') }}">
+        <form class="col s12" id="create_line_form" method="post" action="?">
+            {{ form_widget(form._token) }}
             <div class="input-field col s12">
                 {{ form_label(form.number) }}
                 {{ form_widget(form.number) }}
@@ -16,5 +17,5 @@
     </div>
 {% endblock card_content %}
 {% block card_action %}
-    <button class="btn" type="submit" form="create_line_form">Create</button>
+    <button class="btn" type="submit" form="create_line_form">Update</button>
 {% endblock card_action %}

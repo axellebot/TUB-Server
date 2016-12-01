@@ -5,75 +5,110 @@ namespace BourgMapper\TubBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use BourgMapper\APIBundle\Entity\Client;
+use BourgMapper\TubBundle\Form\Type\OAuthClientType;
 
 class OAuthController extends Controller
 {
+
     /**
-     * @Route("/admin/oauth/access_tokens", name="oauth_access_token")
+     * @Route("/admin/oauth", name="oauth_index")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function accessTokenlistAction(Request $request)
+    public function indexAction(Request $request)
     {
-
         $repository = $this->getDoctrine()
             ->getRepository('APIBundle:AccessToken');
         $accessTokens = $repository->findAll();
 
-
-        return $this->render('TubBundle:oauth:access_token_list.html.twig', [
-            'accessTokens' => $accessTokens
-        ]);
-    }
-
-    /**
-     * @Route("/admin/oauth/codes", name="oauth_code")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function codeListAction(Request $request)
-    {
         $repository = $this->getDoctrine()
             ->getRepository('APIBundle:AuthCode');
-
         $authCodes = $repository->findAll();
 
-
-        return $this->render('TubBundle:oauth:code_list.html.twig', [
-            'authCodes' => $authCodes
-        ]);
-    }
-
-    /**
-     * @Route("/admin/oauth/clients", name="oauth_client")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function clientListAction(Request $request)
-    {
         $repository = $this->getDoctrine()
             ->getRepository('APIBundle:Client');
         $clients = $repository->findAll();
 
-        return $this->render('TubBundle:oauth:client_list.html.twig', [
-            'clients' => $clients
+        $repository = $this->getDoctrine()
+            ->getRepository('APIBundle:RefreshToken');
+        $refreshTokens = $repository->findAll();
+
+        return $this->render('TubBundle:OAuth:index.html.twig', [
+            'accessTokens' => $accessTokens,
+            'authCodes' => $authCodes,
+            'clients' => $clients,
+            'refreshTokens' => $refreshTokens
         ]);
     }
 
+
     /**
-     * @Route("/admin/oauth/clients", name="oauth_client")
+     * @Route("/admin/oauth/clients/create", name="oauth_client_create")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function refreshTokenListAction(Request $request)
+    public function clientCreateAction(Request $request)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+        $OAuthClient = new Client();
+        $form = $this->createForm(OAuthClientType::class, $OAuthClient);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $formLabel = $OAuthClient->getLabel();
+            $formRedirectUris = $OAuthClient->getRedirectUris();
+            $formAllowedGrantTypes = $OAuthClient->getAllowedGrantTypes();
+
+            $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
+            $client = $clientManager->createClient();
+            $client->setLabel($formLabel);
+            $client->setRedirectUris($formRedirectUris);
+            $client->setAllowedGrantTypes($formAllowedGrantTypes);
+
+            $clientManager->updateClient($client);
+
+            return $this->redirectToRoute("oauth_index");
+        }
+
+        return $this->render('TubBundle:OAuth:oauth_client_create.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("admin/oauth/clients/update/{oauth_client_id}", name="oauth_client_update",requirements={"oauth_client_id" = "\d+"})
+     * @param Request $request
+     * @param $oauth_client_id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function clientUpdateAction(Request $request, $oauth_client_id)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $repository = $this->getDoctrine()
-            ->getRepository('APIBundle:RefreshToken');
+            ->getRepository('APIBundle:Client');
+        $client = $repository->find($oauth_client_id);
 
-        $refreshTokens = $repository->findAll();
+        $form = $this->createForm(OAuthClientType::class, $client);
+        $form->handleRequest($request);
 
-        return $this->render('TubBundle:oauth:client_list.html.twig', [
-            'refreshTokens' => $refreshTokens
-        ]);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
+
+            $clientManager->updateClient($client);
+
+            return $this->redirectToRoute("oauth_index");
+        }
+
+        return $this->render('TubBundle:OAuth:oauth_client_update.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }
