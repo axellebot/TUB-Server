@@ -79,7 +79,7 @@ class StopController extends Controller
     }
 
     /**
-     * @Route("admin/stops/update/{stop_id}", name="stop_update", requirements={"id" = "\d+"})
+     * @Route("admin/stops/update/{stop_id}", name="stop_update", requirements={"stop_id" = "\d+"})
      * @param Request $request
      * @param $stop_id
      * @return \Symfony\Component\HttpFoundation\Response

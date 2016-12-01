@@ -4,6 +4,7 @@
 {% block card_content %}
     <div class="row">
         <form class="col s12" id="update_stop_form" method="post" action="{{ path('stop_update') }}">
+            {{ form_widget(form._token) }}
             <div class="input-field col s12">
                 {{ form_label(form.label) }}
                 {{ form_widget(form.label) }}
@@ -21,5 +22,5 @@
     </div>
 {% endblock card_content %}
 {% block card_action %}
-    <button class="btn" type="submit" form="update_stop_form">Create</button>
+    <button class="btn" type="submit" form="update_stop_form">Update</button>
 {% endblock card_action %}
