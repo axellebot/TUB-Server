@@ -56,17 +56,18 @@ class OAuthController extends Controller
         $OAuthClient = new Client();
         $form = $this->createForm(OAuthClientType::class, $OAuthClient);
         $form->handleRequest($request);
-        var_dump($form->isValid());
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $formLabel = $OAuthClient->getLabel();
             $formRedirectUris = $OAuthClient->getRedirectUris();
+            $formAllowedGrantTypes = $OAuthClient->getAllowedGrantTypes();
 
             $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
             $client = $clientManager->createClient();
             $client->setLabel($formLabel);
             $client->setRedirectUris($formRedirectUris);
-            $client->setAllowedGrantTypes(array('token', 'authorization_code'));
+            $client->setAllowedGrantTypes($formAllowedGrantTypes);
 
             $clientManager->updateClient($client);
 

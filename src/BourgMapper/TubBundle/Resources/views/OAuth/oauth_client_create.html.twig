@@ -42,7 +42,11 @@
             });
             addTagForm($collectionHolder, $newLinkLi);
         });
-
+        
+        //material
+        $(document).ready(function() {
+            $('select').material_select();
+        });
         function addTagForm($collectionHolder, $newLinkLi) {
             // Get the data-prototype explained earlier
             var prototype = $collectionHolder.data('prototype');
