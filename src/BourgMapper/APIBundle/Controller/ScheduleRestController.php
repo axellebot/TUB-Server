@@ -14,7 +14,11 @@ use TubBundle\Entity\Schedule;
 class ScheduleRestController extends FOSRestController
 {
     /**
+     * Get Schedules
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Schedules",
      *  description="Schedule list",
      *  output={"class"=Schedule::class, "collection"=true}
      * )
@@ -33,7 +37,11 @@ class ScheduleRestController extends FOSRestController
     }
 
     /**
+     * Get Schedule by id
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Schedules",
      *  description="Schedule",
      *  output={"class"=Schedule::class, "collection"=false}
      * )

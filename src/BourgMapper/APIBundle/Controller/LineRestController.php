@@ -13,7 +13,11 @@ use BourgMapper\TubBundle\Entity\Line;
 class LineRestController extends FOSRestController
 {
     /**
+     * Get Lines
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Lines",
      *  description="Line list",
      *  output={"class"=Line::class, "collection"=true}
      * )
@@ -33,7 +37,11 @@ class LineRestController extends FOSRestController
     }
 
     /**
+     * Get Line by id
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Lines",
      *  description="Line",
      *  output={"class"=Line::class, "collection"=false}
      * )
@@ -54,7 +62,10 @@ class LineRestController extends FOSRestController
 
 
     /**
+     * Get Lines from Stops
+     *
      * @ApiDoc(
+     *  section="Lines",
      *  description="Lines of Stop",
      *  output={"class"=Line::class, "collection"=true}
      * )

@@ -14,7 +14,11 @@ use BourgMapper\TubBundle\Entity\Period;
 class PeriodRestController extends FOSRestController
 {
     /**
+     * Get Periods
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Periods",
      *  description="Period list",
      *  output={"class"=Period::class, "collection"=true}
      * )
@@ -34,7 +38,11 @@ class PeriodRestController extends FOSRestController
     }
 
     /**
+     * Get Period by id
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Periods",
      *  description="Period",
      *  output={"class"=Period::class, "collection"=false}
      * )

@@ -14,7 +14,11 @@ use BourgMapper\TubBundle\Entity\Repository\StopRepository;
 class StopRestController extends FOSRestController
 {
     /**
+     * Get Stops
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Stops",
      *  description="Stop list",
      *  output={"class"=Stop::class, "collection"=true}
      * )
@@ -34,7 +38,11 @@ class StopRestController extends FOSRestController
     }
 
     /**
+     * Get Stop by id
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Stops",
      *  description="Stop",
      *  output={"class"=Stop::class, "collection"=false}
      * )
@@ -53,7 +61,10 @@ class StopRestController extends FOSRestController
     }
 
     /**
+     * Get Stops of Line
+     *
      * @ApiDoc(
+     *  section="Stops",
      *  description="Stops of Line",
      *  output={"class"=Stop::class, "collection"=true}
      * )
