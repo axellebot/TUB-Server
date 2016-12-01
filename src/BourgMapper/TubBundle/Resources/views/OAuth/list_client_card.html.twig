@@ -20,6 +20,9 @@
                 <th>Random Id</th>
                 <th>Redirect Uris</th>
                 <th>Allowed Grant Types</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td></td>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -46,6 +49,11 @@
                             {% endfor %}
                         {% endif %}
                     </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <a href="{{ path("oauth_client_update",{oauth_client_id: client.id}) }}"><i class="material-icons">edit</i></a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
