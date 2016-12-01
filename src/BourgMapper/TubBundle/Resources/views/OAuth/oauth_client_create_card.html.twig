@@ -3,7 +3,7 @@
     <div class="center">Create Client</div>{% endblock %}
 {% block card_content %}
     <div class="row">
-        <form class="col s12" id="oauth_create_client_form" method="post" action="{{ path('oauth_client_create') }}">
+        <form class="col s12" id="oauth_create_client_form" method="post" action="?">
             {{ form_widget(form._token) }}
             <div class="input-field col s12">
                 {{ form_label(form.label) }}

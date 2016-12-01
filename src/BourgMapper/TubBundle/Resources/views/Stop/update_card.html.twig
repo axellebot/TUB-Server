@@ -3,7 +3,7 @@
     <div class="center">Update Stop</div>{% endblock %}
 {% block card_content %}
     <div class="row">
-        <form class="col s12" id="update_stop_form" method="post" action="{{ path('stop_update') }}">
+        <form class="col s12" id="update_stop_form" method="post" action="?">
             {{ form_widget(form._token) }}
             <div class="input-field col s12">
                 {{ form_label(form.label) }}
