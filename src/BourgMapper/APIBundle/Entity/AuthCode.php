@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\ApiBundle\Entity;
+namespace BourgMapper\APIBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 use Doctrine\ORM\Mapping as ORM;
