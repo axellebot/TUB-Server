@@ -60,28 +60,26 @@ class LineRestController extends FOSRestController
         return array('line' => $line);
     }
 
-
     /**
-     * Get Lines from Stops
+     * Get Stops of Line
      *
      * @ApiDoc(
      *  section="Lines",
-     *  description="Lines of Stop",
-     *  output={"class"=Line::class, "collection"=true}
+     *  description="Stops of Line",
+     *  output={"class"=Stop::class, "collection"=true}
      * )
-     * @Get("/stops/{stop_id}/lines",name="",options={ "method_prefix" = true })
+     * @Get("/lines/{line_id}/stops",name="",options={ "method_prefix" = true })
      */
-    public function getAllLinesFromStopAction($stop_id)
+    public function getAllStopsFromLineAction($line_id)
     {
         $stopGroupRepository = $this->getDoctrine()
             ->getRepository('TubBundle:StopGroup');
 
-        $lines = $stopGroupRepository->findLinesOfStop($stop_id);
+        $stops = $stopGroupRepository->findStopsOfLine($line_id);
 
-        if (!is_array($lines)) {
+        if (!is_array($stops)) {
             throw $this->createNotFoundException();
         }
-        return array('lines' => $lines);
+        return array('stops' => $stops);
     }
-
 }
