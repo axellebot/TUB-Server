@@ -10,10 +10,16 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Class DownloadController
+ * @package BourgMapper\TubBundle\Controller
+ * @Route("/download")
+ */
+
 class DownloadController extends Controller
 {
     /**
-     * @Route("/download/kml/{line_id}", name="download_kml")
+     * @Route("/kml/{line_id}", name="download_kml")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
