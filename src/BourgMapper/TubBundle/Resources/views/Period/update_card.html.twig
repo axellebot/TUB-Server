@@ -1,0 +1,30 @@
+{% extends  '::card_action.html.twig' %}
+{% block card_title %}
+    <div class="center">Update Period</div>{% endblock %}
+{% block card_content %}
+    <div class="row">
+        <form class="col s12" id="update_period_form" method="post" action="?">
+            {{ form_widget(form._token) }}
+            <div class="input-field col s12">
+                {{ form_label(form.label) }}
+                {{ form_widget(form.label) }}
+            </div>
+
+            <div class="input-field col s12">
+                {{ form_label(form.dateStart) }}
+                {{ form_widget(form.dateStart) }}
+            </div>
+            <div class="input-field col s12">
+                {{ form_label(form.dateEnd) }}
+                {{ form_widget(form.dateEnd) }}
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(form.dayCycle) }}
+                {{ form_label(form.dayCycle) }}
+            </div>
+        </form>
+    </div>
+{% endblock card_content %}
+{% block card_action %}
+    <button class="btn" type="submit" form="update_period_form">Update</button>
+{% endblock card_action %}
