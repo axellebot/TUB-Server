@@ -54,7 +54,7 @@ class Period
     /**
      * @var string
      *
-     * @ORM\Column(name="dayCycle", type="string", length=11)
+     * @ORM\Column(name="dayCycle", type="array")
      * @Serializer\Expose
      */
     private $dayCycle;
@@ -85,6 +85,16 @@ class Period
     }
 
     /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
      * Set label
      *
      * @param string $label
@@ -99,13 +109,13 @@ class Period
     }
 
     /**
-     * Get label
+     * Get dateStart
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getLabel()
+    public function getDateStart()
     {
-        return $this->label;
+        return $this->dateStart;
     }
 
     /**
@@ -123,13 +133,13 @@ class Period
     }
 
     /**
-     * Get dateStart
+     * Get dateEnd
      *
      * @return \DateTime
      */
-    public function getDateStart()
+    public function getDateEnd()
     {
-        return $this->dateStart;
+        return $this->dateEnd;
     }
 
     /**
@@ -147,19 +157,19 @@ class Period
     }
 
     /**
-     * Get dateEnd
+     * Get dayCycle
      *
-     * @return \DateTime
+     * @return array
      */
-    public function getDateEnd()
+    public function getDayCycle()
     {
-        return $this->dateEnd;
+        return $this->dayCycle;
     }
 
     /**
      * Set dayCycle
      *
-     * @param string $dayCycle
+     * @param array $dayCycle
      *
      * @return Period
      */
@@ -168,16 +178,6 @@ class Period
         $this->dayCycle = $dayCycle;
 
         return $this;
-    }
-
-    /**
-     * Get dayCycle
-     *
-     * @return string
-     */
-    public function getDayCycle()
-    {
-        return $this->dayCycle;
     }
 
     /**
@@ -213,4 +213,6 @@ class Period
     {
         return $this->scheduleGroups;
     }
+
+
 }
