@@ -24,7 +24,8 @@
                                 <li>
                                     <a class="dropdown-button" data-beloworigin="true" href="#!"
                                        data-activates="dropdown-account">
-                                        <i class="material-icons">account_circle</i>
+                                        {{ app.user.username }}
+                                        <i class="material-icons right">account_circle</i>
                                     </a>
                                 </li>
 
@@ -35,6 +36,13 @@
                                             Profile
                                         </a>
                                     </li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li>
+                                        <a href="{{ path('admin_index') }}">
+                                            Admin
+                                        </a>
+                                    </li>
+                                {% endif %}
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{{ path('fos_user_security_logout') }}">

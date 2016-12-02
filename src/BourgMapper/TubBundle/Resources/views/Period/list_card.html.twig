@@ -1,0 +1,59 @@
+{% extends "::card_info.html.twig" %}
+    {% block card_title %}
+        <div class="center">Periods</div>
+    {% endblock card_title %}
+{% block card_content %}
+    {% if periods | length==0 %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="right">
+                <a class="btn-floating" href="{{ path('period_create') }}"><i
+                            class="material-icons">add</i></a>
+            </div>
+        {% endif %}
+        <h1>There is no Periods here !</h1>
+    {% else %}
+
+        <table class="striped responsive-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Label</th>
+                <th>Date Start</th>
+                <th>Date End</th>
+                <th>Day Cycle</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th></th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for period in periods %}
+                <tr>
+                    <td>{{ period.id }}</td>
+                    <td>
+                        {{ period.label }}
+                    </td>
+                    <td>
+                        {{ period.dateStart |date("m/d/Y") }}
+                    </td>
+                    <td>
+                        {{ period.dateEnd  |date("m/d/Y") }}
+                    </td>
+                    <td>
+                        {% for day in period.dayCycle %}
+                            {{ day }}
+                        {% endfor %}
+                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <a href="{{ path('period_update',{'period_id':period.id}) }}">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock card_content %}
