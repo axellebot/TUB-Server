@@ -8,12 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 use BourgMapper\TubBundle\Entity\Period;
 use BourgMapper\TubBundle\Form\Type\PeriodType;
 
+
+/**
+ * Class PeriodController
+ * @package BourgMapper\TubBundle\Controller
+ *
+ * @Route("periods")
+ */
 class  PeriodController extends Controller {
 
     /**
      * Get All Period
      *
-     * @Route("/admin/periods", name="period_list")
+     * @Route("", name="period_list")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -33,7 +40,7 @@ class  PeriodController extends Controller {
     /**
      * Create Period
      *
-     * @Route("/admin/periods/create", name="period_create")
+     * @Route("/create", name="period_create")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -65,7 +72,7 @@ class  PeriodController extends Controller {
     /**
      * Update Period
      *
-     * @Route("/admin/periods/update/{period_id}", name="period_update", requirements={"period_id" = "\d+"})
+     * @Route("/update/{period_id}", name="period_update", requirements={"period_id" = "\d+"})
      * @param Request $request
      * @param $period_id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -84,11 +91,8 @@ class  PeriodController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-
             return $this->redirectToRoute("period_list");
         }
 

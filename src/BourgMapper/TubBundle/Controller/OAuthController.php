@@ -8,11 +8,18 @@ use Symfony\Component\HttpFoundation\Request;
 use BourgMapper\APIBundle\Entity\Client;
 use BourgMapper\TubBundle\Form\Type\OAuthClientType;
 
+
+/**
+ * Class OAuthController
+ * @package BourgMapper\TubBundle\Controller
+ *
+ * @Route("/oauth")
+ */
 class OAuthController extends Controller
 {
 
     /**
-     * @Route("/admin/oauth", name="oauth_index")
+     * @Route("", name="oauth_index")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -44,7 +51,7 @@ class OAuthController extends Controller
 
 
     /**
-     * @Route("/admin/oauth/clients/create", name="oauth_client_create")
+     * @Route("/clients/create", name="oauth_client_create")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -80,7 +87,7 @@ class OAuthController extends Controller
     }
 
     /**
-     * @Route("admin/oauth/clients/update/{oauth_client_id}", name="oauth_client_update",requirements={"oauth_client_id" = "\d+"})
+     * @Route("/clients/update/{oauth_client_id}", name="oauth_client_update",requirements={"oauth_client_id" = "\d+"})
      * @param Request $request
      * @param $oauth_client_id
      * @return \Symfony\Component\HttpFoundation\Response

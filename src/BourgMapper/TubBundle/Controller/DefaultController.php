@@ -6,10 +6,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+
+/**
+ * Class DefaultController
+ * @package BourgMapper\TubBundle\Controller
+ * @Route("/")
+ */
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("", name="homepage")
      */
     public function indexAction(Request $request)
     {
@@ -18,9 +24,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/admin",name="admin_index")
+     * @Route("admin",name="admin_index")
      */
     public function adminIndexAction(Request $request){
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
         return $this->render('TubBundle:default:admin.html.twig',array(
 
         ));

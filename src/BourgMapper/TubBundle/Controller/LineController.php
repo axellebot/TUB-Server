@@ -8,10 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 use BourgMapper\TubBundle\Entity\Line;
 use BourgMapper\TubBundle\Form\Type\LineType;
 
+
+/**
+ * Class LineController
+ * @package BourgMapper\TubBundle\Controller
+ *
+ * @Route("/lines", name="line_list")
+ */
 class LineController extends Controller
 {
     /**
-     * @Route("/lines", name="line_list")
+     * @Route("", name="line_list")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -28,9 +35,67 @@ class LineController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/create", name="line_create")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function createAction(Request $request)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $line = new Line();
+        $form = $this->createForm(LineType::class, $line);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($line);
+            $em->flush();
+
+            return $this->redirectToRoute("line_list");
+        }
+
+        return $this->render('TubBundle:Line:create.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
 
     /**
-     * @Route("/admin/lines/delete/{line_id}", name="line_delete", requirements={"id" = "\d+"})
+     * @Route("/update/{line_id}", name="line_update", requirements={"line_id" = "\d+"})
+     * @param Request $request
+     * @param $line_id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function udpateAction(Request $request, $line_id)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $repository = $this->getDoctrine()
+            ->getRepository('TubBundle:Line');
+        $line = $repository->find($line_id);
+        $form = $this->createForm(LineType::class, $line);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute("line_list");
+        }
+
+        return $this->render('TubBundle:Line:update.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/delete/{line_id}", name="line_delete", requirements={"id" = "\d+"})
      * @param Request $request
      * @param $line_id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -49,63 +114,5 @@ class LineController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('line_list');
-    }
-
-    /**
-     * @Route("/admin/lines/create/", name="line_create")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function createAction(Request $request)
-    {
-        $line = new Line();
-        $form = $this->createForm(LineType::class,$line);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-                throw $this->createAccessDeniedException();
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($line);
-            $em->flush();
-
-            return $this->redirectToRoute("line_list");
-        }
-
-        return $this->render('TubBundle:Line:create.html.twig',array(
-            'form'=>$form->createView()
-        ));
-    }
-
-    /**
-     * @Route("/admin/lines/update/{line_id}", name="line_update", requirements={"line_id" = "\d+"})
-     * @param Request $request
-     * @param $line_id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function udpateAction(Request $request,$line_id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()
-            ->getRepository('TubBundle:Line');
-        $line = $repository->find($line_id);
-        $form = $this->createForm(LineType::class,$line);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-                throw $this->createAccessDeniedException();
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-
-            return $this->redirectToRoute("line_list");
-        }
-
-        return $this->render('TubBundle:Line:update.html.twig',array(
-            'form'=>$form->createView()
-        ));
     }
 }
