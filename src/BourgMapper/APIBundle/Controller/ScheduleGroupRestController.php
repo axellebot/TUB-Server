@@ -14,7 +14,11 @@ use BourgMapper\TubBundle\Entity\ScheduleGroup;
 class ScheduleGroupRestController extends FOSRestController
 {
     /**
+     * Get ScheduleGroups
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Schedule Groups",
      *  description="ScheduleGroup list",
      *  output={"class"=ScheduleGroup::class, "collection"=true}
      * )
@@ -36,7 +40,11 @@ class ScheduleGroupRestController extends FOSRestController
     }
 
     /**
+     * Get ScheduleGroup by id
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Schedule Groups",
      *  description="ScheduleGroup",
      *  output={"class"=ScheduleGroup::class, "collection"=false}
      * )

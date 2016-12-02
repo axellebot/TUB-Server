@@ -16,7 +16,11 @@ class StopGroupRestController extends FOSRestController
 {
 
     /**
+     * Get StopGroups
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Stop Groups",
      *  description="StopGroup list",
      *  output={"class"=StopGroup::class, "collection"=true}
      * )
@@ -35,7 +39,11 @@ class StopGroupRestController extends FOSRestController
     }
 
     /**
+     * Get StopGroup by id
+     *
      * @ApiDoc(
+     *  resource=true,
+     *  section="Stop Groups",
      *  description="StopGroup",
      *  output={"class"=StopGroup::class, "collection"=false}
      * )
