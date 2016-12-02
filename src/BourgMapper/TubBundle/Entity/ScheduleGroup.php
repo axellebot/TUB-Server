@@ -37,7 +37,7 @@ class ScheduleGroup
     /**
      * @var Period
      *
-     * @ORM\OneToOne(targetEntity="Period")
+     * @ORM\ManyToOne(targetEntity="Period", inversedBy="scheduleGroups")
      * @ORM\JoinColumn(name="period_id", referencedColumnName="id")
      */
     private $period;
