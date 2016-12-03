@@ -14,4 +14,20 @@ use Doctrine\ORM\EntityRepository as EntityRepository;
  */
 class StopRepository extends EntityRepository
 {
+
+    const STOP_ATTRIBUTE_AVAILABLE = "available";
+    const STOP_AVAILABLE = true;
+    const STOP_NOT_AVAILABLE = false;
+
+    /**
+     * Find All available Stop
+     *
+     * @return array - Array of available Stop
+     */
+    public function findAllAvailable()
+    {
+        return $this->findBy(
+            array(StopRepository::STOP_ATTRIBUTE_AVAILABLE => true)
+        );
+    }
 }
