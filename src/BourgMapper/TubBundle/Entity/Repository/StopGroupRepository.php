@@ -13,15 +13,18 @@ use Doctrine\ORM\EntityRepository as EntityRepository;
  */
 class StopGroupRepository extends EntityRepository
 {
+
+    const WAY_OUTBOUND = "O";
+    const WAY_INBOUND = "I";
+
     /**
-     * @return array
+     * Get All Stop Id from Line Id
+     *
+     * @return array - Array of Stop id
      * @param $line_id
      */
-    public function findStopsOfLine($line_id)
+    public function getStopIdsFromLineId($line_id)
     {
-        $em = $this->getEntityManager();
-        $stopRepository = $em->getRepository("TubBundle:Stop");
-
         $results = $this->createQueryBuilder('sg')
             ->select('IDENTITY (sg.stop)')
             ->distinct()
@@ -30,25 +33,68 @@ class StopGroupRepository extends EntityRepository
             ->getQuery()
             ->getResult();
 
-        $stops = array();
+        $stop_ids = array();
 
         foreach ($results as $result) {
-            $id=$result[1];
-            array_push($stops, $stopRepository->find($id));
+            $stop_id = $result[1];
+            array_push($stop_ids, $stop_id);
+        }
+
+        return $stop_ids;
+    }
+
+    /**
+     * Get All Stop from Line Id
+     *
+     * @return array - Array of Stop
+     * @param $line_id
+     */
+    public function getStopsFromLineId($line_id)
+    {
+        $em = $this->getEntityManager();
+        $stopRepository = $em->getRepository("TubBundle:Stop");
+
+        $stop_ids = $this->getStopIdsFromLineId($line_id);
+
+        $stops = array();
+
+        foreach ($stop_ids as $stop_id) {
+            $stop = $stopRepository->find($stop_id);
+            array_push($stops, $stop);
         }
 
         return $stops;
     }
 
     /**
-     * @return array
+     * Get All Stop from Line
+     *
+     * @return array - Array of Stop
+     * @param $line
+     */
+    public function getStopsFromLine($line)
+    {
+        $em = $this->getEntityManager();
+        $stopRepository = $em->getRepository("TubBundle:Stop");
+
+        $stop_ids = $this->getStopIdsFromLineById($line->getId());
+
+        $stops = array();
+
+        foreach ($stop_ids as $stop_id) {
+            array_push($stops, $stopRepository->find($stop_id));
+        }
+        return $stops;
+    }
+
+    /**
+     * Get All Line Id from Stop Id
+     *
+     * @return array - Array of Line id
      * @param $stop_id
      */
-    public function findLinesOfStop($stop_id)
+    public function getLineIdsFromStopId($stop_id)
     {
-
-        $em = $this->getEntityManager();
-        $lineRepository = $em->getRepository("TubBundle:Line");
 
         $results = $this->createQueryBuilder('sg')
             ->select('IDENTITY (sg.line)')
@@ -58,15 +104,58 @@ class StopGroupRepository extends EntityRepository
             ->getQuery()
             ->getResult();
 
-        $lines = array();
+        $line_ids = array();
 
         foreach ($results as $result) {
-            $id=$result[1];
-            array_push($lines, $lineRepository->find($id));
+            $line_id = $result[1];
+            array_push($line_ids, $line_id);
+        }
+
+        return $line_ids;
+    }
+
+    /**
+     * Get All Line from Stop Id
+     *
+     * @return array - Array of Stop
+     * @param $stop_id
+     */
+    public function getLinesFromStopId($stop_id)
+    {
+        $em = $this->getEntityManager();
+        $lineRepository = $em->getRepository("TubBundle:Line");
+
+        $line_ids = $this->getLineIdsFromStopId($stop_id);
+
+        $lines = array();
+
+        foreach ($line_ids as $line_id) {
+            $line = $lineRepository->find($line_id);
+            array_push($lines, $line);
         }
 
         return $lines;
     }
 
+    /**
+     * Get All Line from Stop
+     *
+     * @return array - Array of Line
+     * @param $stop
+     */
+    public function getLinesFromStop($stop)
+    {
+        $em = $this->getEntityManager();
+        $lineRepository = $em->getRepository("TubBundle:Line");
+
+        $line_ids = $this->getLineIdsFromStopById($stop->getId());
+
+        $lines = array();
+
+        foreach ($line_ids as $line_id) {
+            array_push($lines, $lineRepository->find($line_id));
+        }
+        return $lines;
+    }
 
 }
