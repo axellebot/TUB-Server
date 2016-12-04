@@ -18,130 +18,249 @@ class StopGroupRepository extends EntityRepository
     const WAY_INBOUND = "I";
 
     /**
-     * Get All Stop Id from Line Id
+     * Get All Stop Id of Line by Id
      *
      * @return array - Array of Stop id
      * @param $line_id
      */
-    public function getStopIdsFromLineId($line_id)
+    public function getStopIdsOfLineById($line_id)
     {
-        $stop_ids = $this->createQueryBuilder('sg')
-            ->select('IDENTITY (sg.stop) AS id')
+        $results = $this->createQueryBuilder('sg')
+            ->select('IDENTITY (sg.stop) AS stop_id')
             ->distinct()
             ->where('sg.line = :line_id')
             ->setParameter('line_id', $line_id)
             ->getQuery()
             ->getResult();
 
+
+        $stop_ids = array();
+        foreach ($results as $result) {
+            array_push($stop_ids, $result["stop_id"]);
+        }
+
         return $stop_ids;
     }
 
     /**
-     * Get All Stop from Line Id
+     * Get All Stop of Line by Id
      *
      * @return array - Array of Stop
      * @param $line_id
      */
-    public function getStopsFromLineId($line_id)
+    public function getStopsOfLineById($line_id)
     {
-        $em = $this->getEntityManager();
-        $stopRepository = $em->getRepository("TubBundle:Stop");
-
-        $stop_ids = $this->getStopIdsFromLineId($line_id);
-
-        $stops = array();
-
-        foreach ($stop_ids as $stop_id) {
-            $stop = $stopRepository->find($stop_id);
-            array_push($stops, $stop);
-        }
-
+        $stops = $this->createQueryBuilder('sg')
+            ->select('s')
+            ->distinct()
+            ->innerJoin('BourgMapper\TubBundle\Entity\Stop', 's', 'WHERE', 'IDENTITY(sg.stop) = s.id')
+            ->where('sg.line = :line_id')
+            ->setParameter('line_id', $line_id)
+            ->getQuery()
+            ->getResult();
         return $stops;
     }
 
     /**
-     * Get All Stop from Line
-     *
-     * @return array - Array of Stop
-     * @param $line
-     */
-    public function getStopsFromLine($line)
-    {
-        $em = $this->getEntityManager();
-        $stopRepository = $em->getRepository("TubBundle:Stop");
-
-        $stop_ids = $this->getStopIdsFromLineById($line->getId());
-
-        $stops = array();
-
-        foreach ($stop_ids as $stop_id) {
-            array_push($stops, $stopRepository->find($stop_id));
-        }
-        return $stops;
-    }
-
-    /**
-     * Get All Line Id from Stop Id
+     * Get All Line Id of Stop by Id
      *
      * @return array - Array of Line id
      * @param $stop_id
      */
-    public function getLineIdsFromStopId($stop_id)
+    public function getLineIdsOfStopById($stop_id)
     {
 
-        $line_ids = $this->createQueryBuilder('sg')
-            ->select('IDENTITY (sg.line) AS id')
+        $results = $this->createQueryBuilder('sg')
+            ->select('IDENTITY (sg.line) AS line_id')
             ->distinct()
             ->where('sg.stop = :stop_id')
             ->setParameter('stop_id', $stop_id)
             ->getQuery()
             ->getResult();
-        
+
+        $line_ids = array();
+        foreach ($results as $result) {
+            array_push($line_ids, $result["line_id"]);
+        }
+
         return $line_ids;
     }
 
     /**
-     * Get All Line from Stop Id
+     * Get All Line of Stop by Id
      *
      * @return array - Array of Stop
      * @param $stop_id
      */
-    public function getLinesFromStopId($stop_id)
+    public function getLinesOfStopById($stop_id)
     {
-        $em = $this->getEntityManager();
-        $lineRepository = $em->getRepository("TubBundle:Line");
-
-        $line_ids = $this->getLineIdsFromStopId($stop_id);
-
-        $lines = array();
-
-        foreach ($line_ids as $line_id) {
-            $line = $lineRepository->find($line_id);
-            array_push($lines, $line);
-        }
-
+        $lines = $this->createQueryBuilder('sg')
+            ->select('l')
+            ->distinct()
+            ->innerJoin('BourgMapper\TubBundle\Entity\Line', 'l', 'WHERE', 'IDENTITY(sg.line) = l.id')
+            ->where('sg.stop = :stop_id')
+            ->setParameter('stop_id', $stop_id)
+            ->getQuery()
+            ->getResult();
         return $lines;
     }
 
     /**
-     * Get All Line from Stop
+     * Get Order of Stop by Id
      *
-     * @return array - Array of Line
-     * @param $stop
+     * @return string - Stop order if exist, null otherwise
+     * @param $line_id
+     * @param $way
+     * @param $stop_id
      */
-    public function getLinesFromStop($stop)
+    public function getOrderOfStopById($line_id, $way, $stop_id)
+    {
+
+        echo "\n---------------test---------------\n";
+        echo "line id : $line_id";
+        echo "way : $way";
+        echo "stop id : $stop_id";
+
+        $qb = $this->createQueryBuilder('sg')
+            ->select('sg.order')
+            ->andWhere('sg.line = :line_id')
+            ->andWhere('sg.way = :way')
+            ->andWhere('sg.stop = :stop_id')
+            ->setParameters(array(
+                'line_id' => $line_id,
+                'way' => $way,
+                'stop_id' => $stop_id
+            ));
+
+        $query = $qb->getQuery();
+
+        $result = $query->getOneOrNullResult();
+
+        if ($result == null) {
+            $order =  null;
+        }else{
+            $order   = $result["order"];
+        }
+
+        return $order;
+    }
+
+    /**
+     * Get Stop Id by order
+     *
+     * @return string - Stop id if exist, null otherwise
+     * @param $line_id
+     * @param $way
+     * @param $order
+     */
+    public function getStopIdByOrder($line_id, $way, $order)
+    {
+        echo "\n---------------test---------------\n";
+        echo "line id : $line_id";
+        echo "way : $way";
+        echo "order : $order";
+
+        $result = $this->createQueryBuilder('sg')
+            ->select('IDENTITY(sg.stop) as stop_id')
+            ->where('sg.line = :line_id')
+            ->andWhere('sg.way = :way')
+            ->andWhere('sg.order = :order')
+            ->setParameters(array(
+                'line_id' => $line_id,
+                'way' => $way,
+                'order' => $order
+            ))
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if ($result == null) {
+            return null;
+        } else {
+            return $result["stop_id"];
+        }
+    }
+
+    /**
+     * Get Next Stop Id
+     *
+     * @return string - Stop Id if next exist, null otherwise
+     * @param $line_id
+     * @param $way
+     * @param $stop_id
+     */
+    public function getNextStopIdOfStopById($line_id, $way, $stop_id)
+    {
+        $order = $this->getOrderOfStopById($line_id, $way, $stop_id);
+        $stop_id = $this->getStopIdByOrder($line_id, $way, $order + 1);
+        return $stop_id;
+    }
+
+    /**
+     * Get Previous Stop Id
+     *
+     * @return string - Stop Id if previous exist, null otherwise
+     * @param $line_id
+     * @param $way
+     * @param $stop_id
+     */
+    public function getPreviousStopIdOfStopById($line_id, $way, $stop_id)
+    {
+        $order = $this->getOrderOfStopById($line_id, $way, $stop_id);
+        $stop_id = $this->getStopIdByOrder($line_id, $way, $order - 1);
+
+        return $stop_id;
+    }
+
+    /**
+     * @return array - Array of direct accessible stop id
+     * @param $stop_id
+     */
+    public function getDirectAccessibleStopIdsOfStopById($stop_id)
+    {
+
+        $accessibleStopIds = array();
+
+        $line_ids = $this->getLineIdsOfStopById($stop_id);
+
+        $tmp = null;
+        foreach ($line_ids as $line_id) {
+
+            $tmp = $this->getNextStopIdOfStopById($line_id, StopGroupRepository::WAY_INBOUND, $stop_id);
+            if ($tmp != null) {
+                array_push($accessibleStopIds, $tmp);
+            }
+            $tmp = $this->getNextStopIdOfStopById($line_id, StopGroupRepository::WAY_OUTBOUND, $stop_id);
+            if ($tmp != null) {
+                array_push($accessibleStopIds, $tmp);
+            }
+        }
+
+        return array_unique($accessibleStopIds);
+    }
+
+    /**
+     * @return array - Array of Dijkstra Schema
+     */
+    public function getDijkstraSchema()
     {
         $em = $this->getEntityManager();
-        $lineRepository = $em->getRepository("TubBundle:Line");
+        $stopRepository = $em->getRepository("TubBundle:Stop");
 
-        $line_ids = $this->getLineIdsFromStopById($stop->getId());
+        $stop_ids = $stopRepository->getStopIdsAvailable();
 
-        $lines = array();
 
-        foreach ($line_ids as $line_id) {
-            array_push($lines, $lineRepository->find($line_id));
+        $dijkstraArray = array();
+        $weight = 1;
+        foreach ($stop_ids as $stop_id) {
+            $arr2 = array();
+            $directAccessibleStopIds = $this->getDirectAccessibleStopIdsOfStopById($stop_id);
+            foreach ($directAccessibleStopIds as $directAccessibleStopId) {
+                $arr2[$directAccessibleStopId] = $weight;
+            }
+            $dijkstraArray[$stop_id] = $arr2;
         }
-        return $lines;
+
+        return $dijkstraArray;
     }
 
 }

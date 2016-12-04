@@ -76,7 +76,7 @@ class StopRestController extends FOSRestController
         $stopGroupRepository = $this->getDoctrine()
             ->getRepository('TubBundle:StopGroup');
 
-        $lines = $stopGroupRepository->getLinesFromStopId($stop_id);
+        $lines = $stopGroupRepository->getLinesOfStopById($stop_id);
 
         if (!is_array($lines)) {
             throw $this->createNotFoundException();

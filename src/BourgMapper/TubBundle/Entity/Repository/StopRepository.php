@@ -30,4 +30,22 @@ class StopRepository extends EntityRepository
             array(StopRepository::STOP_ATTRIBUTE_AVAILABLE => true)
         );
     }
+
+    public function getStopIdsAvailable()
+    {
+        $results = $this->createQueryBuilder('s')
+            ->select('s.id')
+            ->andWhere('s.available = :available')
+            ->setParameter('available', true)
+            ->getQuery()
+            ->getResult();
+
+        $stop_ids = array();
+
+        foreach ($results as $result) {
+            array_push($stop_ids, $result['id']);
+        }
+
+        return $stop_ids;
+    }
 }
