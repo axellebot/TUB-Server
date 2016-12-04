@@ -89,21 +89,14 @@ class StopGroupRepository extends EntityRepository
     public function getLineIdsFromStopId($stop_id)
     {
 
-        $results = $this->createQueryBuilder('sg')
-            ->select('IDENTITY (sg.line)')
+        $line_ids = $this->createQueryBuilder('sg')
+            ->select('IDENTITY (sg.line) AS id')
             ->distinct()
             ->where('sg.stop = :stop_id')
             ->setParameter('stop_id', $stop_id)
             ->getQuery()
             ->getResult();
-
-        $line_ids = array();
-
-        foreach ($results as $result) {
-            $line_id = $result[1];
-            array_push($line_ids, $line_id);
-        }
-
+        
         return $line_ids;
     }
 
