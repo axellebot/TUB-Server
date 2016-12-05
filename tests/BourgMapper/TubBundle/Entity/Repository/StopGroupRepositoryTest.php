@@ -74,9 +74,9 @@ class StopGroupRepositoryTest extends KernelTestCase
         var_dump($schema);
     }
 
-    public function testGetShortestPathLineToLineById(){
-        echo "testGetShortestPathLineToLineById\n";
-        $shortestPath = $this->stopGroupRepository->getShortestPathLineToLineById(1, 2);
+    public function testGetPathsFromStopToStopById(){
+        echo "testGetPathsFromStopToStopById\n";
+        $shortestPath = $this->stopGroupRepository->getPathsFromStopToStopById(1, 2);
         var_dump($shortestPath);
     }
 

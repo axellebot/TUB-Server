@@ -212,12 +212,13 @@ class StopGroupRepository extends EntityRepository
     }
 
     /**
+     * Get Paths from Stop to Stop by id
      *
-     * @return array - Shortest path
+     * @return array - All path
      * @param $departure_line_id
      * @param $arrival_line_id
      */
-    public function getShortestPathLineToLineById($departure_line_id, $arrival_line_id)
+    public function getPathsFromStopToStopById($departure_line_id, $arrival_line_id)
     {
         $dijkstra = new Dijkstra($this->getDijkstraSchema());
         $shortestPath = $dijkstra->shortestPaths($departure_line_id,$arrival_line_id);
