@@ -57,6 +57,7 @@ class StopRestController extends FOSRestController
         if (!is_object($stop)) {
             throw $this->createNotFoundException();
         }
+
         return array('stop' => $stop);
     }
 
@@ -75,11 +76,12 @@ class StopRestController extends FOSRestController
         $stopGroupRepository = $this->getDoctrine()
             ->getRepository('TubBundle:StopGroup');
 
-        $lines = $stopGroupRepository->findLinesOfStop($stop_id);
+        $lines = $stopGroupRepository->getLinesOfStopById($stop_id);
 
         if (!is_array($lines)) {
             throw $this->createNotFoundException();
         }
+
         return array('lines' => $lines);
     }
 }

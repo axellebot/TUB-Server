@@ -19,7 +19,7 @@ class StopController extends Controller
     /**
      * List all Stops
      *
-     * @Route("/stops", name="stop_list")
+     * @Route("", name="stop_list")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

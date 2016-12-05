@@ -30,14 +30,14 @@ class StopGroup
      * @var Line
      *
      * @ORM\ManyToOne(targetEntity="Line", inversedBy="stopGroups")
-     * @ORM\JoinColumn(name="line_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="line_id", referencedColumnName="id",nullable=false)
      */
     private $line;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="way",type="string",length=1,options={"fixed":true, "comment":"O for Outbound or I for Inbound"})
+     * @ORM\Column(name="way",type="string",length=1, nullable=false,options={"fixed":true, "comment":"O for Outbound or I for Inbound"})
      * @Serializer\Expose
      */
     private $way;
@@ -46,17 +46,16 @@ class StopGroup
      * @var Stop
      *
      * @ORM\ManyToOne(targetEntity="Stop", inversedBy="stopGroups")
-     * @ORM\JoinColumn(name="stop_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="stop_id", referencedColumnName="id", nullable=false)
      */
     private $stop;
 
-
     /**
-     * @var integer
-     * @ORM\Column(name="order",type="integer")
-     * @Serializer\Expose
+     * @var Stop
+     * @ORM\ManyToOne(targetEntity="Stop")
+     * @ORM\JoinColumn(name="next_stop_id", referencedColumnName="id", nullable=true)
      */
-    private $order;
+    private $nextStop;
 
     /**
      * @var ScheduleGroup
@@ -86,6 +85,32 @@ class StopGroup
     }
 
     /**
+     * Get stop
+     *
+     * @return Stop
+     */
+    public function getStop()
+    {
+        return $this->stop;
+    }
+
+    //Generated Functions
+
+    /**
+     * Set stop
+     *
+     * @param Stop $stop
+     *
+     * @return StopGroup
+     */
+    public function setStop(Stop $stop = null)
+    {
+        $this->stop = $stop;
+
+        return $this;
+    }
+
+    /**
      * @return integer
      * @Serializer\Type("integer")
      * @Serializer\VirtualProperty
@@ -96,64 +121,14 @@ class StopGroup
         return $this->getLine()->getId();
     }
 
-    //Generated Functions
-
     /**
-     * Get id
+     * Get line
      *
-     * @return integer
+     * @return Line
      */
-    public function getId()
+    public function getLine()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set sens
-     *
-     * @param string $way
-     *
-     * @return StopGroup
-     */
-    public function setWay($way)
-    {
-        $this->way = $way;
-
-        return $this;
-    }
-
-    /**
-     * Get sens
-     *
-     * @return string
-     */
-    public function getWay()
-    {
-        return $this->way;
-    }
-
-    /**
-     * Set order
-     *
-     * @param integer $order
-     *
-     * @return StopGroup
-     */
-    public function setOrder($order)
-    {
-        $this->order = $order;
-
-        return $this;
-    }
-
-    /**
-     * Get order
-     *
-     * @return integer
-     */
-    public function getOrder()
-    {
-        return $this->order;
+        return $this->line;
     }
 
     /**
@@ -171,37 +146,61 @@ class StopGroup
     }
 
     /**
-     * Get line
+     * Get id
      *
-     * @return Line
+     * @return integer
      */
-    public function getLine()
+    public function getId()
     {
-        return $this->line;
+        return $this->id;
     }
 
     /**
-     * Set stop
+     * Get sens
      *
-     * @param Stop $stop
+     * @return string
+     */
+    public function getWay()
+    {
+        return $this->way;
+    }
+
+    /**
+     * Set sens
+     *
+     * @param string $way
      *
      * @return StopGroup
      */
-    public function setStop(Stop $stop = null)
+    public function setWay($way)
     {
-        $this->stop = $stop;
+        $this->way = $way;
 
         return $this;
     }
 
     /**
-     * Get stop
+     * Get nextStop
      *
-     * @return Stop
+     * @return \BourgMapper\TubBundle\Entity\Stop
      */
-    public function getStop()
+    public function getNextStop()
     {
-        return $this->stop;
+        return $this->nextStop;
+    }
+
+    /**
+     * Set nextStop
+     *
+     * @param \BourgMapper\TubBundle\Entity\Stop $nextStop
+     *
+     * @return StopGroup
+     */
+    public function setNextStop(\BourgMapper\TubBundle\Entity\Stop $nextStop = null)
+    {
+        $this->nextStop = $nextStop;
+
+        return $this;
     }
 
     /**

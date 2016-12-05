@@ -47,6 +47,16 @@ class Stop
      */
     private $longitude;
 
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="available", type="boolean")
+     * @Serializer\Expose
+     */
+    private $available;
+
+
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *

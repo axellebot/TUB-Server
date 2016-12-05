@@ -14,4 +14,38 @@ use Doctrine\ORM\EntityRepository as EntityRepository;
  */
 class StopRepository extends EntityRepository
 {
+
+    const STOP_ATTRIBUTE_AVAILABLE = "available";
+    const STOP_AVAILABLE = true;
+    const STOP_NOT_AVAILABLE = false;
+
+    /**
+     * Find All available Stop
+     *
+     * @return array - Array of available Stop
+     */
+    public function findAllAvailable()
+    {
+        return $this->findBy(
+            array(StopRepository::STOP_ATTRIBUTE_AVAILABLE => true)
+        );
+    }
+
+    public function getStopIdsAvailable()
+    {
+        $results = $this->createQueryBuilder('s')
+            ->select('s.id')
+            ->andWhere('s.available = :available')
+            ->setParameter('available', true)
+            ->getQuery()
+            ->getResult();
+
+        $stop_ids = array();
+
+        foreach ($results as $result) {
+            array_push($stop_ids, $result['id']);
+        }
+
+        return $stop_ids;
+    }
 }
