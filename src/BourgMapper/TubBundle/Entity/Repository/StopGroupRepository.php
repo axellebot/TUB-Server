@@ -4,6 +4,7 @@ namespace BourgMapper\TubBundle\Entity\Repository;
 use BourgMapper\TubBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Doctrine\ORM\EntityRepository as EntityRepository;
+use Fisharebest\Algorithm\Dijkstra;
 
 /**
  * StopGroupRepository
@@ -62,31 +63,6 @@ class StopGroupRepository extends EntityRepository
     }
 
     /**
-     * Get All Line Id of Stop by Id
-     *
-     * @return array - Array of Line id
-     * @param $stop_id
-     */
-    public function getLineIdsOfStopById($stop_id)
-    {
-
-        $results = $this->createQueryBuilder('sg')
-            ->select('IDENTITY (sg.line) AS line_id')
-            ->distinct()
-            ->where('sg.stop = :stop_id')
-            ->setParameter('stop_id', $stop_id)
-            ->getQuery()
-            ->getResult();
-
-        $line_ids = array();
-        foreach ($results as $result) {
-            array_push($line_ids, $result["line_id"]);
-        }
-
-        return $line_ids;
-    }
-
-    /**
      * Get All Line of Stop by Id
      *
      * @return array - Array of Stop
@@ -115,34 +91,7 @@ class StopGroupRepository extends EntityRepository
      */
     public function getOrderOfStopById($line_id, $way, $stop_id)
     {
-
-        echo "\n---------------test---------------\n";
-        echo "line id : $line_id";
-        echo "way : $way";
-        echo "stop id : $stop_id";
-
-        $qb = $this->createQueryBuilder('sg')
-            ->select('sg.order')
-            ->andWhere('sg.line = :line_id')
-            ->andWhere('sg.way = :way')
-            ->andWhere('sg.stop = :stop_id')
-            ->setParameters(array(
-                'line_id' => $line_id,
-                'way' => $way,
-                'stop_id' => $stop_id
-            ));
-
-        $query = $qb->getQuery();
-
-        $result = $query->getOneOrNullResult();
-
-        if ($result == null) {
-            $order =  null;
-        }else{
-            $order   = $result["order"];
-        }
-
-        return $order;
+        //TODO ?
     }
 
     /**
@@ -155,60 +104,32 @@ class StopGroupRepository extends EntityRepository
      */
     public function getStopIdByOrder($line_id, $way, $order)
     {
-        echo "\n---------------test---------------\n";
-        echo "line id : $line_id";
-        echo "way : $way";
-        echo "order : $order";
+        //TODO ?
+    }
 
-        $result = $this->createQueryBuilder('sg')
-            ->select('IDENTITY(sg.stop) as stop_id')
-            ->where('sg.line = :line_id')
-            ->andWhere('sg.way = :way')
-            ->andWhere('sg.order = :order')
-            ->setParameters(array(
-                'line_id' => $line_id,
-                'way' => $way,
-                'order' => $order
-            ))
-            ->getQuery()
-            ->getOneOrNullResult();
+    /**
+     * @return array - Array of Dijkstra Schema
+     */
+    public function getDijkstraSchema()
+    {
+        $em = $this->getEntityManager();
+        $stopRepository = $em->getRepository("TubBundle:Stop");
 
-        if ($result == null) {
-            return null;
-        } else {
-            return $result["stop_id"];
+        $stop_ids = $stopRepository->getStopIdsAvailable();
+
+
+        $dijkstraArray = array();
+        $weight = 1;
+        foreach ($stop_ids as $stop_id) {
+            $arr2 = array();
+            $directAccessibleStopIds = $this->getDirectAccessibleStopIdsOfStopById($stop_id);
+            foreach ($directAccessibleStopIds as $directAccessibleStopId) {
+                $arr2[$directAccessibleStopId] = $weight;
+            }
+            $dijkstraArray[$stop_id] = $arr2;
         }
-    }
 
-    /**
-     * Get Next Stop Id
-     *
-     * @return string - Stop Id if next exist, null otherwise
-     * @param $line_id
-     * @param $way
-     * @param $stop_id
-     */
-    public function getNextStopIdOfStopById($line_id, $way, $stop_id)
-    {
-        $order = $this->getOrderOfStopById($line_id, $way, $stop_id);
-        $stop_id = $this->getStopIdByOrder($line_id, $way, $order + 1);
-        return $stop_id;
-    }
-
-    /**
-     * Get Previous Stop Id
-     *
-     * @return string - Stop Id if previous exist, null otherwise
-     * @param $line_id
-     * @param $way
-     * @param $stop_id
-     */
-    public function getPreviousStopIdOfStopById($line_id, $way, $stop_id)
-    {
-        $order = $this->getOrderOfStopById($line_id, $way, $stop_id);
-        $stop_id = $this->getStopIdByOrder($line_id, $way, $order - 1);
-
-        return $stop_id;
+        return $dijkstraArray;
     }
 
     /**
@@ -239,28 +160,67 @@ class StopGroupRepository extends EntityRepository
     }
 
     /**
-     * @return array - Array of Dijkstra Schema
+     * Get All Line Id of Stop by Id
+     *
+     * @return array - Array of Line id
+     * @param $stop_id
      */
-    public function getDijkstraSchema()
+    public function getLineIdsOfStopById($stop_id)
     {
-        $em = $this->getEntityManager();
-        $stopRepository = $em->getRepository("TubBundle:Stop");
 
-        $stop_ids = $stopRepository->getStopIdsAvailable();
+        $results = $this->createQueryBuilder('sg')
+            ->select('IDENTITY (sg.line) AS line_id')
+            ->distinct()
+            ->where('sg.stop = :stop_id')
+            ->setParameter('stop_id', $stop_id)
+            ->getQuery()
+            ->getResult();
 
-
-        $dijkstraArray = array();
-        $weight = 1;
-        foreach ($stop_ids as $stop_id) {
-            $arr2 = array();
-            $directAccessibleStopIds = $this->getDirectAccessibleStopIdsOfStopById($stop_id);
-            foreach ($directAccessibleStopIds as $directAccessibleStopId) {
-                $arr2[$directAccessibleStopId] = $weight;
-            }
-            $dijkstraArray[$stop_id] = $arr2;
+        $line_ids = array();
+        foreach ($results as $result) {
+            array_push($line_ids, $result["line_id"]);
         }
 
-        return $dijkstraArray;
+        return $line_ids;
     }
 
+    /**
+     * Get Next Stop Id
+     *
+     * @return string - Stop Id if next exist, null otherwise
+     * @param $line_id
+     * @param $way
+     * @param $stop_id
+     */
+    public function getNextStopIdOfStopById($line_id, $way, $stop_id)
+    {
+        $qb = $this->createQueryBuilder('sg')
+            ->select('IDENTITY(sg.nextStop) as next_stop_id')->andWhere('sg.line = :line_id')
+            ->andWhere('sg.way = :way')
+            ->andWhere('sg.stop = :stop_id')
+            ->andWhere('sg.nextStop IS NOT NULL')
+            ->setParameters(array(
+                'line_id' => $line_id,
+                'way' => $way,
+                'stop_id' => $stop_id
+            ));
+
+        $query = $qb->getQuery();
+        $result = $query->getOneOrNullResult();
+
+        return $result["next_stop_id"];
+    }
+
+    /**
+     *
+     * @return array - Shortest path
+     * @param $departure_line_id
+     * @param $arrival_line_id
+     */
+    public function getShortestPathLineToLineById($departure_line_id, $arrival_line_id)
+    {
+        $dijkstra = new Dijkstra($this->getDijkstraSchema());
+        $shortestPath = $dijkstra->shortestPaths($departure_line_id,$arrival_line_id);
+        return $shortestPath;
+    }
 }
