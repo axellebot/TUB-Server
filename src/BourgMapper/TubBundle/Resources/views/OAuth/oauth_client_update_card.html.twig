@@ -10,12 +10,21 @@
                 {{ form_widget(form.label) }}
             </div>
 
+
             <ul id="collection-uri-holder" data-prototype="
                 <div class='input-field col s10'>
                 {{ form_label(form.redirectUris.vars.prototype)|e('html_attr') }}
                 {{ form_widget(form.redirectUris.vars.prototype)|e('html_attr') }}
                 </div>
                 ">
+                {% for redirectUri in form.redirectUris %}
+                    <li>
+                        <div class='input-field col s10'>
+                            {{ form_label(redirectUri) }}
+                            {{ form_widget(redirectUri) }}
+                        </div>
+                    </li>
+                {% endfor %}
             </ul>
             <div class="input-field col s12">
                 {{ form_widget((form.allowedGrantTypes)) }}
