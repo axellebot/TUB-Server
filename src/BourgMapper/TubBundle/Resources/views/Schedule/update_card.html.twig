@@ -1,0 +1,17 @@
+{% extends  '::card_action.html.twig' %}
+{% block card_title %}
+    <div class="center">Update Schedule</div>{% endblock %}
+{% block card_content %}
+    <div class="row">
+        <form class="col s12" id="create_schedule_form" method="post" action="?">
+            {{ form_widget(form._token) }}
+            <div class="input-field col s12">
+                {{ form_label(form.eta) }}
+                {{ form_widget(form.eta) }}
+            </div>
+        </form>
+    </div>
+{% endblock card_content %}
+{% block card_action %}
+    <button class="btn" type="submit" form="create_schedule_form">Update</button>
+{% endblock card_action %}
