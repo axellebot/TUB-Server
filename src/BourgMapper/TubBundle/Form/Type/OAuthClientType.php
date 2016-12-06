@@ -93,32 +93,13 @@ class OAuthClientType extends AbstractType
                     $collection = $data[$fieldName];
                     $data[$fieldName] = array();
                     $k = 0;
-                    // Reorder submitted data
-                    echo "Object\n";var_dump($object);echo"\n";
-
-                    echo "field : $fieldName\n";
-                    foreach ($object->{'get' . ucfirst($fieldName)}() as $k => $item) {
-                        echo "item : $k -> $item\n";
-                        // Search
-                        foreach ($collection as $i => $c) {
-                            echo("at $i : $c");
-                            $cId = is_array($c) && isset($c['id']) ? $c['id'] : $c;
-                            if ($item->getId() == $cId) {
-                                $data[$fieldName][$k] = $c;
-                                unset($collection[$i]);
-                                break;
-                            }
-                        }
-                    }
-                    // Added items
-                    foreach ($collection as $c) {
-                        $data[$fieldName][++$k] = $c;
+                    foreach ($collection as $i => $c) {
+                        $data[$fieldName][$k++] = $c;
+                        unset($collection[$i]);
                     }
                 }
             }
         }
-        throw $this->createAccessDeniedException();
-
         $event->setData($data);
     }
 }
