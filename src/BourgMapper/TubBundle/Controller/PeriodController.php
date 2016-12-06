@@ -13,7 +13,7 @@ use BourgMapper\TubBundle\Form\Type\PeriodType;
  * Class PeriodController
  * @package BourgMapper\TubBundle\Controller
  *
- * @Route("periods")
+ * @Route("/periods")
  */
 class  PeriodController extends Controller {
 
@@ -26,6 +26,10 @@ class  PeriodController extends Controller {
      */
     public function listAction(Request $request)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $repository = $this->getDoctrine()
             ->getRepository('TubBundle:Period');
         $periods = $repository->findAll();
