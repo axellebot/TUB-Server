@@ -33,7 +33,11 @@ jQuery(document).ready(function() {
         // add a new tag form (see next code block)
         addTagForm($collectionHolder, $newLinkLi);
     });
-    addTagForm($collectionHolder, $newLinkLi);
+
+    //if index equal to 0 add Tag
+    if($collectionHolder.data("index")===0){
+        addTagForm($collectionHolder, $newLinkLi);
+    }
 });
 
 function addTagForm($collectionHolder, $newLinkLi) {
