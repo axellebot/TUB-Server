@@ -34,7 +34,7 @@ jQuery(document).ready(function() {
         addTagForm($collectionHolder, $newLinkLi);
     });
 
-    //if index equal to 0 add Tag
+    //if collection Holder is empty
     if($collectionHolder.data("index")===0){
         addTagForm($collectionHolder, $newLinkLi);
     }
