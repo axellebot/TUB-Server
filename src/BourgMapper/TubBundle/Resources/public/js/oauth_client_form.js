@@ -1,24 +1,23 @@
 //materialize
-$(document).ready(function() {
+$(document).ready(function () {
     $('select').material_select();
 });
 
 var $collectionHolder;
 
 // setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_tag_link btn-flat">Add Redirect Link</i></a>');
+var $addTagLink = $('<a href="#">Add Redirect Link</i></a>');
+var $newLinkLi = $("<div class='btn-flat'></div>").append($addTagLink).add("<br><br>");
 
-var $newLinkLi = $addTagLink;
-
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     // Get the ul that holds the collection of tags
     $collectionHolder = $('ul#collection-uri-holder');
 
     // add the "add a tag" anchor and li to the tags ul
-    $collectionHolder.append($newLinkLi);
+    $collectionHolder.after($newLinkLi);
 
     // add a delete link to all of the existing tag form li elements
-    $collectionHolder.find('li').each(function() {
+    $collectionHolder.find('li').each(function () {
         addTagFormDeleteLink($(this));
     });
 
@@ -26,21 +25,22 @@ jQuery(document).ready(function() {
     // index when inserting a new item (e.g. 2)
     $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-    $addTagLink.on('click', function(e) {
+    //Trigger click on "Add Tag" btn
+    $addTagLink.on('click', function (e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 
         // add a new tag form (see next code block)
-        addTagForm($collectionHolder, $newLinkLi);
+        addTagForm($collectionHolder);
     });
 
-    //if index equal to 0 add Tag
-    if($collectionHolder.data("index")===0){
-        addTagForm($collectionHolder, $newLinkLi);
+    //if collection Holder is empty
+    if ($collectionHolder.data("index") === 0) {
+        addTagForm($collectionHolder);
     }
 });
 
-function addTagForm($collectionHolder, $newLinkLi) {
+function addTagForm($collectionHolder) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
 
@@ -56,7 +56,7 @@ function addTagForm($collectionHolder, $newLinkLi) {
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<li></li>').append(newForm);
-    $newLinkLi.before($newFormLi);
+    $collectionHolder.append($newFormLi);
 
     // add a delete link to the new form
     addTagFormDeleteLink($newFormLi);
@@ -64,11 +64,10 @@ function addTagForm($collectionHolder, $newLinkLi) {
 
 function addTagFormDeleteLink($tagFormLi) {
     var $deleteTagLink = $('<a href="#" class=""><i class="material-icons">delete</i></a>');
-    var $delLinkLi = $('<div class="col s2 center"></div>').append($deleteTagLink);
-
+    var $delLinkLi = $('<div class="input-field col s2 center"></div>').append($deleteTagLink);
     $tagFormLi.append($delLinkLi);
 
-    $deleteTagLink.on('click', function(e) {
+    $deleteTagLink.on('click', function (e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 

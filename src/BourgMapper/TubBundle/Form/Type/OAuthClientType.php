@@ -8,12 +8,18 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+
 use OAuth2\OAuth2;
 
 class OAuthClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'));
+
         $builder
             ->add('label', TextType::class, array(
                 'label' => 'Label',
@@ -67,5 +73,33 @@ class OAuthClientType extends AbstractType
                 }
             },
         ));
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function onPreSubmit(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $data = $event->getData();
+        $object = $event->getForm()->getData();
+
+        // Loop on form fields
+        foreach ($event->getForm()->all() as $field) {
+            /** @var FormInterface $field */
+            $fieldName = $field->getName();
+            if ($field->getConfig()->getType()->getBlockPrefix() == 'collection') {
+                if (isset($data[$fieldName]) && $object) {
+                    $collection = $data[$fieldName];
+                    $data[$fieldName] = array();
+                    $k = 0;
+                    foreach ($collection as $i => $c) {
+                        $data[$fieldName][$k++] = $c;
+                        unset($collection[$i]);
+                    }
+                }
+            }
+        }
+        $event->setData($data);
     }
 }
