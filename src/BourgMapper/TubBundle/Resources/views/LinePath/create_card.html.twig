@@ -1,0 +1,37 @@
+{% extends  '::card_action.html.twig' %}
+{% block card_title %}
+    <div class="center">Create Line Path</div>{% endblock %}
+{% block card_content %}
+    <div class="row">
+        <form class="col s12" id="create_line_path_form" method="post" action="?">
+            {{ form_widget(form._token) }}
+            <div class="input-field col s12">
+                {{ form_label(form.line) }}
+                {{ form_widget(form.line) }}
+            </div>
+
+            <div class="input-field col s12">
+                {{ form_label(form.way) }}
+                {{ form_widget(form.way) }}
+            </div>
+            <ul id="collection-stops-holder" data-prototype="
+                <div class='input-field col s10'>
+                {{ form_label(form.stops.vars.prototype)|e('html_attr') }}
+                {{ form_widget(form.stops.vars.prototype)|e('html_attr') }}
+                </div>
+                ">
+                {% for stop in form.stops %}
+                    <li>
+                        <div class='input-field col s10'>
+                            {{ form_label(stop) }}
+                            {{ form_widget(stop) }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
+{% endblock card_content %}
+{% block card_action %}
+    <button class="btn" type="submit" form="create_line_path_form">Create</button>
+{% endblock card_action %}

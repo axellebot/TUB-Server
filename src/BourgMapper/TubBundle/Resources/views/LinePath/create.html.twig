@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+{% block page_content %}
+    <div class="row">
+        <div class="col s12 l6 offset-l3">
+            {% include 'TubBundle:LinePath:create_card.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts '@TubBundle/Resources/public/js/line_path_form.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascripts %}
