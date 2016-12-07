@@ -2,6 +2,7 @@
 namespace BourgMapper\TubBundle\Entity\Repository;
 
 use BourgMapper\TubBundle\Entity;
+use BourgMapper\TubBundle\Model\Path;
 use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Doctrine\ORM\EntityRepository as EntityRepository;
 use Fisharebest\Algorithm\Dijkstra;
@@ -108,6 +109,55 @@ class StopGroupRepository extends EntityRepository
     }
 
     /**
+     * Get All StopGroup Of Line by Id
+     *
+     * @return array - Array of StopGroup
+     * @param string $line_id - Id of Line
+     * @param string $way - way of path
+     */
+    public function getStopGroupsOfLineById($line_id, $way)
+    {
+        $stopGroups = $this->findBy(array("line" => $line_id, "way" => $way));
+        return $stopGroups;
+    }
+
+    public function setLinePath($line_id,$way,$stop){
+
+    }
+
+    /**
+     * Get All StopGroup Of Line by Id
+     *
+     * @return Path -
+     * @param string $line_id - Id of Line
+     * @param string $way - way of path
+     */
+    public function getLinePathFromLineByIdAndWay($line_id, $way){
+        $stops = $this->getStopGroupsOfLineById($line_id,$way);
+
+        $path = new Path();
+        $path->setLine($line_id);
+        $path->setWay($way);
+        $path->setStops($stops);
+
+        return $path;
+    }
+
+    /**
+     * Get Paths from Stop to Stop by id
+     *
+     * @return array - All path
+     * @param $departure_line_id
+     * @param $arrival_line_id
+     */
+    public function getPathsFromStopToStopById($departure_line_id, $arrival_line_id)
+    {
+        $dijkstra = new Dijkstra($this->getDijkstraSchema());
+        $shortestPath = $dijkstra->shortestPaths($departure_line_id, $arrival_line_id);
+        return $shortestPath;
+    }
+
+    /**
      * @return array - Array of Dijkstra Schema
      */
     public function getDijkstraSchema()
@@ -209,19 +259,5 @@ class StopGroupRepository extends EntityRepository
         $result = $query->getOneOrNullResult();
 
         return $result["next_stop_id"];
-    }
-
-    /**
-     * Get Paths from Stop to Stop by id
-     *
-     * @return array - All path
-     * @param $departure_line_id
-     * @param $arrival_line_id
-     */
-    public function getPathsFromStopToStopById($departure_line_id, $arrival_line_id)
-    {
-        $dijkstra = new Dijkstra($this->getDijkstraSchema());
-        $shortestPath = $dijkstra->shortestPaths($departure_line_id,$arrival_line_id);
-        return $shortestPath;
     }
 }

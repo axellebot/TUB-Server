@@ -13,7 +13,7 @@ class StopGroupRepositoryTest extends KernelTestCase
     private $em;
 
     /**
-     * @var \BourgMapper\TubBundle\Entity\Repository\StopGroupRepository
+     * @var StopGroupRepository $stopGroupRepository
      */
     private $stopGroupRepository;
 
@@ -78,6 +78,12 @@ class StopGroupRepositoryTest extends KernelTestCase
         echo "testGetPathsFromStopToStopById\n";
         $shortestPath = $this->stopGroupRepository->getPathsFromStopToStopById(1, 2);
         var_dump($shortestPath);
+    }
+
+    public function testGetStopGroupsOfLineById(){
+        echo "testGetStopGroupsOfLineById\n";
+        $stopGroups=$this->stopGroupRepository->getStopGroupsOfLineById(1,StopGroupRepository::WAY_OUTBOUND);
+        echo sizeof($stopGroups)."\n";
     }
 
     /**

@@ -35,7 +35,7 @@ class LinePathController extends Controller
         }
 
         return $this->render('TubBundle:LinePath:list.html.twig',array(
-            
+
         ));
     }
 
@@ -88,5 +88,22 @@ class LinePathController extends Controller
         return $this->render('TubBundle:LinePath:create.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @Route("/update/{line_id}/{way}", name="line_path_update", requirements={"line_id" = "\d+","way"="O|I"})
+     * @param Request $request
+     * @param $line_id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function udpateAction(Request $request, $line_id, $way)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        /** @var  StopGroupRepository $stopGroupRepository */
+        $stopGroupRepository = $this->getDoctrine()
+            ->getRepository('TubBundle:StopGroup');
     }
 }
