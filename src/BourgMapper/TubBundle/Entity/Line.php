@@ -247,4 +247,14 @@ class Line
     {
         return $this->stopGroups;
     }
+
+    /**
+     * To String
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getId()." - ".$this->getLabel();
+    }
 }
