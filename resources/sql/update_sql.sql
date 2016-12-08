@@ -27,5 +27,19 @@ AND jls1.order+1 =jls2.order
 AND jls1.way=jls2.way
 SET jls1.next_stop_id = jls2.stop_id;
 
+---- UPDATE next_stop_id -> next_stop_group_id
+/*
+SELECT jls1.*, jls2.id, jls2.stop_id
+FROM join_line_stop jls1
+INNER JOIN join_line_stop jls2
+ON jls1.line_id = jls2.line_id
+AND jls1.next_stop_id =jls2.stop_id
+AND jls1.way=jls2.way
+ */
 
-
+UPDATE join_line_stop as jls1
+INNER JOIN join_line_stop jls2
+ON jls1.line_id = jls2.line_id
+AND jls1.next_stop_id =jls2.stop_id
+AND jls1.way=jls2.way
+SET jls1.next_stop_group_id= jls2.id;

@@ -34,9 +34,7 @@ class LinePathController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        return $this->render('TubBundle:LinePath:list.html.twig',array(
-
-        ));
+        return $this->render('TubBundle:LinePath:list.html.twig', array());
     }
 
     /**
@@ -61,17 +59,17 @@ class LinePathController extends Controller
             $stopGroups = array();
 
             $stops = $linePath->getStops();
-            foreach ($stops as $i => $stop) {
+            $reversedStops = array_reverse($stops);
+
+            $nextStopGroup = null;
+            foreach ($reversedStops as $i => $stop) {
                 $stopGroup = new StopGroup();
                 $stopGroup->setWay($linePath->getWay());
                 $stopGroup->setLine($linePath->getLine());
                 $stopGroup->setStop($stop);
-                if (isset($stops[$i + 1])) {
-                    $stopGroup->setNextStop($stops[$i + 1]);
-                }else{
-                    $stopGroup->setNextStop(null);
-                }
-                array_push($stopGroups, $stopGroup);
+                $stopGroup->setNextStopGroup($nextStopGroup);
+                $nextStopGroup = $stopGroup;
+                array_unshift($stopGroups, $stopGroup);
             }
 
             $em = $this->getDoctrine()->getManager();

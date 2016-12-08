@@ -2,6 +2,7 @@
 
 namespace BourgMapper\TubBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -50,12 +51,12 @@ class StopGroup
      */
     private $stop;
 
-    /**
-     * @var Stop
-     * @ORM\ManyToOne(targetEntity="Stop")
-     * @ORM\JoinColumn(name="next_stop_id", referencedColumnName="id", nullable=true)
+     /**
+     * @var StopGroup
+     * @ORM\ManyToOne(targetEntity="StopGroup")
+     * @ORM\JoinColumn(name="next_stop_group_id", referencedColumnName="id", nullable=true)
      */
-    private $nextStop;
+    private $nextStopGroup;
 
     /**
      * @var ScheduleGroup
@@ -69,7 +70,7 @@ class StopGroup
      */
     public function __construct()
     {
-        $this->scheduleGroups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->scheduleGroups = new ArrayCollection();
     }
 
     //Custom Functions
@@ -180,25 +181,25 @@ class StopGroup
     }
 
     /**
-     * Get nextStop
-     *
-     * @return \BourgMapper\TubBundle\Entity\Stop
-     */
-    public function getNextStop()
-    {
-        return $this->nextStop;
-    }
-
-    /**
-     * Set nextStop
-     *
-     * @param \BourgMapper\TubBundle\Entity\Stop $nextStop
+     * Get nextStopGroup
      *
      * @return StopGroup
      */
-    public function setNextStop(\BourgMapper\TubBundle\Entity\Stop $nextStop = null)
+    public function getNextStopGroup()
     {
-        $this->nextStop = $nextStop;
+        return $this->nextStopGroup;
+    }
+
+    /**
+     * Set nextStopGroup
+     *
+     * @param StopGroup $nextStopGroup
+     *
+     * @return StopGroup
+     */
+    public function setNextStopGroup(StopGroup $nextStopGroup = null)
+    {
+        $this->nextStopGroup = $nextStopGroup;
 
         return $this;
     }
@@ -230,7 +231,7 @@ class StopGroup
     /**
      * Get scheduleGroups
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getScheduleGroups()
     {

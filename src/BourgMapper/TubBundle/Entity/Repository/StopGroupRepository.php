@@ -2,6 +2,7 @@
 namespace BourgMapper\TubBundle\Entity\Repository;
 
 use BourgMapper\TubBundle\Entity;
+use BourgMapper\TubBundle\Entity\StopGroup;
 use BourgMapper\TubBundle\Model\Path;
 use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Doctrine\ORM\EntityRepository as EntityRepository;
@@ -121,7 +122,8 @@ class StopGroupRepository extends EntityRepository
         return $stopGroups;
     }
 
-    public function setLinePath($line_id,$way,$stop){
+    public function setLinePath($line_id, $way, $stop)
+    {
 
     }
 
@@ -132,8 +134,9 @@ class StopGroupRepository extends EntityRepository
      * @param string $line_id - Id of Line
      * @param string $way - way of path
      */
-    public function getLinePathFromLineByIdAndWay($line_id, $way){
-        $stops = $this->getStopGroupsOfLineById($line_id,$way);
+    public function getLinePathFromLineByIdAndWay($line_id, $way)
+    {
+        $stops = $this->getStopGroupsOfLineById($line_id, $way);
 
         $path = new Path();
         $path->setLine($line_id);
@@ -143,71 +146,6 @@ class StopGroupRepository extends EntityRepository
         return $path;
     }
 
-    /**
-     * Get Paths from Stop to Stop by id
-     *
-     * @return array - All path
-     * @param $departure_line_id
-     * @param $arrival_line_id
-     */
-    public function getPathsFromStopToStopById($departure_line_id, $arrival_line_id)
-    {
-        $dijkstra = new Dijkstra($this->getDijkstraSchema());
-        $shortestPath = $dijkstra->shortestPaths($departure_line_id, $arrival_line_id);
-        return $shortestPath;
-    }
-
-    /**
-     * @return array - Array of Dijkstra Schema
-     */
-    public function getDijkstraSchema()
-    {
-        $em = $this->getEntityManager();
-        $stopRepository = $em->getRepository("TubBundle:Stop");
-
-        $stop_ids = $stopRepository->getStopIdsAvailable();
-
-
-        $dijkstraArray = array();
-        $weight = 1;
-        foreach ($stop_ids as $stop_id) {
-            $arr2 = array();
-            $directAccessibleStopIds = $this->getDirectAccessibleStopIdsOfStopById($stop_id);
-            foreach ($directAccessibleStopIds as $directAccessibleStopId) {
-                $arr2[$directAccessibleStopId] = $weight;
-            }
-            $dijkstraArray[$stop_id] = $arr2;
-        }
-
-        return $dijkstraArray;
-    }
-
-    /**
-     * @return array - Array of direct accessible stop id
-     * @param $stop_id
-     */
-    public function getDirectAccessibleStopIdsOfStopById($stop_id)
-    {
-
-        $accessibleStopIds = array();
-
-        $line_ids = $this->getLineIdsOfStopById($stop_id);
-
-        $tmp = null;
-        foreach ($line_ids as $line_id) {
-
-            $tmp = $this->getNextStopIdOfStopById($line_id, StopGroupRepository::WAY_INBOUND, $stop_id);
-            if ($tmp != null) {
-                array_push($accessibleStopIds, $tmp);
-            }
-            $tmp = $this->getNextStopIdOfStopById($line_id, StopGroupRepository::WAY_OUTBOUND, $stop_id);
-            if ($tmp != null) {
-                array_push($accessibleStopIds, $tmp);
-            }
-        }
-
-        return array_unique($accessibleStopIds);
-    }
 
     /**
      * Get All Line Id of Stop by Id
@@ -235,6 +173,20 @@ class StopGroupRepository extends EntityRepository
     }
 
     /**
+     * Get Next StopGroup Id
+     *
+     * @return string - StopGroup Id if next exist, null otherwise
+     * @param $stopGroupId
+     */
+    public function getNextStopGroupIdOfStopGroupById($stopGroupId)
+    {
+        $stopGroup = $this->find($stopGroupId);
+        /** @var StopGroup $nextStopGroup */
+        $nextStopGroup = $stopGroup->getNextStopGroup();
+        return ($nextStopGroup) ? $nextStopGroup->getId() : null;
+    }
+
+    /**
      * Get Next Stop Id
      *
      * @return string - Stop Id if next exist, null otherwise
@@ -244,20 +196,83 @@ class StopGroupRepository extends EntityRepository
      */
     public function getNextStopIdOfStopById($line_id, $way, $stop_id)
     {
-        $qb = $this->createQueryBuilder('sg')
-            ->select('IDENTITY(sg.nextStop) as next_stop_id')->andWhere('sg.line = :line_id')
-            ->andWhere('sg.way = :way')
-            ->andWhere('sg.stop = :stop_id')
-            ->andWhere('sg.nextStop IS NOT NULL')
-            ->setParameters(array(
-                'line_id' => $line_id,
-                'way' => $way,
-                'stop_id' => $stop_id
-            ));
+        /** @var StopGroup $stopGroup */
+        $stopGroup = $this->findOneBy(array(
+            'line' => $line_id,
+            'way' => $way,
+            'stop' => $stop_id));
 
-        $query = $qb->getQuery();
-        $result = $query->getOneOrNullResult();
+        if (!$stopGroup) {
+            return null;
+        }
+        $nextStopGroup = $stopGroup->getNextStopGroup();
 
-        return $result["next_stop_id"];
+        return ($nextStopGroup) ? $nextStopGroup->getStop()->getId() : null;
+    }
+
+    /**
+     * @return array - Array of direct accessible stop id
+     * @param $stop_id
+     */
+    public function getDirectAccessibleStopIdsOfStopById($stop_id)
+    {
+        $accessibleStopIds = array();
+
+        $line_ids = $this->getLineIdsOfStopById($stop_id);
+
+        $tmp = null;
+        foreach ($line_ids as $line_id) {
+
+            $tmp = $this->getNextStopIdOfStopById($line_id, StopGroupRepository::WAY_INBOUND, $stop_id);
+            if ($tmp != null) {
+                array_push($accessibleStopIds, $tmp);
+            }
+            $tmp = $this->getNextStopIdOfStopById($line_id, StopGroupRepository::WAY_OUTBOUND, $stop_id);
+            if ($tmp != null) {
+                array_push($accessibleStopIds, $tmp);
+            }
+        }
+
+        return array_unique($accessibleStopIds);
+    }
+
+    /**
+     * @return array - Array of Dijkstra Schema
+     */
+    public function getDijkstraSchema()
+    {
+        $em = $this->getEntityManager();
+        /** @var StopRepository $stopRepository */
+        $stopRepository = $em->getRepository("TubBundle:Stop");
+
+        $stop_ids = $stopRepository->getStopIdsAvailable();
+
+
+        $dijkstraArray = array();
+        $weight = 1;
+        foreach ($stop_ids as $stop_id) {
+            $arr2 = array();
+            $directAccessibleStopIds = $this->getDirectAccessibleStopIdsOfStopById($stop_id);
+            foreach ($directAccessibleStopIds as $directAccessibleStopId) {
+                $arr2[$directAccessibleStopId] = $weight;
+            }
+            $dijkstraArray[$stop_id] = $arr2;
+        }
+
+        return $dijkstraArray;
+    }
+
+    /**
+     * Get Paths from Stop to Stop by id
+     *
+     * @return array - All path
+     * @param $departure_line_id
+     * @param $arrival_line_id
+     */
+    public function getPathsFromStopToStopById($departure_line_id, $arrival_line_id)
+    {
+        $dijkstra = new Dijkstra($this->getDijkstraSchema());
+        $shortestPath = $dijkstra->shortestPaths($departure_line_id, $arrival_line_id);
+        return $shortestPath;
     }
 }

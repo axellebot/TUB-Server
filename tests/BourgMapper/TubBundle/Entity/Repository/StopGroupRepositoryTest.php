@@ -55,9 +55,15 @@ class StopGroupRepositoryTest extends KernelTestCase
     public function testGetLineIdsOfStopById()
     {
         echo "testGetLineIdsOfStopById\n";
-        $line_ids = $this->stopGroupRepository->getLineIdsOfStopById(1);
+        $line_ids = $this->stopGroupRepository->getLineIdsOfStopById(8);
         var_dump($line_ids);
         echo "Size :" . sizeof($line_ids) . "\n";
+    }
+
+    public function testGetNextStopIdOfStopById()
+    {
+        echo "testGetNextStopIdOfStopById\n";
+        $stop_id = $this->stopGroupRepository->getLineIdsOfStopById(1);
     }
 
     public function testGetDirectAccessibleStopIdsOfStopById()
@@ -74,16 +80,18 @@ class StopGroupRepositoryTest extends KernelTestCase
         var_dump($schema);
     }
 
-    public function testGetPathsFromStopToStopById(){
+    public function testGetPathsFromStopToStopById()
+    {
         echo "testGetPathsFromStopToStopById\n";
         $shortestPath = $this->stopGroupRepository->getPathsFromStopToStopById(1, 2);
         var_dump($shortestPath);
     }
 
-    public function testGetStopGroupsOfLineById(){
+    public function testGetStopGroupsOfLineById()
+    {
         echo "testGetStopGroupsOfLineById\n";
-        $stopGroups=$this->stopGroupRepository->getStopGroupsOfLineById(1,StopGroupRepository::WAY_OUTBOUND);
-        echo sizeof($stopGroups)."\n";
+        $stopGroups = $this->stopGroupRepository->getStopGroupsOfLineById(1, StopGroupRepository::WAY_OUTBOUND);
+        echo sizeof($stopGroups) . "\n";
     }
 
     /**
