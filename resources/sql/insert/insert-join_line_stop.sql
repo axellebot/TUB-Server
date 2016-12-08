@@ -5,7 +5,7 @@
 
 LOCK TABLES `join_line_stop` WRITE;
 
-INSERT INTO `join_line_stop` (`id`, `line_id`, `stop_id`, `way`, `order`, `next_stop_id`)
+INSERT INTO `join_line_stop` (`id`, `line_id`, `stop_id`, `way`, `next_stop_id`)
 VALUES
 	(1,1,134,'O',138),
 	(2,1,138,'O',89),
