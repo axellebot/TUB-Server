@@ -54,6 +54,13 @@ class StopGroup
      /**
      * @var StopGroup
      * @ORM\ManyToOne(targetEntity="StopGroup")
+     * @ORM\JoinColumn(name="previous_stop_group_id", referencedColumnName="id", nullable=true)
+     */
+    private $previousStopGroup;
+
+    /**
+     * @var StopGroup
+     * @ORM\ManyToOne(targetEntity="StopGroup")
      * @ORM\JoinColumn(name="next_stop_group_id", referencedColumnName="id", nullable=true)
      */
     private $nextStopGroup;
@@ -236,5 +243,29 @@ class StopGroup
     public function getScheduleGroups()
     {
         return $this->scheduleGroups;
+    }
+
+    /**
+     * Set previousStopGroup
+     *
+     * @param \BourgMapper\TubBundle\Entity\StopGroup $previousStopGroup
+     *
+     * @return StopGroup
+     */
+    public function setPreviousStopGroup(\BourgMapper\TubBundle\Entity\StopGroup $previousStopGroup = null)
+    {
+        $this->previousStopGroup = $previousStopGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get previousStopGroup
+     *
+     * @return \BourgMapper\TubBundle\Entity\StopGroup
+     */
+    public function getPreviousStopGroup()
+    {
+        return $this->previousStopGroup;
     }
 }

@@ -56,22 +56,32 @@ class LinePathController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $stopGroups = array();
-
             $stops = $linePath->getStops();
-            $reversedStops = array_reverse($stops);
-
-            $nextStopGroup = null;
-            foreach ($reversedStops as $i => $stop) {
+            /** @var Stop $stop */
+            foreach ($stops as $stop) {
                 $stopGroup = new StopGroup();
                 $stopGroup->setWay($linePath->getWay());
                 $stopGroup->setLine($linePath->getLine());
                 $stopGroup->setStop($stop);
-                $stopGroup->setNextStopGroup($nextStopGroup);
-                $nextStopGroup = $stopGroup;
-                array_unshift($stopGroups, $stopGroup);
+                array_push($stopGroups, $stopGroup);
             }
 
+
+            /**
+             * @var integer $i
+             * @var StopGroup $stopGroup
+             */
+            foreach ($stopGroups as $i => $stopGroup) {
+                $previousStopGroup = (isset($stopGroups[$i - 1])) ? $stopGroups[$i - 1] : null;
+                $nextStopGroup = (isset($stopGroups[$i +1])) ? $stopGroups[$i +1] : null;
+
+                $stopGroup->setPreviousStopGroup($previousStopGroup);
+                $stopGroup->setNextStopGroup($nextStopGroup);
+            }
+
+            //persist
             $em = $this->getDoctrine()->getManager();
 
             foreach ($stopGroups as $stopGroup) {
