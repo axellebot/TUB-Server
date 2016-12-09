@@ -56,37 +56,9 @@ class LinePathController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $stopGroups = array();
-            $stops = $linePath->getStops();
-            /** @var Stop $stop */
-            foreach ($stops as $stop) {
-                $stopGroup = new StopGroup();
-                $stopGroup->setWay($linePath->getWay());
-                $stopGroup->setLine($linePath->getLine());
-                $stopGroup->setStop($stop);
-                array_push($stopGroups, $stopGroup);
-            }
-
-
-            /**
-             * @var integer $i
-             * @var StopGroup $stopGroup
-             */
-            foreach ($stopGroups as $i => $stopGroup) {
-                $previousStopGroup = (isset($stopGroups[$i - 1])) ? $stopGroups[$i - 1] : null;
-                $nextStopGroup = (isset($stopGroups[$i +1])) ? $stopGroups[$i +1] : null;
-
-                $stopGroup->setPreviousStopGroup($previousStopGroup);
-                $stopGroup->setNextStopGroup($nextStopGroup);
-            }
-
-            //persist
             $em = $this->getDoctrine()->getManager();
 
-            foreach ($stopGroups as $stopGroup) {
-                $em->persist($stopGroup);
-            }
+            $linePath->persist($em);
 
             $em->flush();
 
@@ -99,6 +71,8 @@ class LinePathController extends Controller
     }
 
     /**
+     * Update Action - Recreate LinePath
+     *
      * @Route("/update/{line_id}/{way}", name="line_path_update", requirements={"line_id" = "\d+","way"="O|I"})
      * @param Request $request
      * @param $line_id
@@ -113,5 +87,28 @@ class LinePathController extends Controller
         /** @var  StopGroupRepository $stopGroupRepository */
         $stopGroupRepository = $this->getDoctrine()
             ->getRepository('TubBundle:StopGroup');
+
+        $stopGroup = $stopGroupRepository->getFirstStopGroupFromLinePathByLineIdAndWay($line_id, $way);
+
+        $linePath = LinePath::initWithStopGroup($stopGroup);
+
+        $form = $this->createForm(LinePathType::class, $linePath);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            //delete StopGroups
+            $em->remove($stopGroup);
+
+            $linePath->persist($em);
+
+            $em->flush();
+            return $this->redirectToRoute("line_path_list");
+        }
+
+        return $this->render('TubBundle:LinePath:update.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }

@@ -4,7 +4,6 @@ namespace BourgMapper\TubBundle\Entity\Repository;
 use BourgMapper\TubBundle\Entity;
 use BourgMapper\TubBundle\Entity\StopGroup;
 use BourgMapper\TubBundle\Model\LinePath;
-use BourgMapper\TubBundle\Model\Path;
 use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Doctrine\ORM\EntityRepository as EntityRepository;
 use Fisharebest\Algorithm\Dijkstra;
@@ -85,44 +84,39 @@ class StopGroupRepository extends EntityRepository
     }
 
     /**
-     * Get All StopGroup Of Line by Id
+     * Get All StopGroups ordered From Line Path by Line Id and way
      *
-     * @return LinePath -
+     * @return array - Array of ordered StopGroup
      * @param string $line_id - Id of Line
      * @param string $way - way of path
      */
-    public function getLinePathFromLineByIdAndWay($line_id, $way)
+    public function getStopGroupsFromLinePathByLineIdAndWay($line_id, $way)
     {
-        $stops = $this->getStopGroupsOfLineById($line_id, $way);
+        $stopGroup = $this->getFirstStopGroupFromLinePathByLineIdAndWay($line_id, $way);
 
-        /** @var LinePath $path */
-        $path = new LinePath();
-        $path->setLine($line_id);
-        $path->setWay($way);
-        $path->setStops($stops);
+        $orderedStopGroups = array();
 
-        return $path;
+        /** @var StopGroup $stopGroup */
+        while ($stopGroup != null) {
+            array_push($orderedStopGroups, $stopGroup);
+            $stopGroup = $stopGroup->getNextStopGroup();
+        }
+
+        return $orderedStopGroups;
     }
 
     /**
-     * Get All StopGroup Of Line by Id
+     * Get First StopGroup From Line Path by Line Id and way
      *
-     * @return array - Array of StopGroup
+     * @return StopGroup - First StopGroup of LinePath
      * @param string $line_id - Id of Line
      * @param string $way - way of path
      */
-    public function getStopGroupsOfLineById($line_id, $way)
+    public function getFirstStopGroupFromLinePathByLineIdAndWay($line_id, $way)
     {
         /** @var StopGroup $stopGroup */
-        $stopGroup = $this->findBy(array("line" => $line_id, "way" => $way, "previousStopGroup" => null));
-        $orderedStops = array();
-
-        while($stopGroup!=null){
-            array_push($orderedStops,$stopGroup->getStop());
-            $stopGroup=$stopGroup->getNextStopGroup();
-        }
-
-        return $orderedStops;
+        $stopGroup = $this->findOneBy(array("line" => $line_id, "way" => $way, "previousStopGroup" => null));
+        return $stopGroup;
     }
 
     /**
@@ -192,11 +186,11 @@ class StopGroupRepository extends EntityRepository
         $tmp = null;
         foreach ($line_ids as $line_id) {
 
-            $tmp = $this->getNextStopIdOfStopById($line_id, StopGroupRepository::WAY_INBOUND, $stop_id);
+            $tmp = $this->getNextStopIdOfStopFromLinePathById($line_id, StopGroupRepository::WAY_INBOUND, $stop_id);
             if ($tmp != null) {
                 array_push($accessibleStopIds, $tmp);
             }
-            $tmp = $this->getNextStopIdOfStopById($line_id, StopGroupRepository::WAY_OUTBOUND, $stop_id);
+            $tmp = $this->getNextStopIdOfStopFromLinePathById($line_id, StopGroupRepository::WAY_OUTBOUND, $stop_id);
             if ($tmp != null) {
                 array_push($accessibleStopIds, $tmp);
             }
@@ -231,14 +225,14 @@ class StopGroupRepository extends EntityRepository
     }
 
     /**
-     * Get Next Stop Id
+     * Get Next Stop Id Of Stop From LinePath
      *
      * @return string - Stop Id if next exist, null otherwise
      * @param $line_id
      * @param $way
      * @param $stop_id
      */
-    public function getNextStopIdOfStopById($line_id, $way, $stop_id)
+    public function getNextStopIdOfStopFromLinePathById($line_id, $way, $stop_id)
     {
         /** @var StopGroup $stopGroup */
         $stopGroup = $this->findOneBy(array(

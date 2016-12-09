@@ -63,7 +63,7 @@ class Line
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="StopGroup", mappedBy="line")
+     * @ORM\OneToMany(targetEntity="StopGroup", mappedBy="line",cascade={"remove"})
      * @ORM\OrderBy({"way" = "DESC"})
      */
     private $stopGroups;

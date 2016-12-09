@@ -2,6 +2,7 @@
 
 namespace BourgMapper\TubBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -60,7 +61,7 @@ class Stop
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="StopGroup", mappedBy="stop")
+     * @ORM\OneToMany(targetEntity="StopGroup", mappedBy="stop",cascade={"remove"})
      */
     private $stopGroups;
 
@@ -69,7 +70,7 @@ class Stop
      */
     public function __construct()
     {
-        $this->stopGroups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->stopGroups = new ArrayCollection();
     }
 
     /**

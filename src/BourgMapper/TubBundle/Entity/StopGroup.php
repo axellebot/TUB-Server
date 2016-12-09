@@ -31,7 +31,7 @@ class StopGroup
      * @var Line
      *
      * @ORM\ManyToOne(targetEntity="Line", inversedBy="stopGroups")
-     * @ORM\JoinColumn(name="line_id", referencedColumnName="id",nullable=false)
+     * @ORM\JoinColumn(name="line_id", referencedColumnName="id",nullable=false,onDelete="CASCADE")
      */
     private $line;
 
@@ -47,21 +47,21 @@ class StopGroup
      * @var Stop
      *
      * @ORM\ManyToOne(targetEntity="Stop", inversedBy="stopGroups")
-     * @ORM\JoinColumn(name="stop_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="stop_id", referencedColumnName="id", nullable=false,onDelete="CASCADE")
      */
     private $stop;
 
-     /**
+    /**
      * @var StopGroup
-     * @ORM\ManyToOne(targetEntity="StopGroup")
-     * @ORM\JoinColumn(name="previous_stop_group_id", referencedColumnName="id", nullable=true)
+     * @ORM\OneToOne(targetEntity="StopGroup",cascade={"remove"})
+     * @ORM\JoinColumn(name="previous_stop_group_id", referencedColumnName="id", nullable=true,onDelete="SET NULL")
      */
     private $previousStopGroup;
 
     /**
      * @var StopGroup
-     * @ORM\ManyToOne(targetEntity="StopGroup")
-     * @ORM\JoinColumn(name="next_stop_group_id", referencedColumnName="id", nullable=true)
+     * @ORM\OneToOne(targetEntity="StopGroup",cascade={"remove"})
+     * @ORM\JoinColumn(name="next_stop_group_id", referencedColumnName="id", nullable=true,onDelete="SET NULL")
      */
     private $nextStopGroup;
 
@@ -246,26 +246,26 @@ class StopGroup
     }
 
     /**
-     * Set previousStopGroup
-     *
-     * @param \BourgMapper\TubBundle\Entity\StopGroup $previousStopGroup
-     *
-     * @return StopGroup
-     */
-    public function setPreviousStopGroup(\BourgMapper\TubBundle\Entity\StopGroup $previousStopGroup = null)
-    {
-        $this->previousStopGroup = $previousStopGroup;
-
-        return $this;
-    }
-
-    /**
      * Get previousStopGroup
      *
-     * @return \BourgMapper\TubBundle\Entity\StopGroup
+     * @return StopGroup
      */
     public function getPreviousStopGroup()
     {
         return $this->previousStopGroup;
+    }
+
+    /**
+     * Set previousStopGroup
+     *
+     * @param StopGroup $previousStopGroup
+     *
+     * @return StopGroup
+     */
+    public function setPreviousStopGroup(StopGroup $previousStopGroup = null)
+    {
+        $this->previousStopGroup = $previousStopGroup;
+
+        return $this;
     }
 }

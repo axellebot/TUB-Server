@@ -87,13 +87,6 @@ class StopGroupRepositoryTest extends KernelTestCase
         var_dump($shortestPath);
     }
 
-    public function testGetStopGroupsOfLineById()
-    {
-        echo "testGetStopGroupsOfLineById\n";
-        $stopGroups = $this->stopGroupRepository->getStopGroupsOfLineById(1, StopGroupRepository::WAY_OUTBOUND);
-        echo sizeof($stopGroups) . "\n";
-    }
-
     /**
      * {@inheritDoc}
      */
