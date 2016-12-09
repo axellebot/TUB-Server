@@ -71,14 +71,14 @@ class LinePathController extends Controller
     }
 
     /**
-     * Update Action - Recreate LinePath
+     * Recreate Action - Recreate LinePath
      *
-     * @Route("/update/{line_id}/{way}", name="line_path_update", requirements={"line_id" = "\d+","way"="O|I"})
+     * @Route("/recreate/{line_id}/{way}", name="line_path_recreate", requirements={"line_id" = "\d+","way"="O|I"})
      * @param Request $request
      * @param $line_id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function udpateAction(Request $request, $line_id, $way)
+    public function recreateAction(Request $request, $line_id, $way)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
@@ -107,7 +107,7 @@ class LinePathController extends Controller
             return $this->redirectToRoute("line_path_list");
         }
 
-        return $this->render('TubBundle:LinePath:update.html.twig', array(
+        return $this->render('TubBundle:LinePath:recreate.html.twig', array(
             'form' => $form->createView()
         ));
     }
