@@ -2,8 +2,8 @@
 # Base de données: tub
 # Table: join_line_stop
 # ************************************************************
+SET FOREIGN_KEY_CHECKS = 0;
 
-LOCK TABLES `join_line_stop` WRITE;
 INSERT INTO `join_line_stop` (`id`, `line_id`, `stop_id`, `way`, `next_stop_group_id`) VALUES
 (1, 1, 134, 'O', 2),
 (2, 1, 138, 'O', 3),
@@ -444,4 +444,4 @@ INSERT INTO `join_line_stop` (`id`, `line_id`, `stop_id`, `way`, `next_stop_grou
 (437, 8, 146, 'I', 438),
 (438, 8, 9, 'I', NULL);
 
-UNLOCK TABLES;
+SET FOREIGN_KEY_CHECKS = 0;
