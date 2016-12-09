@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -61,7 +62,35 @@ class LinePathType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'required' => true
-            ));
+            ))
+            ->add('dateStart', DateType::class, array(
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'label' => 'Date Start',
+                'label_attr' => array(
+                    'class' => ''
+                ),
+                'attr' => array(
+                    'class' => 'datepicker'
+                ),
+                // do not render as type="date", to avoid HTML5 date pickers
+                'html5' => true,
+                'required' => true
+            ))
+            ->add('dateEnd', DateType::class, array(
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'label' => 'Date End',
+                'label_attr' => array(
+                    'class' => ''
+                ),
+                'attr' => array(
+                    'class' => 'datepicker'
+                ),
+                // do not render as type="date", to avoid HTML5 date pickers
+                'html5' => true,
+                'required' => true
+            ));;
     }
 
     /**

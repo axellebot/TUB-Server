@@ -16,6 +16,7 @@ use Fisharebest\Algorithm\Dijkstra;
  */
 class StopGroupRepository extends EntityRepository
 {
+    //TODO : Take in consideration Date
 
     const WAY_OUTBOUND = "O";
     const WAY_INBOUND = "I";

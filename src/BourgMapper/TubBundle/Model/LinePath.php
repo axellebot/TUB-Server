@@ -6,6 +6,8 @@ use BourgMapper\TubBundle\Entity\Stop;
 use BourgMapper\TubBundle\Entity\StopGroup;
 use Doctrine\ORM\EntityManager;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Path
@@ -38,6 +40,23 @@ class LinePath
     private $stops;
 
     /**
+     * Start Date
+     *
+     * @var \DateTime $dateStart
+     * @Serializer\Expose
+     */
+    private $dateStart;
+
+    /**
+     * End Date
+     *
+     * @var DateTime $dateEnd
+     * @Serializer\Expose
+     */
+    private $dateEnd;
+
+
+    /**
      * Constructor
      *
      * @return LinePath
@@ -53,7 +72,7 @@ class LinePath
         $stopsOrdered = array();
         while ($stopGroup != null) {
             array_push($stopsOrdered, $stopGroup->getStop());
-            $stopGroup=$stopGroup->getNextStopGroup();
+            $stopGroup = $stopGroup->getNextStopGroup();
         }
         $instance->setStops($stopsOrdered);
 
@@ -69,12 +88,15 @@ class LinePath
     public static function initWithStopGroups($stopGroups)
     {
         $instance = new self();
-
-        $instance->setLine($stopGroups[0]->getLine());
-        $instance->setWay($stopGroups[0]->getWay());
+        /** @var StopGroup $firstStopGroup */
+        $firstStopGroup = $stopGroups[0];
+        $instance->setLine($firstStopGroup->getLine());
+        $instance->setWay($firstStopGroup->getWay());
+        $instance->setDateStart($firstStopGroup->getDateStart());
+        $instance->setDateEnd($firstStopGroup->getDateEnd());
 
         $stopsOrdered = array();
-        foreach ($stopGroups as $stopGroup){
+        foreach ($stopGroups as $stopGroup) {
             array_push($stopsOrdered, $stopGroup->getStop());
         }
         $instance->setStops($stopsOrdered);
@@ -88,7 +110,8 @@ class LinePath
      *
      * @param EntityManager $em
      */
-    public function persist($em){
+    public function persist($em)
+    {
         $stopGroups = array();
         $stops = $this->getStops();
         /** @var Stop $stop */
@@ -97,6 +120,8 @@ class LinePath
             $stopGroup->setWay($this->getWay());
             $stopGroup->setLine($this->getLine());
             $stopGroup->setStop($stop);
+            $stopGroup->setDateStart($this->getDateStart());
+            $stopGroup->setDateEnd($this->getDateEnd());
             array_push($stopGroups, $stopGroup);
         }
 
@@ -117,22 +142,20 @@ class LinePath
         }
     }
 
-
-
     /**
-     * @return Line
+     * @return array
      */
-    public function getLine()
+    public function getStops()
     {
-        return $this->line;
+        return $this->stops;
     }
 
     /**
-     * @param Line $line
+     * @param array $stops
      */
-    public function setLine($line)
+    public function setStops($stops)
     {
-        $this->line = $line;
+        $this->stops = $stops;
     }
 
     /**
@@ -152,20 +175,50 @@ class LinePath
     }
 
     /**
-     * @return array
+     * @return Line
      */
-    public function getStops()
+    public function getLine()
     {
-        return $this->stops;
+        return $this->line;
     }
 
     /**
-     * @param array $stops
+     * @param Line $line
      */
-    public function setStops($stops)
+    public function setLine($line)
     {
-        $this->stops = $stops;
+        $this->line = $line;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getDateStart()
+    {
+        return $this->dateStart;
+    }
 
+    /**
+     * @param \DateTime $dateStart
+     */
+    public function setDateStart($dateStart)
+    {
+        $this->dateStart = $dateStart;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateEnd()
+    {
+        return $this->dateEnd;
+    }
+
+    /**
+     * @param \DateTime $dateEnd
+     */
+    public function setDateEnd($dateEnd)
+    {
+        $this->dateEnd = $dateEnd;
+    }
 }

@@ -66,6 +66,27 @@ class StopGroup
     private $nextStopGroup;
 
     /**
+     * Start Date
+     *
+     * @var \DateTime $dateStart
+     *
+     * @ORM\Column(name="dateStart", type="date")
+     * @Serializer\Expose
+     */
+    private $dateStart;
+
+    /**
+     * End Date
+     *
+     * @var \DateTime $dateEnd
+     *
+     * @ORM\Column(name="dateEnd", type="date")
+     * @Serializer\Expose
+     */
+    private $dateEnd;
+
+
+    /**
      * @var ScheduleGroup
      *
      * @ORM\OneToMany(targetEntity="ScheduleGroup", mappedBy="stopGroup")
@@ -265,6 +286,54 @@ class StopGroup
     public function setPreviousStopGroup(StopGroup $previousStopGroup = null)
     {
         $this->previousStopGroup = $previousStopGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get dateStart
+     *
+     * @return \DateTime
+     */
+    public function getDateStart()
+    {
+        return $this->dateStart;
+    }
+
+    /**
+     * Set dateStart
+     *
+     * @param \DateTime $dateStart
+     *
+     * @return StopGroup
+     */
+    public function setDateStart($dateStart)
+    {
+        $this->dateStart = $dateStart;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEnd
+     *
+     * @return \DateTime
+     */
+    public function getDateEnd()
+    {
+        return $this->dateEnd;
+    }
+
+    /**
+     * Set dateEnd
+     *
+     * @param \DateTime $dateEnd
+     *
+     * @return StopGroup
+     */
+    public function setDateEnd($dateEnd)
+    {
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }

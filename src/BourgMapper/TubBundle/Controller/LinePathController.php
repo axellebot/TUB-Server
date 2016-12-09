@@ -2,16 +2,19 @@
 
 namespace BourgMapper\TubBundle\Controller;
 
-use BourgMapper\TubBundle\Entity\StopGroup;
-use BourgMapper\TubBundle\Form\Type\LinePathType;
-use BourgMapper\TubBundle\Model\LinePath;
 use Doctrine\ORM\Repository;
-use BourgMapper\TubBundle\Entity\Repository\StopGroupRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use BourgMapper\TubBundle\Entity\Stop;
 use BourgMapper\TubBundle\Form\Type\StopType;
+use BourgMapper\TubBundle\Entity\StopGroup;
+use BourgMapper\TubBundle\Form\Type\LinePathType;
+use BourgMapper\TubBundle\Model\LinePath;
+use BourgMapper\TubBundle\Entity\Repository\StopGroupRepository;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class LinePathController
@@ -74,15 +77,21 @@ class LinePathController extends Controller
      * Recreate Action - Recreate LinePath
      *
      * @Route("/recreate/{line_id}/{way}", name="line_path_recreate", requirements={"line_id" = "\d+","way"="O|I"})
+     * @Route("/recreate/{line_id}/{way}/{date}", name="line_path_recreate_with_date", requirements={"line_id" = "\d+","way"="O|I"})
+     * @ParamConverter("date", options={"format": "Y-m-d"})
      * @param Request $request
-     * @param $line_id
+     * @param string $line_id
+     * @param string $way
+     * @param \DateTime $date
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function recreateAction(Request $request, $line_id, $way)
+    public function recreateAction(Request $request, $line_id, $way, \DateTime $date = null)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
+
+        $date = (isset($date)) ? $date : new DateTime();
 
         /** @var  StopGroupRepository $stopGroupRepository */
         $stopGroupRepository = $this->getDoctrine()
