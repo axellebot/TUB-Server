@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::tub_base.html.twig' %}
 {% block title %}Lines{% endblock %}
 {% block page_content %}
     <div class="row">
@@ -53,6 +53,7 @@
 
 
     {% block stylesheets %}
+        {{ parent() }}
         <style>
             .line-text-container {
                 font-size: 12vh;
@@ -60,12 +61,11 @@
                 text-align: center;
                 cursor: pointer;
             }
-
-
         </style>
     {% endblock %}
 
-    {% block javascripts %}
+    {% block scripts %}
+        {{ parent() }}
         <script>
             function openLineDetail(lineId) {
                 console.log("open line detail of " + lineId);

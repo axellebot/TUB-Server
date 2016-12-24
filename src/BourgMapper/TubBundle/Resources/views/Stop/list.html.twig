@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::tub_base.html.twig' %}
 {% block page_content %}
     <div class=row">
         <div class="col s12 l6 offset-l3">
@@ -24,7 +24,7 @@
     {% endif %}
 {% endblock %}
 
-{% block javascripts %}
+{% block scripts %}
     <script type="text/javascript">
         {% if is_granted('ROLE_ADMIN') %}
         var stopIdToDelete;

@@ -1,4 +1,8 @@
-{% extends "::base_skeleton.html.twig" %}
+{% extends "::materialize_skeleton.html.twig" %}
+{% block page_title %}
+    Tub
+{% endblock page_title %}
+
 {% block body_content %}
     <header>
         <div class="navbar-fixed">
@@ -36,13 +40,13 @@
                                             Profile
                                         </a>
                                     </li>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <li>
-                                        <a href="{{ path('admin_index') }}">
-                                            Admin
-                                        </a>
-                                    </li>
-                                {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li>
+                                            <a href="{{ path('admin_index') }}">
+                                                Admin
+                                            </a>
+                                        </li>
+                                    {% endif %}
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{{ path('fos_user_security_logout') }}">
@@ -104,3 +108,12 @@
         </div>
     </main>
 {% endblock body_content %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-button").dropdown();
+            $(".button-collapse").sideNav();
+        });
+    </script>
+{% endblock scripts %}
