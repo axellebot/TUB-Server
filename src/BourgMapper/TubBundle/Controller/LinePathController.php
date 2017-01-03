@@ -2,6 +2,7 @@
 
 namespace BourgMapper\TubBundle\Controller;
 
+use BourgMapper\TubBundle\Entity\Line;
 use Doctrine\ORM\Repository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -36,8 +37,26 @@ class LinePathController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
+        
+        $linePath = new LinePath();
 
-        return $this->render('TubBundle:LinePath:list.html.twig', array());
+        $linePath->setDateStart(new \DateTime());
+        $linePath->setDateEnd(new \DateTime());
+        $line = new Line();
+        $line->setLabel("Line label");
+        $linePath->setLine($line);
+        $linePath->setWay("O");
+
+        /** @var StopGroupRepository $repository */
+        $repository = $this->getDoctrine()
+            ->getRepository('TubBundle:StopGroup');
+
+        $repository->findBy(array(
+        ));
+
+        return $this->render('TubBundle:LinePath:list.html.twig', array(
+            "linePaths"=>array($linePath)
+        ));
     }
 
     /**
