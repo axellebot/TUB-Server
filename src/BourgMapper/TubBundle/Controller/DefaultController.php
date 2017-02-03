@@ -35,4 +35,14 @@ class DefaultController extends Controller
 
         ));
     }
+    
+    /**
+     * @Route("sitemap",name="sitemap")
+     */
+    public function sitemapAction(Request $request){
+        $response = $this->render('TubBundle:default:sitemap.xml.twig', [
+        ]);
+        $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
+        return $response;
+    }
 }
