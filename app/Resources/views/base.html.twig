@@ -4,7 +4,11 @@
         <div class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper blue">
-                    <a href="{{ path('homepage') }}" class="brand-logo"><i class="material-icons">smartphone</i>Tub
+                    <a href="{{ path('homepage') }}" class="brand-logo">
+                        <i class="material-icons">
+                        <img class="responsive-img" src={{asset('favicon.ico')}} style="max-height: 100%;padding: 5px;">
+                        </i>
+                        Tub
                         <span class="hide-on-small-only">by BourgMapper</span></a>
                     <a href="#!" data-activates="navigation-drawer" class="button-collapse"><i
                                 class="material-icons">menu</i></a>
